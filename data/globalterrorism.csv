@@ -1,0 +1,701 @@
+iyear,imonth,iday,latitude,longitude,country_txt,region_txt,city,attacktype1_txt,weaptype1_txt,targtype1_txt,gname,success,suicide,nkill,nwound
+2020,1,1,34.0,69.0,Afghanistan,South Asia,Kabul,Bombing/Explosion,Explosives,Military,Taliban,1,0,5,10
+2021,2,15,35.0,70.0,Iraq,Middle East,Baghdad,Armed Assault,Firearms,Police,ISIS,0,1,10,5
+2022,3,20,36.0,71.0,Pakistan,South Asia,Islamabad,Assassination,Melee,Government,Unknown,1,0,1,0
+2023,4,25,37.0,72.0,India,South Asia,Delhi,Facility/Infrastructure Attack,Incendiary,Private Citizens & Property,Unknown,1,0,0,2
+2020,1,1,34.0,69.0,Afghanistan,South Asia,Kabul,Bombing/Explosion,Explosives,Military,Taliban,1,0,5,10
+2021,2,15,35.0,70.0,Iraq,Middle East,Baghdad,Armed Assault,Firearms,Police,ISIS,0,1,10,5
+2022,3,20,36.0,71.0,Pakistan,South Asia,Islamabad,Assassination,Melee,Government,Unknown,1,0,1,0
+2023,4,25,37.0,72.0,India,South Asia,Delhi,Facility/Infrastructure Attack,Incendiary,Private Citizens & Property,Unknown,1,0,0,2
+2020,1,1,34.0,69.0,Afghanistan,South Asia,Kabul,Bombing/Explosion,Explosives,Military,Taliban,1,0,5,10
+2021,2,15,35.0,70.0,Iraq,Middle East,Baghdad,Armed Assault,Firearms,Police,ISIS,0,1,10,5
+2022,3,20,36.0,71.0,Pakistan,South Asia,Islamabad,Assassination,Melee,Government,Unknown,1,0,1,0
+2023,4,25,37.0,72.0,India,South Asia,Delhi,Facility/Infrastructure Attack,Incendiary,Private Citizens & Property,Unknown,1,0,0,2
+2020,1,1,34.0,69.0,Afghanistan,South Asia,Kabul,Bombing/Explosion,Explosives,Military,Taliban,1,0,5,10
+2021,2,15,35.0,70.0,Iraq,Middle East,Baghdad,Armed Assault,Firearms,Police,ISIS,0,1,10,5
+2022,3,20,36.0,71.0,Pakistan,South Asia,Islamabad,Assassination,Melee,Government,Unknown,1,0,1,0
+2023,4,25,37.0,72.0,India,South Asia,Delhi,Facility/Infrastructure Attack,Incendiary,Private Citizens & Property,Unknown,1,0,0,2
+2020,1,1,34.0,69.0,Afghanistan,South Asia,Kabul,Bombing/Explosion,Explosives,Military,Taliban,1,0,5,10
+2021,2,15,35.0,70.0,Iraq,Middle East,Baghdad,Armed Assault,Firearms,Police,ISIS,0,1,10,5
+2022,3,20,36.0,71.0,Pakistan,South Asia,Islamabad,Assassination,Melee,Government,Unknown,1,0,1,0
+2023,4,25,37.0,72.0,India,South Asia,Delhi,Facility/Infrastructure Attack,Incendiary,Private Citizens & Property,Unknown,1,0,0,2
+2020,1,1,34.0,69.0,Afghanistan,South Asia,Kabul,Bombing/Explosion,Explosives,Military,Taliban,1,0,5,10
+2021,2,15,35.0,70.0,Iraq,Middle East,Baghdad,Armed Assault,Firearms,Police,ISIS,0,1,10,5
+2022,3,20,36.0,71.0,Pakistan,South Asia,Islamabad,Assassination,Melee,Government,Unknown,1,0,1,0
+2023,4,25,37.0,72.0,India,South Asia,Delhi,Facility/Infrastructure Attack,Incendiary,Private Citizens & Property,Unknown,1,0,0,2
+2020,1,1,34.0,69.0,Afghanistan,South Asia,Kabul,Bombing/Explosion,Explosives,Military,Taliban,1,0,5,10
+2021,2,15,35.0,70.0,Iraq,Middle East,Baghdad,Armed Assault,Firearms,Police,ISIS,0,1,10,5
+2022,3,20,36.0,71.0,Pakistan,South Asia,Islamabad,Assassination,Melee,Government,Unknown,1,0,1,0
+2023,4,25,37.0,72.0,India,South Asia,Delhi,Facility/Infrastructure Attack,Incendiary,Private Citizens & Property,Unknown,1,0,0,2
+2020,1,1,34.0,69.0,Afghanistan,South Asia,Kabul,Bombing/Explosion,Explosives,Military,Taliban,1,0,5,10
+2021,2,15,35.0,70.0,Iraq,Middle East,Baghdad,Armed Assault,Firearms,Police,ISIS,0,1,10,5
+2022,3,20,36.0,71.0,Pakistan,South Asia,Islamabad,Assassination,Melee,Government,Unknown,1,0,1,0
+2023,4,25,37.0,72.0,India,South Asia,Delhi,Facility/Infrastructure Attack,Incendiary,Private Citizens & Property,Unknown,1,0,0,2
+2020,1,1,34.0,69.0,Afghanistan,South Asia,Kabul,Bombing/Explosion,Explosives,Military,Taliban,1,0,5,10
+2021,2,15,35.0,70.0,Iraq,Middle East,Baghdad,Armed Assault,Firearms,Police,ISIS,0,1,10,5
+2022,3,20,36.0,71.0,Pakistan,South Asia,Islamabad,Assassination,Melee,Government,Unknown,1,0,1,0
+2023,4,25,37.0,72.0,India,South Asia,Delhi,Facility/Infrastructure Attack,Incendiary,Private Citizens & Property,Unknown,1,0,0,2
+2020,1,1,34.0,69.0,Afghanistan,South Asia,Kabul,Bombing/Explosion,Explosives,Military,Taliban,1,0,5,10
+2021,2,15,35.0,70.0,Iraq,Middle East,Baghdad,Armed Assault,Firearms,Police,ISIS,0,1,10,5
+2022,3,20,36.0,71.0,Pakistan,South Asia,Islamabad,Assassination,Melee,Government,Unknown,1,0,1,0
+2023,4,25,37.0,72.0,India,South Asia,Delhi,Facility/Infrastructure Attack,Incendiary,Private Citizens & Property,Unknown,1,0,0,2
+2020,1,1,34.0,69.0,Afghanistan,South Asia,Kabul,Bombing/Explosion,Explosives,Military,Taliban,1,0,5,10
+2021,2,15,35.0,70.0,Iraq,Middle East,Baghdad,Armed Assault,Firearms,Police,ISIS,0,1,10,5
+2022,3,20,36.0,71.0,Pakistan,South Asia,Islamabad,Assassination,Melee,Government,Unknown,1,0,1,0
+2023,4,25,37.0,72.0,India,South Asia,Delhi,Facility/Infrastructure Attack,Incendiary,Private Citizens & Property,Unknown,1,0,0,2
+2020,1,1,34.0,69.0,Afghanistan,South Asia,Kabul,Bombing/Explosion,Explosives,Military,Taliban,1,0,5,10
+2021,2,15,35.0,70.0,Iraq,Middle East,Baghdad,Armed Assault,Firearms,Police,ISIS,0,1,10,5
+2022,3,20,36.0,71.0,Pakistan,South Asia,Islamabad,Assassination,Melee,Government,Unknown,1,0,1,0
+2023,4,25,37.0,72.0,India,South Asia,Delhi,Facility/Infrastructure Attack,Incendiary,Private Citizens & Property,Unknown,1,0,0,2
+2020,1,1,34.0,69.0,Afghanistan,South Asia,Kabul,Bombing/Explosion,Explosives,Military,Taliban,1,0,5,10
+2021,2,15,35.0,70.0,Iraq,Middle East,Baghdad,Armed Assault,Firearms,Police,ISIS,0,1,10,5
+2022,3,20,36.0,71.0,Pakistan,South Asia,Islamabad,Assassination,Melee,Government,Unknown,1,0,1,0
+2023,4,25,37.0,72.0,India,South Asia,Delhi,Facility/Infrastructure Attack,Incendiary,Private Citizens & Property,Unknown,1,0,0,2
+2020,1,1,34.0,69.0,Afghanistan,South Asia,Kabul,Bombing/Explosion,Explosives,Military,Taliban,1,0,5,10
+2021,2,15,35.0,70.0,Iraq,Middle East,Baghdad,Armed Assault,Firearms,Police,ISIS,0,1,10,5
+2022,3,20,36.0,71.0,Pakistan,South Asia,Islamabad,Assassination,Melee,Government,Unknown,1,0,1,0
+2023,4,25,37.0,72.0,India,South Asia,Delhi,Facility/Infrastructure Attack,Incendiary,Private Citizens & Property,Unknown,1,0,0,2
+2020,1,1,34.0,69.0,Afghanistan,South Asia,Kabul,Bombing/Explosion,Explosives,Military,Taliban,1,0,5,10
+2021,2,15,35.0,70.0,Iraq,Middle East,Baghdad,Armed Assault,Firearms,Police,ISIS,0,1,10,5
+2022,3,20,36.0,71.0,Pakistan,South Asia,Islamabad,Assassination,Melee,Government,Unknown,1,0,1,0
+2023,4,25,37.0,72.0,India,South Asia,Delhi,Facility/Infrastructure Attack,Incendiary,Private Citizens & Property,Unknown,1,0,0,2
+2020,1,1,34.0,69.0,Afghanistan,South Asia,Kabul,Bombing/Explosion,Explosives,Military,Taliban,1,0,5,10
+2021,2,15,35.0,70.0,Iraq,Middle East,Baghdad,Armed Assault,Firearms,Police,ISIS,0,1,10,5
+2022,3,20,36.0,71.0,Pakistan,South Asia,Islamabad,Assassination,Melee,Government,Unknown,1,0,1,0
+2023,4,25,37.0,72.0,India,South Asia,Delhi,Facility/Infrastructure Attack,Incendiary,Private Citizens & Property,Unknown,1,0,0,2
+2020,1,1,34.0,69.0,Afghanistan,South Asia,Kabul,Bombing/Explosion,Explosives,Military,Taliban,1,0,5,10
+2021,2,15,35.0,70.0,Iraq,Middle East,Baghdad,Armed Assault,Firearms,Police,ISIS,0,1,10,5
+2022,3,20,36.0,71.0,Pakistan,South Asia,Islamabad,Assassination,Melee,Government,Unknown,1,0,1,0
+2023,4,25,37.0,72.0,India,South Asia,Delhi,Facility/Infrastructure Attack,Incendiary,Private Citizens & Property,Unknown,1,0,0,2
+2020,1,1,34.0,69.0,Afghanistan,South Asia,Kabul,Bombing/Explosion,Explosives,Military,Taliban,1,0,5,10
+2021,2,15,35.0,70.0,Iraq,Middle East,Baghdad,Armed Assault,Firearms,Police,ISIS,0,1,10,5
+2022,3,20,36.0,71.0,Pakistan,South Asia,Islamabad,Assassination,Melee,Government,Unknown,1,0,1,0
+2023,4,25,37.0,72.0,India,South Asia,Delhi,Facility/Infrastructure Attack,Incendiary,Private Citizens & Property,Unknown,1,0,0,2
+2020,1,1,34.0,69.0,Afghanistan,South Asia,Kabul,Bombing/Explosion,Explosives,Military,Taliban,1,0,5,10
+2021,2,15,35.0,70.0,Iraq,Middle East,Baghdad,Armed Assault,Firearms,Police,ISIS,0,1,10,5
+2022,3,20,36.0,71.0,Pakistan,South Asia,Islamabad,Assassination,Melee,Government,Unknown,1,0,1,0
+2023,4,25,37.0,72.0,India,South Asia,Delhi,Facility/Infrastructure Attack,Incendiary,Private Citizens & Property,Unknown,1,0,0,2
+2020,1,1,34.0,69.0,Afghanistan,South Asia,Kabul,Bombing/Explosion,Explosives,Military,Taliban,1,0,5,10
+2021,2,15,35.0,70.0,Iraq,Middle East,Baghdad,Armed Assault,Firearms,Police,ISIS,0,1,10,5
+2022,3,20,36.0,71.0,Pakistan,South Asia,Islamabad,Assassination,Melee,Government,Unknown,1,0,1,0
+2023,4,25,37.0,72.0,India,South Asia,Delhi,Facility/Infrastructure Attack,Incendiary,Private Citizens & Property,Unknown,1,0,0,2
+2020,1,1,34.0,69.0,Afghanistan,South Asia,Kabul,Bombing/Explosion,Explosives,Military,Taliban,1,0,5,10
+2021,2,15,35.0,70.0,Iraq,Middle East,Baghdad,Armed Assault,Firearms,Police,ISIS,0,1,10,5
+2022,3,20,36.0,71.0,Pakistan,South Asia,Islamabad,Assassination,Melee,Government,Unknown,1,0,1,0
+2023,4,25,37.0,72.0,India,South Asia,Delhi,Facility/Infrastructure Attack,Incendiary,Private Citizens & Property,Unknown,1,0,0,2
+2020,1,1,34.0,69.0,Afghanistan,South Asia,Kabul,Bombing/Explosion,Explosives,Military,Taliban,1,0,5,10
+2021,2,15,35.0,70.0,Iraq,Middle East,Baghdad,Armed Assault,Firearms,Police,ISIS,0,1,10,5
+2022,3,20,36.0,71.0,Pakistan,South Asia,Islamabad,Assassination,Melee,Government,Unknown,1,0,1,0
+2023,4,25,37.0,72.0,India,South Asia,Delhi,Facility/Infrastructure Attack,Incendiary,Private Citizens & Property,Unknown,1,0,0,2
+2020,1,1,34.0,69.0,Afghanistan,South Asia,Kabul,Bombing/Explosion,Explosives,Military,Taliban,1,0,5,10
+2021,2,15,35.0,70.0,Iraq,Middle East,Baghdad,Armed Assault,Firearms,Police,ISIS,0,1,10,5
+2022,3,20,36.0,71.0,Pakistan,South Asia,Islamabad,Assassination,Melee,Government,Unknown,1,0,1,0
+2023,4,25,37.0,72.0,India,South Asia,Delhi,Facility/Infrastructure Attack,Incendiary,Private Citizens & Property,Unknown,1,0,0,2
+2020,1,1,34.0,69.0,Afghanistan,South Asia,Kabul,Bombing/Explosion,Explosives,Military,Taliban,1,0,5,10
+2021,2,15,35.0,70.0,Iraq,Middle East,Baghdad,Armed Assault,Firearms,Police,ISIS,0,1,10,5
+2022,3,20,36.0,71.0,Pakistan,South Asia,Islamabad,Assassination,Melee,Government,Unknown,1,0,1,0
+2023,4,25,37.0,72.0,India,South Asia,Delhi,Facility/Infrastructure Attack,Incendiary,Private Citizens & Property,Unknown,1,0,0,2
+2020,1,1,34.0,69.0,Afghanistan,South Asia,Kabul,Bombing/Explosion,Explosives,Military,Taliban,1,0,5,10
+2021,2,15,35.0,70.0,Iraq,Middle East,Baghdad,Armed Assault,Firearms,Police,ISIS,0,1,10,5
+2022,3,20,36.0,71.0,Pakistan,South Asia,Islamabad,Assassination,Melee,Government,Unknown,1,0,1,0
+2023,4,25,37.0,72.0,India,South Asia,Delhi,Facility/Infrastructure Attack,Incendiary,Private Citizens & Property,Unknown,1,0,0,2
+2000,12,9,39.7193,33.5751,Turkey,Middle East & North Africa,Ankara,Armed Assault,Firearms,Government (General),TTP,0,0,3,4
+2002,10,14,42.6876,76.3946,Kazakhstan,Central Asia,Almaty,Bombing/Explosion,Explosives,Police,Boko Haram,0,0,0,10
+2017,4,23,33.6718,36.6239,Syria,Middle East & North Africa,Damascus,Unarmed Assault,Chemical,NGO,PKK,0,0,0,17
+2000,3,23,-3.5111,39.2077,Kenya,Sub-Saharan Africa,Mombasa,Hostage Taking (Kidnapping),Incendiary,Business,Al-Qaeda,0,1,0,1
+2003,2,13,4.3978,-74.0324,Colombia,South America,Bogota,Bombing/Explosion,Incendiary,Educational Institution,ETA,1,0,1,1
+2017,2,13,51.029,3.7752,Belgium,Western Europe,Brussels,Bombing/Explosion,Vehicle,Business,LTTE,1,0,1,2
+2001,11,8,32.8177,13.6473,Libya,Middle East & North Africa,Tripoli,Hijacking,Incendiary,Police,LTTE,0,1,0,3
+2008,8,21,-22.7581,-43.8987,Brazil,South America,Rio de Janeiro,Hijacking,Incendiary,Government (General),FARC,1,0,2,0
+2022,11,21,-1.9819,37.5352,Kenya,Sub-Saharan Africa,Nairobi,Bombing/Explosion,Vehicle,Government (General),Hezbollah,0,0,10,8
+2008,11,23,-23.2186,-43.8167,Brazil,South America,Rio de Janeiro,Facility/Infrastructure Attack,Firearms,Educational Institution,LTTE,0,0,3,2
+2010,7,9,35.5963,37.1533,Syria,Middle East & North Africa,Aleppo,Bombing/Explosion,Firearms,Transportation,Unknown,1,0,0,12
+2012,11,15,14.213,121.244,Philippines,Southeast Asia,Manila,Armed Assault,Incendiary,Government (General),Boko Haram,1,0,1,3
+2018,7,12,51.5827,-0.6312,United Kingdom,Western Europe,London,Armed Assault,Firearms,NGO,Hamas,0,0,10,7
+2004,11,6,40.6232,33.4857,Turkey,Middle East & North Africa,Ankara,Hijacking,Chemical,Religious Figures/Institutions,ETA,0,0,2,12
+2016,5,18,55.0926,37.1296,Russia,Eastern Europe,Moscow,Hijacking,Explosives,Police,IRA,1,0,0,1
+2003,5,14,4.5329,-74.4378,Colombia,South America,Bogota,Armed Assault,Melee,Military,TTP,1,1,5,2
+2016,2,28,31.2075,74.4193,Pakistan,South Asia,Lahore,Unarmed Assault,Incendiary,NGO,ETA,0,0,0,8
+2017,9,1,24.1793,67.789,Pakistan,South Asia,Karachi,Facility/Infrastructure Attack,Incendiary,Journalists & Media,Taliban,0,1,4,1
+2007,1,8,-5.1132,15.8267,Democratic Republic of the Congo,Sub-Saharan Africa,Kinshasa,Facility/Infrastructure Attack,Explosives,Police,TTP,1,0,3,6
+2004,3,22,41.733,68.5585,Uzbekistan,Central Asia,Tashkent,Hostage Taking (Kidnapping),Vehicle,Government (General),Al-Shabaab,1,1,1,0
+2023,12,7,43.819,77.1423,Kazakhstan,Central Asia,Almaty,Unarmed Assault,Incendiary,Religious Figures/Institutions,IRA,1,0,1,0
+2014,2,8,13.4536,100.2213,Thailand,Southeast Asia,Bangkok,Armed Assault,Explosives,Educational Institution,Taliban,0,0,3,5
+2002,12,21,33.9605,44.3565,Iraq,Middle East & North Africa,Baghdad,Bombing/Explosion,Firearms,Police,Unknown,0,1,0,6
+2016,4,9,30.4503,31.331,Egypt,Middle East & North Africa,Cairo,Unarmed Assault,Melee,Civilians,Hezbollah,0,0,4,3
+2007,8,26,43.3494,45.5821,Russia,Eastern Europe,Grozny,Hostage Taking (Kidnapping),Firearms,Police,ISIS,1,0,0,0
+2014,12,2,48.1063,2.5703,France,Western Europe,Paris,Unarmed Assault,Chemical,Police,Taliban,1,0,1,3
+2007,4,7,41.6611,28.5759,Turkey,Middle East & North Africa,Istanbul,Facility/Infrastructure Attack,Melee,Government (General),PKK,0,0,1,7
+2002,8,26,11.5591,7.8232,Nigeria,Sub-Saharan Africa,Kano,Hijacking,Unknown,NGO,ISIS,0,0,1,0
+2000,2,25,43.9255,77.438,Kazakhstan,Central Asia,Almaty,Hijacking,Firearms,Government (General),PKK,1,0,3,10
+2001,3,13,33.0079,-117.5385,Mexico,North America,Tijuana,Bombing/Explosion,Melee,Business,Unknown,1,0,6,3
+2004,4,10,48.5149,38.4357,Ukraine,Eastern Europe,Donetsk,Armed Assault,Explosives,Transportation,TTP,0,0,1,0
+2001,10,16,12.3437,44.9194,Yemen,Middle East & North Africa,Aden,Facility/Infrastructure Attack,Unknown,NGO,Al-Qaeda,0,1,5,9
+2005,2,20,28.7111,34.0172,Egypt,Middle East & North Africa,Sinai,Bombing/Explosion,Chemical,Civilians,PKK,0,1,1,1
+2018,10,2,11.3848,8.2402,Nigeria,Sub-Saharan Africa,Kano,Facility/Infrastructure Attack,Explosives,Religious Figures/Institutions,IRA,1,1,8,1
+2021,12,11,34.1131,75.1218,India,South Asia,Srinagar,Armed Assault,Incendiary,Religious Figures/Institutions,Al-Qaeda,1,0,1,17
+2000,8,20,30.7729,30.8359,Egypt,Middle East & North Africa,Cairo,Facility/Infrastructure Attack,Explosives,Police,Hezbollah,0,0,2,1
+2011,2,8,34.1807,68.437,Afghanistan,South Asia,Kabul,Assassination,Incendiary,Government (General),Hamas,1,0,2,3
+2000,11,27,16.1484,95.8408,Myanmar,Southeast Asia,Yangon,Facility/Infrastructure Attack,Incendiary,Police,Unknown,0,0,7,1
+2023,9,5,40.4408,28.9601,Turkey,Middle East & North Africa,Istanbul,Assassination,Incendiary,Transportation,Boko Haram,1,0,12,1
+2016,8,9,-0.0826,42.9636,Somalia,Sub-Saharan Africa,Kismayo,Hijacking,Explosives,Police,IRA,1,0,0,6
+2000,6,25,35.7405,39.2187,Syria,Middle East & North Africa,Raqqa,Armed Assault,Chemical,Business,Al-Qaeda,1,0,3,3
+2017,1,4,50.8525,0.4095,United Kingdom,Western Europe,London,Bombing/Explosion,Chemical,Government (General),Hezbollah,0,0,1,1
+2013,3,2,33.6952,70.5954,Afghanistan,South Asia,Jalalabad,Assassination,Incendiary,Military,Unknown,1,0,3,0
+2021,2,12,12.0123,8.0624,Nigeria,Sub-Saharan Africa,Kano,Hijacking,Vehicle,Religious Figures/Institutions,ETA,0,1,3,0
+2005,3,14,9.3635,7.3168,Nigeria,Sub-Saharan Africa,Abuja,Bombing/Explosion,Firearms,Educational Institution,Naxalites,1,0,8,0
+2008,3,26,11.7387,7.8816,Nigeria,Sub-Saharan Africa,Kano,Unarmed Assault,Explosives,Religious Figures/Institutions,LTTE,0,1,7,10
+2006,8,12,23.4227,90.668,Bangladesh,South Asia,Dhaka,Assassination,Unknown,Civilians,Boko Haram,0,0,5,4
+2010,5,28,32.5694,-117.45,Mexico,North America,Tijuana,Bombing/Explosion,Unknown,Business,FARC,1,0,0,11
+2010,1,4,41.9397,69.453,Uzbekistan,Central Asia,Tashkent,Assassination,Firearms,Transportation,Al-Shabaab,0,0,1,2
+2011,12,26,40.7785,-3.0676,Spain,Western Europe,Madrid,Assassination,Melee,Transportation,Hezbollah,0,0,6,7
+2008,1,23,19.3033,72.2116,India,South Asia,Mumbai,Hostage Taking (Kidnapping),Explosives,NGO,Unknown,0,0,0,11
+2021,6,20,33.0583,12.4057,Libya,Middle East & North Africa,Tripoli,Assassination,Chemical,Police,TTP,1,0,0,5
+2010,7,23,48.0641,1.8093,France,Western Europe,Paris,Assassination,Vehicle,Government (General),Boko Haram,1,0,2,5
+2021,12,6,-22.6629,-43.6142,Brazil,South America,Rio de Janeiro,Facility/Infrastructure Attack,Vehicle,Business,PKK,0,0,3,1
+2013,10,20,33.8036,75.1914,India,South Asia,Srinagar,Unarmed Assault,Incendiary,Journalists & Media,Hamas,1,0,3,9
+2015,12,6,-5.9558,106.9543,Indonesia,Southeast Asia,Jakarta,Unarmed Assault,Explosives,Business,Hezbollah,1,0,0,2
+2021,5,8,8.6823,7.0884,Nigeria,Sub-Saharan Africa,Abuja,Hijacking,Firearms,Government (General),Taliban,0,0,10,2
+2019,2,15,43.9403,45.9078,Russia,Eastern Europe,Grozny,Hostage Taking (Kidnapping),Chemical,Transportation,Boko Haram,1,0,4,3
+2004,11,23,12.116,8.488,Nigeria,Sub-Saharan Africa,Kano,Bombing/Explosion,Unknown,Police,Naxalites,1,0,0,6
+2014,1,18,13.4052,99.7399,Thailand,Southeast Asia,Bangkok,Armed Assault,Unknown,Police,Hamas,0,0,3,0
+2017,10,11,17.5707,96.9213,Myanmar,Southeast Asia,Yangon,Hijacking,Melee,Transportation,LTTE,1,0,7,2
+2005,12,28,51.7447,14.0903,Germany,Western Europe,Berlin,Hostage Taking (Kidnapping),Melee,Business,Naxalites,0,0,1,17
+2016,8,21,-3.3012,40.2328,Kenya,Sub-Saharan Africa,Mombasa,Armed Assault,Incendiary,Journalists & Media,ISIS,1,0,1,2
+2010,9,3,-12.4152,40.2241,Mozambique,Sub-Saharan Africa,Pemba,Armed Assault,Firearms,Civilians,PKK,0,0,0,4
+2013,7,11,33.5858,13.5046,Libya,Middle East & North Africa,Tripoli,Facility/Infrastructure Attack,Melee,Religious Figures/Institutions,Taliban,0,0,2,0
+2018,12,1,19.616,-98.3489,Mexico,North America,Mexico City,Hijacking,Unknown,Transportation,PKK,1,0,0,3
+2009,7,28,4.0548,-76.1458,Colombia,South America,Cali,Hijacking,Melee,NGO,TTP,0,0,3,6
+2013,8,1,-1.5108,36.4867,Kenya,Sub-Saharan Africa,Nairobi,Hostage Taking (Kidnapping),Incendiary,Religious Figures/Institutions,TTP,0,0,4,8
+2019,9,1,35.1123,69.8392,Afghanistan,South Asia,Kabul,Hostage Taking (Kidnapping),Vehicle,Transportation,IRA,0,0,2,3
+2004,8,6,51.9853,0.1129,United Kingdom,Western Europe,London,Bombing/Explosion,Incendiary,Religious Figures/Institutions,FARC,0,0,3,7
+2012,5,25,5.335,-74.3312,Colombia,South America,Bogota,Hijacking,Melee,Business,LTTE,0,0,1,0
+2001,6,8,43.3632,76.2025,Kazakhstan,Central Asia,Almaty,Unarmed Assault,Explosives,Military,Naxalites,0,1,1,3
+2000,10,5,28.2715,77.3543,India,South Asia,New Delhi,Armed Assault,Firearms,Journalists & Media,IRA,0,0,0,0
+2014,12,9,17.9012,78.2623,India,South Asia,Hyderabad,Hijacking,Incendiary,Government (General),ETA,0,0,0,3
+2009,2,19,25.292,66.5553,Pakistan,South Asia,Karachi,Bombing/Explosion,Incendiary,Transportation,IRA,1,0,2,0
+2002,10,23,27.8957,77.2592,India,South Asia,New Delhi,Hijacking,Chemical,Civilians,ISIS,1,1,2,5
+2018,1,12,25.0497,47.4824,Saudi Arabia,Middle East & North Africa,Riyadh,Facility/Infrastructure Attack,Melee,Educational Institution,ISIS,1,0,2,1
+2015,2,14,44.1823,6.8953,France,Western Europe,Nice,Assassination,Chemical,Journalists & Media,TTP,0,0,1,0
+2020,5,20,12.9966,101.2412,Thailand,Southeast Asia,Bangkok,Hijacking,Vehicle,Journalists & Media,Hamas,1,0,5,5
+2010,4,27,-1.4317,36.2943,Kenya,Sub-Saharan Africa,Nairobi,Bombing/Explosion,Incendiary,Journalists & Media,Boko Haram,1,0,0,1
+2010,1,16,-22.8272,-42.8296,Brazil,South America,Rio de Janeiro,Hijacking,Incendiary,Government (General),Hamas,0,0,3,1
+2010,5,20,0.3698,42.9256,Somalia,Sub-Saharan Africa,Kismayo,Unarmed Assault,Incendiary,NGO,Taliban,0,0,2,4
+2015,9,25,48.7274,1.9484,France,Western Europe,Paris,Armed Assault,Chemical,Journalists & Media,IRA,1,0,1,7
+2002,5,8,32.573,43.1597,Iraq,Middle East & North Africa,Fallujah,Hostage Taking (Kidnapping),Chemical,Civilians,Al-Shabaab,1,0,0,0
+2011,7,24,17.4347,96.5209,Myanmar,Southeast Asia,Yangon,Facility/Infrastructure Attack,Incendiary,Educational Institution,TTP,1,0,1,0
+2007,2,24,2.0326,45.3006,Somalia,Sub-Saharan Africa,Mogadishu,Armed Assault,Incendiary,Police,TTP,0,0,0,2
+2008,12,19,50.2876,30.7084,Ukraine,Eastern Europe,Kyiv,Hijacking,Vehicle,Transportation,Al-Shabaab,0,0,3,0
+2007,6,6,12.1634,-1.3316,Burkina Faso,Sub-Saharan Africa,Ouagadougou,Assassination,Explosives,NGO,Al-Qaeda,1,0,2,9
+2017,5,23,15.6059,43.6677,Yemen,Middle East & North Africa,Sanaa,Armed Assault,Chemical,Journalists & Media,ISIS,0,0,0,5
+2015,8,11,42.5554,45.8352,Russia,Eastern Europe,Grozny,Armed Assault,Explosives,Business,LTTE,1,0,8,4
+2012,8,3,32.7091,13.4203,Libya,Middle East & North Africa,Tripoli,Facility/Infrastructure Attack,Chemical,Military,Al-Qaeda,0,0,1,3
+2002,4,4,11.2973,14.1348,Cameroon,Sub-Saharan Africa,Maroua,Facility/Infrastructure Attack,Unknown,Religious Figures/Institutions,ETA,0,0,9,11
+2014,8,10,-23.3927,-43.862,Brazil,South America,Rio de Janeiro,Hijacking,Vehicle,Religious Figures/Institutions,Al-Shabaab,0,0,0,0
+2006,11,7,33.2391,35.7878,Lebanon,Middle East & North Africa,Beirut,Assassination,Chemical,Police,Al-Qaeda,0,0,0,1
+2005,1,14,30.5848,30.4702,Egypt,Middle East & North Africa,Cairo,Hostage Taking (Kidnapping),Chemical,Transportation,Hamas,1,0,5,1
+2022,5,23,12.0391,-7.6852,Mali,Sub-Saharan Africa,Bamako,Hijacking,Melee,Police,IRA,0,1,2,10
+2013,2,18,28.9891,77.6946,India,South Asia,New Delhi,Armed Assault,Chemical,Government (General),Unknown,1,0,0,0
+2001,3,26,30.434,31.7239,Egypt,Middle East & North Africa,Cairo,Assassination,Vehicle,Transportation,Unknown,1,0,13,2
+2022,5,23,55.5462,38.0583,Russia,Eastern Europe,Moscow,Hostage Taking (Kidnapping),Incendiary,NGO,Hezbollah,1,0,1,13
+2013,12,11,36.5255,38.8934,Syria,Middle East & North Africa,Raqqa,Facility/Infrastructure Attack,Incendiary,Military,ISIS,0,1,4,7
+2021,5,19,32.715,44.4181,Iraq,Middle East & North Africa,Fallujah,Bombing/Explosion,Unknown,Government (General),Hamas,1,1,2,8
+2018,7,21,29.8941,67.6298,Pakistan,South Asia,Quetta,Hijacking,Melee,Police,Hamas,1,0,1,0
+2021,2,28,9.6736,38.0931,Ethiopia,Sub-Saharan Africa,Addis Ababa,Armed Assault,Incendiary,Religious Figures/Institutions,TTP,1,0,1,14
+2017,1,15,33.243,-116.9195,Mexico,North America,Tijuana,Bombing/Explosion,Incendiary,Business,FARC,0,1,2,2
+2016,1,22,32.1911,-117.3111,Mexico,North America,Tijuana,Hijacking,Vehicle,Journalists & Media,PKK,0,0,3,6
+2019,8,21,-11.5795,-76.5796,Peru,South America,Lima,Hostage Taking (Kidnapping),Unknown,Military,Boko Haram,1,0,0,3
+2014,12,16,11.9421,-7.9208,Mali,Sub-Saharan Africa,Bamako,Bombing/Explosion,Explosives,Transportation,Naxalites,0,0,1,10
+2017,1,18,-4.5605,14.7093,Democratic Republic of the Congo,Sub-Saharan Africa,Kinshasa,Hostage Taking (Kidnapping),Explosives,Civilians,LTTE,0,0,0,7
+2020,3,16,24.8771,46.0828,Saudi Arabia,Middle East & North Africa,Riyadh,Unarmed Assault,Incendiary,NGO,TTP,1,0,0,6
+2015,4,15,49.7664,31.038,Ukraine,Eastern Europe,Kyiv,Facility/Infrastructure Attack,Firearms,Religious Figures/Institutions,Boko Haram,0,1,3,0
+2013,6,26,-4.7073,40.4466,Kenya,Sub-Saharan Africa,Mombasa,Facility/Infrastructure Attack,Incendiary,Military,Al-Shabaab,1,0,1,2
+2004,8,18,48.5235,38.5176,Ukraine,Eastern Europe,Donetsk,Hostage Taking (Kidnapping),Incendiary,Educational Institution,Hezbollah,1,0,12,6
+2006,12,8,8.827,38.0806,Ethiopia,Sub-Saharan Africa,Addis Ababa,Facility/Infrastructure Attack,Melee,Civilians,LTTE,1,0,4,4
+2022,7,13,43.1918,46.3482,Russia,Eastern Europe,Grozny,Unarmed Assault,Unknown,Government (General),Hamas,0,0,0,3
+2003,8,4,-13.7588,40.4669,Mozambique,Sub-Saharan Africa,Pemba,Facility/Infrastructure Attack,Melee,Military,TTP,0,0,0,0
+2002,8,26,36.115,69.1077,Afghanistan,South Asia,Kunduz,Assassination,Incendiary,Transportation,TTP,1,0,4,4
+2021,9,13,-12.2375,40.3168,Mozambique,Sub-Saharan Africa,Pemba,Assassination,Chemical,Journalists & Media,LTTE,0,0,1,10
+2020,11,10,8.6158,8.2392,Nigeria,Sub-Saharan Africa,Abuja,Armed Assault,Chemical,Police,PKK,0,0,0,17
+2014,3,23,33.1571,36.1208,Lebanon,Middle East & North Africa,Beirut,Assassination,Explosives,Military,FARC,0,0,2,24
+2013,3,8,9.7981,-66.8178,Venezuela,South America,Caracas,Facility/Infrastructure Attack,Melee,Transportation,IRA,0,0,10,3
+2019,7,20,29.707,34.3132,Egypt,Middle East & North Africa,Sinai,Unarmed Assault,Firearms,Journalists & Media,Unknown,0,0,1,4
+2014,5,22,2.1809,45.9849,Somalia,Sub-Saharan Africa,Mogadishu,Bombing/Explosion,Unknown,Journalists & Media,Unknown,1,0,0,1
+2002,8,12,25.5807,67.6344,Pakistan,South Asia,Karachi,Facility/Infrastructure Attack,Incendiary,Religious Figures/Institutions,TTP,1,0,1,4
+2006,7,28,10.2348,13.818,Cameroon,Sub-Saharan Africa,Maroua,Hostage Taking (Kidnapping),Explosives,Civilians,PKK,1,0,1,2
+2000,11,13,12.4978,-2.2086,Burkina Faso,Sub-Saharan Africa,Ouagadougou,Assassination,Explosives,Transportation,LTTE,0,1,10,21
+2009,4,20,14.9161,121.0418,Philippines,Southeast Asia,Manila,Hijacking,Incendiary,Civilians,IRA,0,0,1,8
+2020,2,21,31.9086,65.1702,Afghanistan,South Asia,Kandahar,Unarmed Assault,Explosives,Business,Naxalites,1,0,7,8
+2023,3,3,-11.3263,-76.6818,Peru,South America,Lima,Assassination,Incendiary,Religious Figures/Institutions,Al-Qaeda,0,0,2,2
+2011,9,17,43.9304,77.5307,Kazakhstan,Central Asia,Almaty,Assassination,Unknown,Government (General),Al-Shabaab,1,1,0,0
+2023,6,26,12.1663,-1.0361,Burkina Faso,Sub-Saharan Africa,Ouagadougou,Bombing/Explosion,Melee,Police,Al-Qaeda,0,1,13,0
+2017,6,3,31.8406,-106.6146,Mexico,North America,Juarez,Hijacking,Melee,Military,Al-Shabaab,0,0,10,9
+2018,7,27,0.1833,42.4949,Somalia,Sub-Saharan Africa,Kismayo,Unarmed Assault,Incendiary,Police,IRA,0,0,1,1
+2019,4,21,8.3152,39.3306,Ethiopia,Sub-Saharan Africa,Addis Ababa,Bombing/Explosion,Chemical,Journalists & Media,Unknown,1,0,5,40
+2004,1,2,40.7146,32.9427,Turkey,Middle East & North Africa,Ankara,Assassination,Melee,Police,ISIS,0,1,4,14
+2012,8,12,32.1724,65.3058,Afghanistan,South Asia,Kandahar,Unarmed Assault,Chemical,NGO,PKK,0,1,1,0
+2015,10,14,34.6145,35.6649,Lebanon,Middle East & North Africa,Beirut,Assassination,Explosives,Educational Institution,Boko Haram,1,0,0,5
+2011,2,22,9.247,7.2711,Nigeria,Sub-Saharan Africa,Abuja,Assassination,Vehicle,Educational Institution,Taliban,1,0,0,5
+2014,2,22,24.7205,47.1567,Saudi Arabia,Middle East & North Africa,Riyadh,Armed Assault,Chemical,Transportation,Taliban,0,0,2,9
+2004,10,7,12.0761,8.5975,Nigeria,Sub-Saharan Africa,Kano,Bombing/Explosion,Unknown,NGO,Boko Haram,0,0,6,2
+2010,3,26,11.2604,12.4061,Nigeria,Sub-Saharan Africa,Maiduguri,Facility/Infrastructure Attack,Explosives,Business,LTTE,0,1,4,4
+2008,3,4,43.5645,76.4857,Kazakhstan,Central Asia,Almaty,Unarmed Assault,Unknown,Military,Al-Qaeda,0,0,0,0
+2018,6,1,8.8189,7.6419,Nigeria,Sub-Saharan Africa,Abuja,Armed Assault,Incendiary,Military,Al-Qaeda,1,0,1,2
+2015,8,25,33.5347,12.9482,Libya,Middle East & North Africa,Tripoli,Assassination,Vehicle,Transportation,ISIS,1,0,2,7
+2023,11,17,35.7865,39.2023,Syria,Middle East & North Africa,Raqqa,Assassination,Melee,Military,Taliban,1,0,5,14
+2021,2,16,50.9433,0.5555,United Kingdom,Western Europe,London,Unarmed Assault,Melee,Police,Unknown,0,0,2,1
+2002,3,9,34.3646,71.2181,Afghanistan,South Asia,Jalalabad,Facility/Infrastructure Attack,Chemical,Transportation,Hezbollah,1,0,2,1
+2009,8,17,17.0794,95.7792,Myanmar,Southeast Asia,Yangon,Facility/Infrastructure Attack,Melee,Police,Naxalites,0,1,0,0
+2013,8,8,16.7899,77.929,India,South Asia,Hyderabad,Hostage Taking (Kidnapping),Incendiary,Journalists & Media,PKK,1,0,0,5
+2013,6,22,15.043,32.2851,Sudan,Sub-Saharan Africa,Khartoum,Assassination,Incendiary,Government (General),IRA,1,0,6,3
+2002,7,4,29.7681,33.4757,Egypt,Middle East & North Africa,Sinai,Unarmed Assault,Chemical,Educational Institution,Naxalites,0,0,0,0
+2021,2,14,-13.5067,40.1627,Mozambique,Sub-Saharan Africa,Pemba,Assassination,Unknown,Religious Figures/Institutions,LTTE,0,1,0,0
+2011,2,19,-4.929,15.2592,Democratic Republic of the Congo,Sub-Saharan Africa,Kinshasa,Facility/Infrastructure Attack,Firearms,Government (General),IRA,1,0,0,2
+2011,9,12,41.0145,29.2816,Turkey,Middle East & North Africa,Istanbul,Bombing/Explosion,Unknown,Business,ETA,0,0,0,8
+2019,11,27,33.7146,35.6218,Syria,Middle East & North Africa,Damascus,Unarmed Assault,Incendiary,Military,Al-Qaeda,1,0,6,12
+2010,6,1,-5.0243,14.965,Democratic Republic of the Congo,Sub-Saharan Africa,Kinshasa,Armed Assault,Unknown,Government (General),ETA,1,0,4,6
+2002,12,17,33.0052,35.826,Syria,Middle East & North Africa,Damascus,Armed Assault,Melee,Religious Figures/Institutions,Hamas,1,0,1,3
+2023,6,25,-4.1328,15.1123,Democratic Republic of the Congo,Sub-Saharan Africa,Kinshasa,Facility/Infrastructure Attack,Vehicle,Police,Unknown,0,0,1,6
+2021,2,9,14.6107,43.8109,Yemen,Middle East & North Africa,Sanaa,Hostage Taking (Kidnapping),Chemical,Religious Figures/Institutions,Hamas,1,0,3,11
+2016,2,12,17.4037,78.5374,India,South Asia,Hyderabad,Hostage Taking (Kidnapping),Explosives,Business,IRA,1,0,0,2
+2001,4,13,-4.2698,14.91,Democratic Republic of the Congo,Sub-Saharan Africa,Kinshasa,Facility/Infrastructure Attack,Explosives,Military,Boko Haram,1,1,0,2
+2008,5,11,30.8451,65.4253,Afghanistan,South Asia,Kandahar,Bombing/Explosion,Explosives,Journalists & Media,TTP,1,0,0,1
+2017,12,8,-23.5144,-42.5482,Brazil,South America,Rio de Janeiro,Facility/Infrastructure Attack,Vehicle,Educational Institution,ISIS,1,1,2,5
+2013,1,15,36.4147,39.0045,Syria,Middle East & North Africa,Raqqa,Bombing/Explosion,Unknown,Educational Institution,ETA,1,0,0,3
+2009,2,13,43.8489,7.6547,France,Western Europe,Nice,Bombing/Explosion,Incendiary,Government (General),Naxalites,1,0,1,0
+2002,7,28,-12.392,-77.2621,Peru,South America,Lima,Bombing/Explosion,Firearms,Religious Figures/Institutions,ETA,1,0,3,4
+2009,12,11,31.4598,-105.6456,Mexico,North America,Juarez,Armed Assault,Incendiary,Government (General),ISIS,0,0,2,1
+2011,6,24,18.4389,72.3216,India,South Asia,Mumbai,Hijacking,Chemical,Government (General),Boko Haram,0,0,0,0
+2005,10,5,28.1115,76.8652,India,South Asia,New Delhi,Hijacking,Unknown,Police,Al-Qaeda,1,0,0,11
+2021,10,21,51.8484,13.4442,Germany,Western Europe,Berlin,Unarmed Assault,Vehicle,Educational Institution,LTTE,1,0,1,20
+2015,8,21,32.2673,13.0276,Libya,Middle East & North Africa,Tripoli,Assassination,Unknown,Business,ETA,0,0,10,10
+2009,8,15,30.5403,30.8456,Egypt,Middle East & North Africa,Cairo,Bombing/Explosion,Explosives,Educational Institution,LTTE,1,0,0,5
+2019,10,17,32.456,35.3068,Israel,Middle East & North Africa,Jerusalem,Hostage Taking (Kidnapping),Melee,Transportation,Hezbollah,0,0,2,1
+2010,10,16,19.5072,72.3763,India,South Asia,Mumbai,Facility/Infrastructure Attack,Firearms,Military,Hamas,0,0,1,2
+2022,2,17,4.7232,-74.4841,Colombia,South America,Bogota,Unarmed Assault,Firearms,Military,Boko Haram,1,1,0,4
+2016,10,6,16.5278,96.325,Myanmar,Southeast Asia,Yangon,Assassination,Incendiary,Business,PKK,1,0,0,3
+2020,11,11,15.4041,43.4899,Yemen,Middle East & North Africa,Sanaa,Bombing/Explosion,Incendiary,Police,Hezbollah,1,0,1,0
+2010,2,19,36.0284,69.6529,Afghanistan,South Asia,Kunduz,Unarmed Assault,Firearms,Educational Institution,Al-Shabaab,1,0,1,8
+2009,9,13,29.1074,34.2904,Egypt,Middle East & North Africa,Sinai,Unarmed Assault,Unknown,Educational Institution,LTTE,0,0,4,4
+2002,11,22,16.8205,96.0539,Myanmar,Southeast Asia,Yangon,Hostage Taking (Kidnapping),Vehicle,Educational Institution,Taliban,1,0,1,13
+2010,8,7,17.914,79.23,India,South Asia,Hyderabad,Armed Assault,Firearms,Government (General),ISIS,1,0,0,6
+2016,9,27,34.5893,34.985,Lebanon,Middle East & North Africa,Beirut,Unarmed Assault,Vehicle,Military,IRA,1,1,0,6
+2019,7,5,34.6442,69.7249,Afghanistan,South Asia,Kabul,Armed Assault,Firearms,Transportation,Naxalites,0,0,0,7
+2013,6,22,35.4746,38.4688,Syria,Middle East & North Africa,Raqqa,Unarmed Assault,Firearms,Journalists & Media,ETA,1,0,0,8
+2007,9,8,52.7843,13.4419,Germany,Western Europe,Berlin,Assassination,Unknown,Journalists & Media,Unknown,0,0,1,10
+2014,5,25,41.2129,2.6796,Spain,Western Europe,Barcelona,Hostage Taking (Kidnapping),Vehicle,NGO,PKK,0,0,1,2
+2008,1,21,31.5533,65.3922,Afghanistan,South Asia,Kandahar,Hostage Taking (Kidnapping),Unknown,Educational Institution,Hezbollah,0,0,4,3
+2003,5,3,13.3275,101.1403,Thailand,Southeast Asia,Bangkok,Hijacking,Firearms,Business,Hamas,0,0,1,3
+2007,8,12,32.4194,35.4148,Israel,Middle East & North Africa,Jerusalem,Bombing/Explosion,Melee,Military,PKK,1,0,0,14
+2011,4,1,29.7043,33.7358,Egypt,Middle East & North Africa,Sinai,Assassination,Explosives,Educational Institution,Naxalites,0,0,0,7
+2015,12,27,12.8421,-7.9465,Mali,Sub-Saharan Africa,Bamako,Armed Assault,Unknown,Journalists & Media,Hamas,0,1,6,7
+2008,4,27,32.7927,43.4728,Iraq,Middle East & North Africa,Fallujah,Armed Assault,Vehicle,Transportation,Hezbollah,1,0,0,6
+2007,5,4,11.9037,-7.8882,Mali,Sub-Saharan Africa,Bamako,Bombing/Explosion,Firearms,Religious Figures/Institutions,IRA,1,0,4,10
+2019,9,1,14.3463,121.498,Philippines,Southeast Asia,Manila,Unarmed Assault,Vehicle,Transportation,Boko Haram,0,0,0,9
+2019,6,8,32.745,44.2367,Iraq,Middle East & North Africa,Baghdad,Facility/Infrastructure Attack,Melee,Government (General),IRA,0,0,4,0
+2002,9,18,-12.4792,-76.6874,Peru,South America,Lima,Facility/Infrastructure Attack,Unknown,NGO,Hezbollah,0,0,3,5
+2001,11,13,43.6233,45.7664,Russia,Eastern Europe,Grozny,Assassination,Incendiary,Military,FARC,0,0,0,2
+2018,12,25,40.4996,29.6305,Turkey,Middle East & North Africa,Istanbul,Assassination,Firearms,Military,FARC,1,0,2,2
+2021,8,23,31.4972,75.0667,Pakistan,South Asia,Lahore,Hostage Taking (Kidnapping),Chemical,Government (General),Naxalites,0,0,0,4
+2001,5,7,50.8594,4.5303,Belgium,Western Europe,Brussels,Bombing/Explosion,Unknown,Civilians,Unknown,0,0,0,10
+2016,7,27,-3.6306,15.4262,Democratic Republic of the Congo,Sub-Saharan Africa,Kinshasa,Facility/Infrastructure Attack,Melee,Business,Taliban,0,0,3,12
+2020,6,9,15.6836,43.6511,Yemen,Middle East & North Africa,Sanaa,Bombing/Explosion,Unknown,Educational Institution,PKK,1,0,2,4
+2010,3,16,19.3106,-98.7547,Mexico,North America,Mexico City,Unarmed Assault,Melee,Educational Institution,Unknown,1,0,8,12
+2002,7,20,51.4293,-0.7458,United Kingdom,Western Europe,London,Hijacking,Firearms,NGO,Al-Shabaab,1,0,12,9
+2021,5,10,8.4245,39.4203,Ethiopia,Sub-Saharan Africa,Addis Ababa,Hostage Taking (Kidnapping),Vehicle,Religious Figures/Institutions,Al-Qaeda,1,0,6,3
+2023,6,20,36.098,38.8454,Syria,Middle East & North Africa,Raqqa,Hostage Taking (Kidnapping),Incendiary,Military,ISIS,1,0,0,2
+2000,3,28,25.3446,66.2174,Pakistan,South Asia,Karachi,Facility/Infrastructure Attack,Chemical,Journalists & Media,Taliban,0,0,1,2
+2011,7,19,-11.9862,-76.3712,Peru,South America,Lima,Bombing/Explosion,Vehicle,Government (General),IRA,1,1,1,2
+2014,2,19,10.86,-66.9805,Venezuela,South America,Caracas,Armed Assault,Vehicle,Educational Institution,PKK,1,0,0,3
+2003,1,24,11.4184,7.9822,Nigeria,Sub-Saharan Africa,Kano,Armed Assault,Melee,NGO,PKK,0,0,2,2
+2022,8,7,0.3058,42.3248,Somalia,Sub-Saharan Africa,Kismayo,Facility/Infrastructure Attack,Incendiary,Journalists & Media,Boko Haram,0,0,2,5
+2014,3,23,29.254,31.4947,Egypt,Middle East & North Africa,Cairo,Hostage Taking (Kidnapping),Explosives,Educational Institution,IRA,1,0,0,16
+2009,5,28,42.6759,76.8084,Kazakhstan,Central Asia,Almaty,Armed Assault,Chemical,Government (General),Naxalites,1,0,0,28
+2006,3,8,24.6915,46.8736,Saudi Arabia,Middle East & North Africa,Riyadh,Hijacking,Melee,Military,FARC,1,0,0,6
+2019,2,3,34.0608,69.8149,Afghanistan,South Asia,Kabul,Assassination,Melee,Journalists & Media,Hezbollah,1,0,0,1
+2004,6,21,29.2915,31.1883,Egypt,Middle East & North Africa,Cairo,Bombing/Explosion,Melee,Journalists & Media,IRA,1,0,2,0
+2004,7,17,30.6228,66.9223,Pakistan,South Asia,Quetta,Hijacking,Explosives,Police,Hezbollah,0,0,2,2
+2010,12,8,24.7012,67.1054,Pakistan,South Asia,Karachi,Assassination,Vehicle,Business,LTTE,0,0,0,1
+2004,11,10,-3.4641,40.3818,Kenya,Sub-Saharan Africa,Mombasa,Facility/Infrastructure Attack,Vehicle,Police,Hezbollah,0,0,1,1
+2005,11,20,36.9574,68.723,Afghanistan,South Asia,Kunduz,Unarmed Assault,Vehicle,Educational Institution,LTTE,0,0,0,0
+2002,1,21,33.8556,36.5453,Syria,Middle East & North Africa,Damascus,Hijacking,Vehicle,Business,IRA,0,0,0,1
+2019,11,1,43.2797,7.537,France,Western Europe,Nice,Hostage Taking (Kidnapping),Chemical,NGO,Al-Shabaab,1,0,0,0
+2009,8,3,33.0019,-117.5513,Mexico,North America,Tijuana,Unarmed Assault,Explosives,Government (General),Hamas,1,0,3,1
+2010,10,5,33.4421,74.3861,India,South Asia,Srinagar,Assassination,Unknown,Educational Institution,TTP,1,1,3,9
+2011,9,18,35.0534,69.0135,Afghanistan,South Asia,Kabul,Bombing/Explosion,Incendiary,Civilians,Hamas,0,0,3,1
+2004,2,2,11.662,9.1341,Nigeria,Sub-Saharan Africa,Kano,Assassination,Melee,Transportation,PKK,0,1,0,0
+2010,10,24,24.3926,66.2525,Pakistan,South Asia,Karachi,Assassination,Firearms,Government (General),Hamas,1,0,0,4
+2015,1,3,-4.4477,15.9503,Democratic Republic of the Congo,Sub-Saharan Africa,Kinshasa,Hostage Taking (Kidnapping),Vehicle,Journalists & Media,Boko Haram,0,0,5,2
+2001,5,16,14.9671,44.0145,Yemen,Middle East & North Africa,Sanaa,Facility/Infrastructure Attack,Unknown,Journalists & Media,Al-Shabaab,0,0,2,1
+2004,5,24,40.6156,-3.8479,Spain,Western Europe,Madrid,Assassination,Unknown,Religious Figures/Institutions,FARC,0,0,2,2
+2011,9,10,18.7471,73.5945,India,South Asia,Mumbai,Bombing/Explosion,Melee,NGO,Hamas,1,0,4,0
+2004,2,13,25.2775,46.7009,Saudi Arabia,Middle East & North Africa,Riyadh,Assassination,Unknown,Educational Institution,Hezbollah,1,0,6,8
+2019,9,13,28.4933,76.445,India,South Asia,New Delhi,Facility/Infrastructure Attack,Explosives,Military,Taliban,0,0,0,3
+2016,8,5,43.5266,45.3106,Russia,Eastern Europe,Grozny,Facility/Infrastructure Attack,Vehicle,Government (General),FARC,1,0,0,9
+2018,6,17,11.366,14.3581,Cameroon,Sub-Saharan Africa,Maroua,Hijacking,Vehicle,NGO,Hamas,1,0,0,1
+2011,6,22,32.5794,44.4369,Iraq,Middle East & North Africa,Fallujah,Bombing/Explosion,Melee,Transportation,Al-Shabaab,0,0,0,4
+2020,10,19,-0.7195,42.6317,Somalia,Sub-Saharan Africa,Kismayo,Armed Assault,Chemical,Military,ETA,1,0,3,8
+2004,11,8,-23.3757,-43.9554,Brazil,South America,Rio de Janeiro,Bombing/Explosion,Vehicle,Police,Boko Haram,0,0,0,11
+2004,7,23,44.3082,7.4179,France,Western Europe,Nice,Armed Assault,Melee,NGO,Naxalites,1,1,2,5
+2022,3,17,12.2596,45.6991,Yemen,Middle East & North Africa,Aden,Armed Assault,Vehicle,Educational Institution,IRA,1,0,1,2
+2005,8,18,15.5823,31.8071,Sudan,Sub-Saharan Africa,Khartoum,Assassination,Vehicle,Educational Institution,IRA,1,0,0,6
+2007,5,18,18.4085,73.042,India,South Asia,Mumbai,Assassination,Firearms,Business,Naxalites,1,0,0,2
+2010,8,12,47.6849,37.5711,Ukraine,Eastern Europe,Donetsk,Facility/Infrastructure Attack,Unknown,Business,Al-Shabaab,0,0,3,1
+2012,7,27,43.3442,76.9067,Kazakhstan,Central Asia,Almaty,Assassination,Unknown,Government (General),Al-Shabaab,0,0,3,13
+2011,8,21,29.8721,33.5439,Egypt,Middle East & North Africa,Sinai,Assassination,Chemical,Journalists & Media,Boko Haram,0,0,0,1
+2017,12,9,-1.1339,36.0993,Kenya,Sub-Saharan Africa,Nairobi,Armed Assault,Explosives,Transportation,TTP,0,0,2,4
+2007,11,8,16.6008,96.6285,Myanmar,Southeast Asia,Yangon,Bombing/Explosion,Explosives,Religious Figures/Institutions,FARC,1,0,0,0
+2000,9,6,31.9781,65.7028,Afghanistan,South Asia,Kandahar,Hostage Taking (Kidnapping),Chemical,Journalists & Media,Hamas,0,0,3,2
+2010,5,21,12.2442,-7.4894,Mali,Sub-Saharan Africa,Bamako,Bombing/Explosion,Unknown,Police,IRA,0,0,4,5
+2005,7,27,35.8364,37.3054,Syria,Middle East & North Africa,Aleppo,Armed Assault,Explosives,Religious Figures/Institutions,Naxalites,1,0,1,0
+2001,1,10,13.0317,-2.1141,Burkina Faso,Sub-Saharan Africa,Ouagadougou,Facility/Infrastructure Attack,Vehicle,Police,Unknown,1,0,9,2
+2016,8,5,42.7342,77.012,Kazakhstan,Central Asia,Almaty,Hijacking,Vehicle,Journalists & Media,Al-Shabaab,0,0,6,6
+2005,12,15,-12.4865,40.7711,Mozambique,Sub-Saharan Africa,Pemba,Unarmed Assault,Incendiary,Government (General),Taliban,1,0,3,9
+2005,10,28,18.6755,72.8601,India,South Asia,Mumbai,Unarmed Assault,Melee,Religious Figures/Institutions,Hezbollah,1,0,0,21
+2005,3,16,34.5985,34.7581,Lebanon,Middle East & North Africa,Beirut,Assassination,Firearms,Military,Al-Shabaab,1,0,3,12
+2010,5,19,-1.7971,36.9257,Kenya,Sub-Saharan Africa,Nairobi,Unarmed Assault,Vehicle,Military,Al-Shabaab,1,0,7,0
+2021,2,15,13.0949,44.7118,Yemen,Middle East & North Africa,Aden,Assassination,Firearms,Religious Figures/Institutions,IRA,1,0,7,17
+2011,10,8,13.0748,-1.5743,Burkina Faso,Sub-Saharan Africa,Ouagadougou,Armed Assault,Firearms,Journalists & Media,Al-Qaeda,1,0,5,9
+2013,12,18,10.1906,-66.3777,Venezuela,South America,Caracas,Hostage Taking (Kidnapping),Unknown,NGO,Naxalites,0,0,0,4
+2016,8,17,29.068,33.3929,Egypt,Middle East & North Africa,Sinai,Unarmed Assault,Incendiary,Police,Unknown,0,0,0,5
+2006,10,18,7.6128,124.7666,Philippines,Southeast Asia,Mindanao,Armed Assault,Firearms,Educational Institution,LTTE,1,0,0,1
+2022,10,16,34.1462,75.2622,India,South Asia,Srinagar,Bombing/Explosion,Vehicle,Journalists & Media,Naxalites,0,0,1,4
+2013,8,19,-5.5904,107.0304,Indonesia,Southeast Asia,Jakarta,Bombing/Explosion,Vehicle,Journalists & Media,IRA,1,0,0,0
+2008,1,24,32.2822,-107.19,Mexico,North America,Juarez,Armed Assault,Vehicle,Police,Taliban,1,0,6,3
+2017,1,3,33.5905,13.6691,Libya,Middle East & North Africa,Tripoli,Hostage Taking (Kidnapping),Explosives,Business,PKK,0,0,18,2
+2011,7,15,44.1375,7.1051,France,Western Europe,Nice,Hijacking,Melee,Religious Figures/Institutions,ISIS,0,0,1,4
+2003,3,18,6.8419,-74.7995,Colombia,South America,Medellin,Hostage Taking (Kidnapping),Vehicle,Government (General),TTP,0,0,4,2
+2009,8,22,33.2242,44.1541,Iraq,Middle East & North Africa,Fallujah,Unarmed Assault,Vehicle,Religious Figures/Institutions,Hezbollah,1,0,0,0
+2014,6,5,11.7604,8.1596,Nigeria,Sub-Saharan Africa,Kano,Assassination,Firearms,Police,Taliban,1,0,1,1
+2007,4,3,32.6173,43.0026,Iraq,Middle East & North Africa,Fallujah,Bombing/Explosion,Vehicle,Military,Hamas,0,0,13,2
+2012,8,8,35.7669,39.2944,Syria,Middle East & North Africa,Raqqa,Facility/Infrastructure Attack,Firearms,Military,Al-Qaeda,1,0,0,14
+2018,10,25,16.0102,31.8751,Sudan,Sub-Saharan Africa,Khartoum,Unarmed Assault,Unknown,Educational Institution,Boko Haram,1,1,1,10
+2007,7,10,14.4676,100.4488,Thailand,Southeast Asia,Bangkok,Assassination,Explosives,NGO,ETA,0,0,2,0
+2017,8,2,52.2939,-0.5563,United Kingdom,Western Europe,London,Assassination,Chemical,Religious Figures/Institutions,Naxalites,1,0,8,5
+2004,5,13,49.0284,2.3723,France,Western Europe,Paris,Armed Assault,Unknown,NGO,Hamas,0,0,0,0
+2022,3,26,10.1438,13.8153,Cameroon,Sub-Saharan Africa,Maroua,Hostage Taking (Kidnapping),Explosives,NGO,PKK,1,0,4,2
+2012,4,9,30.9055,66.4606,Afghanistan,South Asia,Kandahar,Armed Assault,Incendiary,Police,Unknown,1,0,6,13
+2017,12,27,32.5609,34.6942,Israel,Middle East & North Africa,Jerusalem,Armed Assault,Explosives,Business,PKK,0,1,1,7
+2018,12,22,19.3896,72.3232,India,South Asia,Mumbai,Facility/Infrastructure Attack,Firearms,Journalists & Media,Boko Haram,1,0,5,1
+2006,4,24,35.8931,43.1782,Iraq,Middle East & North Africa,Mosul,Bombing/Explosion,Chemical,Journalists & Media,Unknown,0,0,2,4
+2012,4,18,33.4294,75.4009,India,South Asia,Srinagar,Assassination,Unknown,Business,PKK,1,0,0,0
+2009,5,12,4.073,-75.802,Colombia,South America,Cali,Facility/Infrastructure Attack,Melee,Journalists & Media,ISIS,1,0,5,8
+2006,6,11,15.8004,32.6134,Sudan,Sub-Saharan Africa,Khartoum,Hostage Taking (Kidnapping),Explosives,Transportation,LTTE,0,0,0,2
+2008,9,19,33.1463,43.3896,Iraq,Middle East & North Africa,Fallujah,Facility/Infrastructure Attack,Chemical,Religious Figures/Institutions,Al-Shabaab,0,0,3,3
+2012,10,27,11.1757,12.7123,Nigeria,Sub-Saharan Africa,Maiduguri,Armed Assault,Melee,NGO,IRA,1,0,3,0
+2023,11,24,48.5849,37.7942,Ukraine,Eastern Europe,Donetsk,Hostage Taking (Kidnapping),Melee,Government (General),TTP,1,0,1,4
+2015,3,18,43.7575,76.7015,Kazakhstan,Central Asia,Almaty,Unarmed Assault,Explosives,NGO,Taliban,0,1,3,4
+2000,7,5,14.9792,44.8128,Yemen,Middle East & North Africa,Sanaa,Hijacking,Chemical,Civilians,ISIS,0,0,4,5
+2014,6,2,8.4299,124.9947,Philippines,Southeast Asia,Mindanao,Facility/Infrastructure Attack,Chemical,Transportation,Unknown,1,0,3,9
+2000,9,18,33.666,44.0622,Iraq,Middle East & North Africa,Fallujah,Hostage Taking (Kidnapping),Explosives,Military,Hezbollah,1,0,2,6
+2000,9,27,12.1038,-7.3906,Mali,Sub-Saharan Africa,Bamako,Unarmed Assault,Chemical,Religious Figures/Institutions,Naxalites,0,0,6,0
+2016,3,8,34.4093,34.9012,Lebanon,Middle East & North Africa,Beirut,Armed Assault,Vehicle,NGO,Al-Shabaab,1,0,1,6
+2002,6,13,31.1472,-105.9153,Mexico,North America,Juarez,Hostage Taking (Kidnapping),Vehicle,Civilians,TTP,0,0,5,3
+2020,11,25,28.7102,33.6593,Egypt,Middle East & North Africa,Sinai,Bombing/Explosion,Explosives,Religious Figures/Institutions,PKK,1,0,2,19
+2020,1,23,12.9899,44.6517,Yemen,Middle East & North Africa,Aden,Armed Assault,Explosives,Journalists & Media,LTTE,1,0,3,3
+2018,2,17,-12.5292,39.8882,Mozambique,Sub-Saharan Africa,Pemba,Bombing/Explosion,Firearms,Civilians,Unknown,1,0,4,3
+2021,5,18,30.7738,30.98,Egypt,Middle East & North Africa,Cairo,Facility/Infrastructure Attack,Chemical,Military,Al-Qaeda,1,0,3,13
+2018,3,25,33.447,75.4966,India,South Asia,Srinagar,Hijacking,Chemical,Religious Figures/Institutions,Unknown,0,0,3,0
+2018,7,22,8.7395,7.8311,Nigeria,Sub-Saharan Africa,Abuja,Facility/Infrastructure Attack,Incendiary,Religious Figures/Institutions,Naxalites,0,0,0,4
+2016,12,12,29.2534,34.1935,Egypt,Middle East & North Africa,Sinai,Bombing/Explosion,Explosives,Religious Figures/Institutions,Boko Haram,0,0,0,10
+2010,1,21,32.4476,-105.6738,Mexico,North America,Juarez,Assassination,Unknown,Journalists & Media,Hamas,0,0,4,0
+2013,3,22,-22.4928,-43.9337,Brazil,South America,Rio de Janeiro,Facility/Infrastructure Attack,Chemical,Religious Figures/Institutions,ISIS,1,0,0,1
+2002,5,5,30.0148,31.6657,Egypt,Middle East & North Africa,Cairo,Hostage Taking (Kidnapping),Chemical,Government (General),TTP,1,0,3,2
+2002,1,10,40.6468,29.7724,Turkey,Middle East & North Africa,Istanbul,Hostage Taking (Kidnapping),Incendiary,Business,ISIS,0,0,1,3
+2014,9,18,39.8788,-3.2313,Spain,Western Europe,Madrid,Facility/Infrastructure Attack,Melee,Police,Taliban,0,0,3,1
+2019,10,26,31.1008,35.5048,Israel,Middle East & North Africa,Jerusalem,Assassination,Unknown,Religious Figures/Institutions,Taliban,1,0,3,1
+2023,9,8,30.2214,33.4417,Egypt,Middle East & North Africa,Sinai,Facility/Infrastructure Attack,Vehicle,Government (General),IRA,1,0,1,14
+2009,5,16,-1.4144,37.0386,Kenya,Sub-Saharan Africa,Nairobi,Armed Assault,Explosives,Government (General),PKK,1,0,1,1
+2002,6,9,51.2244,30.3779,Ukraine,Eastern Europe,Kyiv,Armed Assault,Chemical,Journalists & Media,ETA,0,0,6,1
+2009,1,13,31.154,64.9598,Afghanistan,South Asia,Kandahar,Assassination,Unknown,Transportation,PKK,1,0,3,2
+2020,10,5,41.0,-3.7459,Spain,Western Europe,Madrid,Assassination,Incendiary,Transportation,TTP,0,0,10,1
+2012,6,10,32.1478,74.7936,Pakistan,South Asia,Lahore,Unarmed Assault,Chemical,Journalists & Media,ETA,0,0,4,9
+2012,6,4,-3.6254,39.87,Kenya,Sub-Saharan Africa,Mombasa,Facility/Infrastructure Attack,Firearms,Transportation,Hezbollah,0,0,0,0
+2023,8,23,34.1834,36.4776,Syria,Middle East & North Africa,Damascus,Armed Assault,Melee,Business,LTTE,0,0,4,3
+2021,8,5,48.2437,1.7523,France,Western Europe,Paris,Unarmed Assault,Incendiary,Civilians,Al-Shabaab,0,0,3,2
+2002,8,20,-23.3852,-43.1864,Brazil,South America,Rio de Janeiro,Hostage Taking (Kidnapping),Vehicle,Religious Figures/Institutions,Hezbollah,1,0,0,4
+2022,9,20,-12.4156,-76.5669,Peru,South America,Lima,Unarmed Assault,Explosives,Police,Naxalites,0,0,1,3
+2005,11,20,2.6696,-77.2151,Colombia,South America,Cali,Bombing/Explosion,Vehicle,Religious Figures/Institutions,Naxalites,1,1,1,3
+2003,1,4,40.577,-4.0363,Spain,Western Europe,Madrid,Assassination,Firearms,NGO,TTP,0,0,3,9
+2014,11,19,32.1378,-107.1606,Mexico,North America,Juarez,Unarmed Assault,Vehicle,Government (General),FARC,0,0,1,0
+2013,2,4,11.9513,-0.7543,Burkina Faso,Sub-Saharan Africa,Ouagadougou,Hijacking,Chemical,Government (General),FARC,1,0,0,3
+2016,8,12,34.272,75.1209,India,South Asia,Srinagar,Hostage Taking (Kidnapping),Explosives,Journalists & Media,TTP,1,0,2,0
+2001,12,4,10.3133,14.3453,Cameroon,Sub-Saharan Africa,Maroua,Bombing/Explosion,Unknown,Educational Institution,IRA,0,0,0,2
+2023,4,17,33.2611,70.9047,Pakistan,South Asia,Peshawar,Armed Assault,Vehicle,Government (General),FARC,1,1,1,0
+2012,11,6,11.9541,13.4631,Nigeria,Sub-Saharan Africa,Maiduguri,Armed Assault,Chemical,Religious Figures/Institutions,PKK,0,0,4,1
+2014,10,14,28.081,76.5763,India,South Asia,New Delhi,Hostage Taking (Kidnapping),Explosives,Civilians,Boko Haram,1,0,3,6
+2018,2,26,32.1385,13.8889,Libya,Middle East & North Africa,Tripoli,Hijacking,Vehicle,Government (General),FARC,1,0,0,3
+2008,11,28,40.2545,33.4476,Turkey,Middle East & North Africa,Ankara,Hostage Taking (Kidnapping),Vehicle,Educational Institution,ETA,1,0,3,8
+2011,6,28,39.6631,33.3577,Turkey,Middle East & North Africa,Ankara,Hostage Taking (Kidnapping),Vehicle,Government (General),LTTE,1,1,0,11
+2021,3,11,29.5761,34.5077,Egypt,Middle East & North Africa,Sinai,Bombing/Explosion,Firearms,Business,ISIS,0,0,1,5
+2016,7,14,34.4722,70.8205,Afghanistan,South Asia,Jalalabad,Facility/Infrastructure Attack,Firearms,Transportation,PKK,1,0,0,0
+2022,11,6,40.8944,68.6953,Uzbekistan,Central Asia,Tashkent,Facility/Infrastructure Attack,Firearms,Journalists & Media,Al-Shabaab,0,0,6,1
+2019,1,28,53.2814,13.144,Germany,Western Europe,Berlin,Assassination,Explosives,Journalists & Media,Al-Qaeda,0,0,0,7
+2020,8,14,8.1229,124.4041,Philippines,Southeast Asia,Mindanao,Unarmed Assault,Melee,Religious Figures/Institutions,TTP,1,0,2,6
+2018,1,26,29.0655,34.7941,Egypt,Middle East & North Africa,Sinai,Hijacking,Firearms,Business,Taliban,1,0,11,5
+2005,8,19,12.1693,-7.7116,Mali,Sub-Saharan Africa,Bamako,Unarmed Assault,Unknown,Journalists & Media,Hezbollah,0,0,0,0
+2017,6,18,-1.6737,36.7572,Kenya,Sub-Saharan Africa,Nairobi,Hijacking,Unknown,Military,Naxalites,1,0,6,6
+2003,12,27,51.8963,-0.2462,United Kingdom,Western Europe,London,Unarmed Assault,Unknown,Civilians,Al-Shabaab,0,0,1,2
+2002,8,28,7.0242,-76.3098,Colombia,South America,Medellin,Bombing/Explosion,Unknown,Civilians,Boko Haram,1,1,6,4
+2005,10,5,51.4098,0.2334,United Kingdom,Western Europe,London,Hijacking,Firearms,Civilians,Naxalites,0,0,2,10
+2008,10,18,41.9401,69.1148,Uzbekistan,Central Asia,Tashkent,Armed Assault,Incendiary,Business,Al-Shabaab,1,1,0,4
+2021,2,5,-5.5482,106.3821,Indonesia,Southeast Asia,Jakarta,Hijacking,Unknown,Religious Figures/Institutions,Unknown,0,1,2,4
+2022,3,8,34.898,68.5885,Afghanistan,South Asia,Kabul,Armed Assault,Chemical,Educational Institution,LTTE,0,0,3,11
+2015,3,19,31.1775,-106.8439,Mexico,North America,Juarez,Unarmed Assault,Incendiary,Religious Figures/Institutions,PKK,1,0,10,0
+2012,9,24,32.336,35.2036,Israel,Middle East & North Africa,Jerusalem,Assassination,Chemical,Educational Institution,Hamas,1,0,0,10
+2023,2,24,33.2535,44.4247,Iraq,Middle East & North Africa,Baghdad,Hostage Taking (Kidnapping),Chemical,Educational Institution,LTTE,0,0,1,4
+2006,7,27,31.1516,-106.5983,Mexico,North America,Juarez,Armed Assault,Melee,Business,FARC,1,0,10,1
+2018,8,26,34.7758,68.8983,Afghanistan,South Asia,Kabul,Assassination,Chemical,Military,Taliban,0,0,4,0
+2000,2,28,51.6017,4.2781,Belgium,Western Europe,Brussels,Armed Assault,Melee,Journalists & Media,Taliban,1,0,0,0
+2020,5,6,33.9966,69.2096,Afghanistan,South Asia,Kabul,Hijacking,Incendiary,Police,IRA,1,0,1,8
+2021,11,6,10.3694,-67.3061,Venezuela,South America,Caracas,Bombing/Explosion,Melee,Business,TTP,0,0,2,6
+2022,2,1,31.2363,34.6842,Israel,Middle East & North Africa,Jerusalem,Armed Assault,Melee,Police,Al-Qaeda,0,0,0,6
+2000,1,23,41.6471,2.1324,Spain,Western Europe,Barcelona,Assassination,Unknown,Police,LTTE,1,0,5,8
+2002,4,13,50.5866,31.1122,Ukraine,Eastern Europe,Kyiv,Bombing/Explosion,Chemical,Police,ISIS,1,0,0,0
+2004,7,25,10.2226,13.6083,Cameroon,Sub-Saharan Africa,Maroua,Hijacking,Unknown,Government (General),IRA,0,0,2,13
+2019,11,6,35.5979,42.5144,Iraq,Middle East & North Africa,Mosul,Hostage Taking (Kidnapping),Incendiary,Civilians,IRA,0,1,1,13
+2006,2,4,41.0908,2.1846,Spain,Western Europe,Barcelona,Armed Assault,Unknown,Police,ETA,1,0,0,0
+2010,3,8,52.2866,0.6172,United Kingdom,Western Europe,London,Assassination,Chemical,Police,Boko Haram,1,0,0,15
+2021,5,7,33.7326,36.8797,Syria,Middle East & North Africa,Damascus,Facility/Infrastructure Attack,Vehicle,NGO,Boko Haram,1,0,1,3
+2007,8,13,15.3342,44.474,Yemen,Middle East & North Africa,Sanaa,Bombing/Explosion,Firearms,Journalists & Media,IRA,0,0,0,0
+2011,6,5,36.0277,43.4465,Iraq,Middle East & North Africa,Mosul,Hostage Taking (Kidnapping),Unknown,Transportation,PKK,1,0,0,5
+2015,2,1,32.3099,73.7012,Pakistan,South Asia,Lahore,Facility/Infrastructure Attack,Explosives,Military,Al-Shabaab,0,0,3,2
+2012,9,10,13.368,44.5194,Yemen,Middle East & North Africa,Aden,Unarmed Assault,Chemical,NGO,Naxalites,1,0,3,9
+2002,11,18,33.2334,-116.7438,Mexico,North America,Tijuana,Facility/Infrastructure Attack,Vehicle,Government (General),Al-Shabaab,0,0,2,4
+2006,3,18,-5.6178,106.958,Indonesia,Southeast Asia,Jakarta,Assassination,Melee,Transportation,IRA,0,0,0,13
+2023,4,2,40.7202,-3.4206,Spain,Western Europe,Madrid,Armed Assault,Explosives,Religious Figures/Institutions,ISIS,1,0,0,5
+2009,11,24,12.6092,45.278,Yemen,Middle East & North Africa,Aden,Unarmed Assault,Chemical,Government (General),ISIS,0,0,0,5
+2005,8,12,37.1341,42.3961,Iraq,Middle East & North Africa,Mosul,Facility/Infrastructure Attack,Vehicle,Business,Al-Qaeda,1,0,11,2
+2023,2,25,-0.6928,37.2688,Kenya,Sub-Saharan Africa,Nairobi,Bombing/Explosion,Incendiary,Religious Figures/Institutions,Al-Shabaab,0,0,2,6
+2015,8,17,30.6386,31.0796,Egypt,Middle East & North Africa,Cairo,Assassination,Explosives,Journalists & Media,LTTE,0,0,1,5
+2003,10,22,2.5386,45.7627,Somalia,Sub-Saharan Africa,Mogadishu,Unarmed Assault,Explosives,Civilians,TTP,0,0,4,2
+2007,1,16,36.8435,42.5113,Iraq,Middle East & North Africa,Mosul,Assassination,Melee,Government (General),Al-Qaeda,0,0,2,0
+2007,6,8,43.4293,7.0483,France,Western Europe,Nice,Hostage Taking (Kidnapping),Chemical,Educational Institution,Al-Shabaab,0,0,1,5
+2016,11,2,24.5097,46.6389,Saudi Arabia,Middle East & North Africa,Riyadh,Armed Assault,Firearms,NGO,Taliban,1,0,0,2
+2009,5,11,55.3146,36.9331,Russia,Eastern Europe,Moscow,Bombing/Explosion,Vehicle,Journalists & Media,Taliban,1,0,2,5
+2023,10,8,10.7822,14.2586,Cameroon,Sub-Saharan Africa,Maroua,Hostage Taking (Kidnapping),Incendiary,Transportation,Hamas,0,0,1,9
+2007,3,1,43.2685,76.9117,Kazakhstan,Central Asia,Almaty,Hostage Taking (Kidnapping),Explosives,Civilians,Hezbollah,1,0,0,2
+2010,1,25,36.1433,42.9571,Iraq,Middle East & North Africa,Mosul,Unarmed Assault,Melee,Business,ISIS,0,0,2,3
+2013,8,2,9.2306,7.9218,Nigeria,Sub-Saharan Africa,Abuja,Armed Assault,Chemical,Business,ISIS,0,1,5,6
+2013,12,12,14.4848,99.7302,Thailand,Southeast Asia,Bangkok,Hostage Taking (Kidnapping),Chemical,Police,ETA,0,0,0,0
+2002,10,19,31.926,-105.7872,Mexico,North America,Juarez,Bombing/Explosion,Melee,Government (General),Boko Haram,1,0,0,13
+2012,12,27,14.8484,33.2271,Sudan,Sub-Saharan Africa,Khartoum,Unarmed Assault,Incendiary,Educational Institution,Hamas,1,0,1,0
+2004,10,4,28.5904,76.8198,India,South Asia,New Delhi,Armed Assault,Explosives,Government (General),Hamas,1,0,1,1
+2017,6,25,25.1728,46.7837,Saudi Arabia,Middle East & North Africa,Riyadh,Armed Assault,Melee,Business,Hamas,1,1,1,4
+2005,11,10,32.1148,34.8522,Israel,Middle East & North Africa,Jerusalem,Hijacking,Chemical,Transportation,Taliban,0,0,1,0
+2004,2,23,8.5148,39.0368,Ethiopia,Sub-Saharan Africa,Addis Ababa,Armed Assault,Incendiary,Religious Figures/Institutions,Hezbollah,0,0,0,3
+2005,1,13,-0.0235,41.916,Somalia,Sub-Saharan Africa,Kismayo,Hijacking,Melee,NGO,TTP,0,0,2,1
+2004,2,1,41.7497,28.9507,Turkey,Middle East & North Africa,Istanbul,Bombing/Explosion,Unknown,Civilians,Al-Qaeda,0,0,4,3
+2021,11,21,9.7495,-66.691,Venezuela,South America,Caracas,Bombing/Explosion,Vehicle,Transportation,Al-Shabaab,0,0,9,4
+2006,11,15,33.3987,13.8057,Libya,Middle East & North Africa,Tripoli,Hijacking,Firearms,Police,Unknown,1,0,0,1
+2001,3,19,55.9286,37.4736,Russia,Eastern Europe,Moscow,Hostage Taking (Kidnapping),Unknown,Religious Figures/Institutions,Hamas,0,0,5,11
+2005,6,7,51.2735,-0.548,United Kingdom,Western Europe,London,Armed Assault,Incendiary,Business,Hamas,0,0,4,1
+2020,5,16,12.5092,8.378,Nigeria,Sub-Saharan Africa,Kano,Hostage Taking (Kidnapping),Vehicle,Journalists & Media,Taliban,0,0,3,0
+2013,4,21,31.8112,65.6328,Afghanistan,South Asia,Kandahar,Hijacking,Vehicle,Civilians,IRA,0,1,2,0
+2015,9,26,3.83,-75.9505,Colombia,South America,Cali,Hostage Taking (Kidnapping),Incendiary,Transportation,Hezbollah,1,0,0,0
+2000,6,20,29.4198,67.2242,Pakistan,South Asia,Quetta,Armed Assault,Explosives,Business,Taliban,1,0,2,3
+2005,2,8,11.4171,12.9854,Nigeria,Sub-Saharan Africa,Maiduguri,Unarmed Assault,Firearms,Business,Hezbollah,0,0,2,3
+2018,7,12,24.5905,89.8303,Bangladesh,South Asia,Dhaka,Hijacking,Unknown,Government (General),Al-Qaeda,0,0,3,2
+2018,1,23,3.3361,-76.1828,Colombia,South America,Cali,Unarmed Assault,Incendiary,Transportation,ETA,0,0,3,23
+2015,9,10,18.4814,72.2436,India,South Asia,Mumbai,Armed Assault,Melee,Military,ISIS,0,0,3,4
+2000,9,16,23.4487,89.7391,Bangladesh,South Asia,Dhaka,Bombing/Explosion,Incendiary,Transportation,Boko Haram,0,0,0,11
+2010,1,1,31.065,74.0684,Pakistan,South Asia,Lahore,Armed Assault,Vehicle,Government (General),Naxalites,0,0,0,2
+2002,6,23,-12.7349,-77.0125,Peru,South America,Lima,Unarmed Assault,Melee,Transportation,ISIS,1,0,0,8
+2005,12,14,31.1869,65.774,Afghanistan,South Asia,Kandahar,Hijacking,Chemical,Journalists & Media,IRA,1,0,6,5
+2007,11,19,3.5037,-76.8121,Colombia,South America,Cali,Hijacking,Firearms,Religious Figures/Institutions,Al-Shabaab,1,0,1,5
+2022,10,13,34.1316,44.6599,Iraq,Middle East & North Africa,Baghdad,Hijacking,Unknown,Transportation,Taliban,0,0,2,6
+2020,10,4,23.7543,89.7082,Bangladesh,South Asia,Dhaka,Hostage Taking (Kidnapping),Firearms,Educational Institution,TTP,0,0,2,15
+2005,11,3,15.0325,32.836,Sudan,Sub-Saharan Africa,Khartoum,Hijacking,Chemical,Educational Institution,Hamas,0,0,0,3
+2022,2,12,11.3477,8.4206,Nigeria,Sub-Saharan Africa,Kano,Assassination,Unknown,Police,TTP,0,0,4,2
+2023,7,6,41.6489,2.6457,Spain,Western Europe,Barcelona,Hostage Taking (Kidnapping),Melee,Religious Figures/Institutions,FARC,1,0,7,1
+2018,11,25,50.2889,29.9669,Ukraine,Eastern Europe,Kyiv,Unarmed Assault,Firearms,Government (General),Hamas,0,0,14,13
+2009,1,11,36.2649,37.7083,Syria,Middle East & North Africa,Aleppo,Assassination,Explosives,Police,FARC,0,1,2,4
+2023,2,18,24.2026,67.4184,Pakistan,South Asia,Karachi,Bombing/Explosion,Incendiary,Transportation,ETA,1,0,0,8
+2020,3,20,40.8682,-3.369,Spain,Western Europe,Madrid,Hostage Taking (Kidnapping),Firearms,Military,ISIS,1,0,0,1
+2013,12,18,18.697,72.6532,India,South Asia,Mumbai,Unarmed Assault,Chemical,NGO,Al-Shabaab,1,0,0,13
+2001,7,19,33.9741,35.1838,Lebanon,Middle East & North Africa,Beirut,Facility/Infrastructure Attack,Unknown,Journalists & Media,Al-Qaeda,0,0,1,2
+2002,5,27,51.669,-0.1019,United Kingdom,Western Europe,London,Unarmed Assault,Chemical,Transportation,Hamas,0,0,7,3
+2005,11,10,34.8705,75.3593,India,South Asia,Srinagar,Bombing/Explosion,Melee,Police,Al-Shabaab,1,0,0,13
+2002,11,18,-0.9718,43.0529,Somalia,Sub-Saharan Africa,Kismayo,Hostage Taking (Kidnapping),Firearms,Educational Institution,Unknown,1,0,1,10
+2001,5,15,53.1089,13.8945,Germany,Western Europe,Berlin,Hostage Taking (Kidnapping),Incendiary,Civilians,LTTE,1,0,4,1
+2022,11,4,36.0565,68.7138,Afghanistan,South Asia,Kunduz,Bombing/Explosion,Chemical,Educational Institution,Naxalites,1,1,0,5
+2017,1,27,11.5998,13.921,Nigeria,Sub-Saharan Africa,Maiduguri,Hostage Taking (Kidnapping),Unknown,NGO,PKK,1,0,3,8
+2015,5,3,8.47,8.0772,Nigeria,Sub-Saharan Africa,Abuja,Hostage Taking (Kidnapping),Unknown,Military,Hezbollah,0,0,7,3
+2005,3,7,52.69,13.8287,Germany,Western Europe,Berlin,Hijacking,Firearms,Government (General),Taliban,1,0,0,3
+2006,11,5,40.2549,-4.2688,Spain,Western Europe,Madrid,Hijacking,Vehicle,Business,FARC,0,0,1,0
+2017,6,28,30.9313,-107.0077,Mexico,North America,Juarez,Assassination,Vehicle,Journalists & Media,Unknown,0,0,9,3
+2013,2,14,14.5013,100.393,Thailand,Southeast Asia,Bangkok,Armed Assault,Firearms,Transportation,ETA,0,1,1,3
+2009,9,12,33.7912,34.8641,Lebanon,Middle East & North Africa,Beirut,Hostage Taking (Kidnapping),Incendiary,Religious Figures/Institutions,IRA,1,0,3,1
+2001,3,9,43.5043,45.9383,Russia,Eastern Europe,Grozny,Hostage Taking (Kidnapping),Firearms,Transportation,ETA,1,0,0,0
+2022,4,2,-12.5278,40.4527,Mozambique,Sub-Saharan Africa,Pemba,Unarmed Assault,Melee,Business,Unknown,1,0,0,26
+2009,5,27,9.8834,14.6291,Cameroon,Sub-Saharan Africa,Maroua,Hostage Taking (Kidnapping),Unknown,Police,LTTE,0,0,12,1
+2010,5,24,40.8126,1.5672,Spain,Western Europe,Barcelona,Hostage Taking (Kidnapping),Vehicle,Police,Boko Haram,1,0,1,0
+2023,8,25,49.1635,1.6517,France,Western Europe,Paris,Facility/Infrastructure Attack,Unknown,Educational Institution,LTTE,0,0,2,28
+2002,5,23,25.3624,67.1944,Pakistan,South Asia,Karachi,Facility/Infrastructure Attack,Melee,Government (General),Naxalites,0,0,1,4
+2001,4,2,28.6563,77.0907,India,South Asia,New Delhi,Hostage Taking (Kidnapping),Explosives,Educational Institution,TTP,0,0,0,10
+2016,7,21,55.6707,37.1274,Russia,Eastern Europe,Moscow,Bombing/Explosion,Chemical,Military,Boko Haram,1,0,1,2
+2005,8,19,53.0441,13.7788,Germany,Western Europe,Berlin,Facility/Infrastructure Attack,Incendiary,Educational Institution,Al-Qaeda,1,0,4,0
+2009,1,13,31.6348,35.1862,Israel,Middle East & North Africa,Jerusalem,Bombing/Explosion,Firearms,Transportation,Naxalites,0,1,0,1
+2021,4,9,24.2265,89.8314,Bangladesh,South Asia,Dhaka,Unarmed Assault,Melee,NGO,Taliban,0,0,2,1
+2020,3,20,33.7444,68.7639,Afghanistan,South Asia,Kabul,Hijacking,Explosives,Civilians,Al-Shabaab,1,0,11,8
+2013,7,28,-3.3077,39.6486,Kenya,Sub-Saharan Africa,Mombasa,Assassination,Melee,Business,Boko Haram,1,0,0,3
+2019,7,19,13.683,101.052,Thailand,Southeast Asia,Bangkok,Bombing/Explosion,Explosives,NGO,IRA,1,0,0,3
+2009,11,4,12.0901,-8.2805,Mali,Sub-Saharan Africa,Bamako,Hostage Taking (Kidnapping),Explosives,Educational Institution,Al-Shabaab,1,1,4,3
+2020,12,21,-0.5566,42.3762,Somalia,Sub-Saharan Africa,Kismayo,Assassination,Firearms,Government (General),Hezbollah,0,1,1,7
+2021,6,22,33.1493,-116.3085,Mexico,North America,Tijuana,Armed Assault,Chemical,Military,IRA,1,1,4,1
+2013,7,13,-0.057,42.4452,Somalia,Sub-Saharan Africa,Kismayo,Unarmed Assault,Explosives,Transportation,TTP,0,0,0,9
+2021,9,21,23.0715,91.0548,Bangladesh,South Asia,Dhaka,Hijacking,Melee,Educational Institution,Hezbollah,1,0,1,5
+2009,2,16,30.437,67.6292,Pakistan,South Asia,Quetta,Armed Assault,Chemical,Business,TTP,0,1,3,4
+2020,2,8,-13.6704,40.5465,Mozambique,Sub-Saharan Africa,Pemba,Assassination,Firearms,Business,PKK,1,0,0,6
+2014,2,16,12.3836,-1.2446,Burkina Faso,Sub-Saharan Africa,Ouagadougou,Bombing/Explosion,Unknown,Transportation,ETA,0,0,0,0
+2016,2,28,19.4221,72.1923,India,South Asia,Mumbai,Unarmed Assault,Melee,NGO,Al-Shabaab,1,0,0,0
+2004,4,11,37.4574,69.249,Afghanistan,South Asia,Kunduz,Hostage Taking (Kidnapping),Vehicle,Journalists & Media,Al-Qaeda,1,1,1,1
+2002,8,11,29.9415,67.4364,Pakistan,South Asia,Quetta,Unarmed Assault,Firearms,Educational Institution,IRA,0,0,3,1
+2006,3,19,-4.5644,39.0254,Kenya,Sub-Saharan Africa,Mombasa,Hijacking,Firearms,Journalists & Media,Naxalites,0,0,3,7
+2020,7,13,40.0411,-4.4695,Spain,Western Europe,Madrid,Hostage Taking (Kidnapping),Melee,Religious Figures/Institutions,Taliban,0,0,0,17
+2000,6,25,10.1527,-66.4732,Venezuela,South America,Caracas,Hijacking,Vehicle,Civilians,Taliban,0,0,2,2
+2007,12,12,11.5221,7.8942,Nigeria,Sub-Saharan Africa,Kano,Assassination,Firearms,Police,PKK,1,0,2,7
+2009,5,15,36.1822,39.0555,Syria,Middle East & North Africa,Raqqa,Unarmed Assault,Vehicle,Transportation,Hezbollah,1,0,0,17
+2010,8,12,32.0909,65.3785,Afghanistan,South Asia,Kandahar,Hijacking,Firearms,Government (General),Unknown,1,0,11,4
+2023,3,7,23.9419,90.8089,Bangladesh,South Asia,Dhaka,Unarmed Assault,Explosives,Transportation,Hezbollah,0,0,5,5
+2012,11,9,35.606,36.9022,Syria,Middle East & North Africa,Aleppo,Hijacking,Vehicle,Transportation,Taliban,0,0,7,1
+2001,12,4,33.1455,43.6653,Iraq,Middle East & North Africa,Fallujah,Hostage Taking (Kidnapping),Melee,Religious Figures/Institutions,ISIS,1,0,1,4
+2006,12,22,37.4359,68.4541,Afghanistan,South Asia,Kunduz,Unarmed Assault,Explosives,Business,PKK,0,0,0,1
+2019,10,23,-0.6669,37.0503,Kenya,Sub-Saharan Africa,Nairobi,Armed Assault,Melee,Police,Hezbollah,0,0,1,8
+2015,4,20,41.5872,29.5314,Turkey,Middle East & North Africa,Istanbul,Armed Assault,Unknown,Business,LTTE,0,0,7,1
+2009,3,2,49.2641,2.2889,France,Western Europe,Paris,Facility/Infrastructure Attack,Melee,Civilians,TTP,1,0,5,6
+2000,11,3,33.7833,44.6509,Iraq,Middle East & North Africa,Baghdad,Bombing/Explosion,Unknown,Transportation,IRA,1,0,0,3
+2016,2,24,32.5445,35.9158,Israel,Middle East & North Africa,Jerusalem,Unarmed Assault,Explosives,Business,IRA,0,0,0,0
+2008,8,2,11.7748,-1.1714,Burkina Faso,Sub-Saharan Africa,Ouagadougou,Bombing/Explosion,Unknown,Government (General),LTTE,0,1,5,1
+2021,6,14,-12.0366,-76.4979,Peru,South America,Lima,Unarmed Assault,Explosives,Police,LTTE,0,0,3,3
+2021,11,6,31.7576,65.7234,Afghanistan,South Asia,Kandahar,Assassination,Incendiary,Journalists & Media,ETA,1,1,1,4
+2011,6,6,32.0712,35.8133,Israel,Middle East & North Africa,Jerusalem,Bombing/Explosion,Melee,Religious Figures/Institutions,Hamas,1,0,3,7
+2013,11,26,49.9061,30.4615,Ukraine,Eastern Europe,Kyiv,Armed Assault,Explosives,Government (General),TTP,0,1,0,1
+2003,7,19,25.2223,67.7969,Pakistan,South Asia,Karachi,Hostage Taking (Kidnapping),Unknown,Transportation,IRA,1,0,0,2
+2011,10,1,-22.4259,-43.6465,Brazil,South America,Rio de Janeiro,Hijacking,Chemical,Government (General),Hamas,1,0,2,6
+2014,1,3,49.0416,1.8528,France,Western Europe,Paris,Assassination,Chemical,Educational Institution,Taliban,0,1,1,7
+2016,9,23,4.7978,-74.8636,Colombia,South America,Bogota,Unarmed Assault,Vehicle,Police,PKK,0,0,4,0
+2004,9,20,19.8252,-99.609,Mexico,North America,Mexico City,Bombing/Explosion,Explosives,Government (General),Hezbollah,1,1,9,2
+2002,8,11,33.7311,71.0172,Pakistan,South Asia,Peshawar,Armed Assault,Incendiary,Business,Taliban,0,0,1,10
+2012,4,3,-22.1119,-43.3837,Brazil,South America,Rio de Janeiro,Hostage Taking (Kidnapping),Melee,Transportation,Hamas,0,1,1,6
+2010,2,16,53.1379,13.5539,Germany,Western Europe,Berlin,Unarmed Assault,Chemical,Military,ISIS,1,0,1,2
+2002,10,20,33.654,43.6061,Iraq,Middle East & North Africa,Baghdad,Unarmed Assault,Incendiary,NGO,Hezbollah,0,0,2,2
+2010,6,27,51.3207,3.7008,Belgium,Western Europe,Brussels,Bombing/Explosion,Unknown,Civilians,LTTE,1,0,2,3
+2022,11,12,43.5407,45.0018,Russia,Eastern Europe,Grozny,Unarmed Assault,Melee,Police,ISIS,0,0,2,4
+2020,5,18,3.5481,-76.3654,Colombia,South America,Cali,Facility/Infrastructure Attack,Incendiary,Police,Taliban,0,0,3,8
+2003,5,20,48.4877,2.8721,France,Western Europe,Paris,Armed Assault,Firearms,Police,Unknown,1,0,2,0
+2022,6,4,18.3697,72.6118,India,South Asia,Mumbai,Hijacking,Melee,Military,Unknown,0,0,4,6
+2014,11,19,52.9818,13.4326,Germany,Western Europe,Berlin,Facility/Infrastructure Attack,Firearms,Journalists & Media,Taliban,0,0,1,0
+2018,8,17,40.1421,-3.8086,Spain,Western Europe,Madrid,Hijacking,Firearms,Transportation,Al-Qaeda,0,0,0,1
+2016,7,14,9.1822,39.1241,Ethiopia,Sub-Saharan Africa,Addis Ababa,Facility/Infrastructure Attack,Chemical,Civilians,Al-Shabaab,1,1,19,13
+2014,3,5,12.5921,-1.659,Burkina Faso,Sub-Saharan Africa,Ouagadougou,Hostage Taking (Kidnapping),Vehicle,NGO,Al-Shabaab,1,0,3,7
+2006,4,20,16.7743,78.3418,India,South Asia,Hyderabad,Unarmed Assault,Incendiary,Educational Institution,Unknown,0,1,5,2
+2016,9,23,31.673,74.4914,Pakistan,South Asia,Lahore,Unarmed Assault,Incendiary,Police,Naxalites,1,0,0,2
+2021,12,27,43.4452,6.5039,France,Western Europe,Nice,Facility/Infrastructure Attack,Incendiary,Religious Figures/Institutions,Naxalites,0,0,0,8
+2012,3,2,33.1469,36.3199,Syria,Middle East & North Africa,Damascus,Unarmed Assault,Explosives,Civilians,Al-Shabaab,0,1,1,14
+2004,1,23,1.6609,45.2305,Somalia,Sub-Saharan Africa,Mogadishu,Hijacking,Incendiary,Civilians,Naxalites,0,0,6,9
+2003,10,28,52.0178,13.8892,Germany,Western Europe,Berlin,Unarmed Assault,Chemical,NGO,LTTE,0,0,1,3
+2007,9,26,18.8456,-99.804,Mexico,North America,Mexico City,Hijacking,Unknown,Business,TTP,0,1,3,3
+2013,11,11,19.331,-98.7658,Mexico,North America,Mexico City,Facility/Infrastructure Attack,Explosives,Military,TTP,1,0,4,0
+2007,11,23,41.5614,1.5896,Spain,Western Europe,Barcelona,Unarmed Assault,Chemical,Educational Institution,Naxalites,0,0,4,5
+2009,8,6,19.8066,72.1873,India,South Asia,Mumbai,Unarmed Assault,Explosives,Government (General),Al-Qaeda,0,0,0,1
+2008,9,9,51.1267,-0.5318,United Kingdom,Western Europe,London,Armed Assault,Firearms,Transportation,LTTE,1,0,7,1
+2022,3,2,55.3861,38.031,Russia,Eastern Europe,Moscow,Armed Assault,Incendiary,Transportation,Taliban,1,0,1,7
+2002,12,11,2.7556,-76.5509,Colombia,South America,Cali,Facility/Infrastructure Attack,Firearms,Government (General),Hezbollah,0,0,0,0
+2013,9,18,25.5103,66.4328,Pakistan,South Asia,Karachi,Hostage Taking (Kidnapping),Explosives,Educational Institution,Boko Haram,0,0,2,2
+2011,5,7,-13.2213,41.1567,Mozambique,Sub-Saharan Africa,Pemba,Hijacking,Vehicle,NGO,Hamas,0,0,0,5
+2014,4,21,6.9854,-75.4777,Colombia,South America,Medellin,Facility/Infrastructure Attack,Vehicle,Civilians,Taliban,1,0,8,0
+2012,5,18,39.7901,32.4703,Turkey,Middle East & North Africa,Ankara,Unarmed Assault,Incendiary,Military,Unknown,1,0,3,19
+2014,8,2,-6.5976,107.0917,Indonesia,Southeast Asia,Jakarta,Assassination,Chemical,Civilians,FARC,0,1,0,4
+2017,9,1,33.9503,72.3342,Pakistan,South Asia,Peshawar,Unarmed Assault,Explosives,Civilians,IRA,0,1,2,2
+2003,4,18,50.8906,-0.685,United Kingdom,Western Europe,London,Hijacking,Chemical,Religious Figures/Institutions,IRA,0,0,0,1
+2000,8,23,37.288,68.967,Afghanistan,South Asia,Kunduz,Assassination,Explosives,Police,ISIS,0,0,2,0
+2017,2,19,2.6222,45.6995,Somalia,Sub-Saharan Africa,Mogadishu,Hijacking,Firearms,Business,PKK,1,0,0,6
+2013,6,1,32.5917,-117.7062,Mexico,North America,Tijuana,Hostage Taking (Kidnapping),Chemical,Police,Hezbollah,0,0,1,3
+2023,10,2,32.3532,13.9041,Libya,Middle East & North Africa,Tripoli,Unarmed Assault,Unknown,Police,FARC,0,0,5,5
+2019,2,10,10.5307,14.1758,Cameroon,Sub-Saharan Africa,Maroua,Hijacking,Melee,Religious Figures/Institutions,PKK,0,0,3,3
+2007,3,24,40.5986,69.26,Uzbekistan,Central Asia,Tashkent,Hostage Taking (Kidnapping),Unknown,NGO,Al-Shabaab,0,0,4,3
+2000,9,28,9.7631,-66.446,Venezuela,South America,Caracas,Facility/Infrastructure Attack,Firearms,Police,Taliban,0,0,0,1
+2017,9,3,31.1535,-106.6957,Mexico,North America,Juarez,Assassination,Firearms,Educational Institution,Boko Haram,1,1,4,3
+2004,3,6,-6.6802,107.4495,Indonesia,Southeast Asia,Jakarta,Armed Assault,Vehicle,Business,Boko Haram,0,0,6,10
+2017,8,21,14.9341,44.129,Yemen,Middle East & North Africa,Sanaa,Facility/Infrastructure Attack,Explosives,Business,IRA,0,0,12,7
+2023,10,16,27.8565,76.5133,India,South Asia,New Delhi,Assassination,Incendiary,Government (General),IRA,0,0,1,11
+2006,6,16,32.9499,13.1875,Libya,Middle East & North Africa,Tripoli,Hostage Taking (Kidnapping),Incendiary,Transportation,IRA,1,0,0,5
+2018,10,12,37.2424,68.6777,Afghanistan,South Asia,Kunduz,Hijacking,Incendiary,Religious Figures/Institutions,Al-Qaeda,0,0,4,16
+2022,12,21,23.336,90.4493,Bangladesh,South Asia,Dhaka,Hostage Taking (Kidnapping),Incendiary,Educational Institution,Al-Qaeda,1,1,1,7
+2014,6,25,55.8751,37.8313,Russia,Eastern Europe,Moscow,Assassination,Melee,NGO,ISIS,0,0,4,2
+2008,3,18,30.1641,34.0528,Egypt,Middle East & North Africa,Sinai,Armed Assault,Incendiary,Police,TTP,0,1,0,5
+2020,1,27,8.3382,124.1138,Philippines,Southeast Asia,Mindanao,Facility/Infrastructure Attack,Vehicle,Religious Figures/Institutions,Naxalites,0,1,5,11
+2017,9,16,-0.715,43.3186,Somalia,Sub-Saharan Africa,Kismayo,Unarmed Assault,Unknown,Government (General),FARC,1,0,0,1
+2004,8,17,11.8588,-0.9026,Burkina Faso,Sub-Saharan Africa,Ouagadougou,Facility/Infrastructure Attack,Explosives,Religious Figures/Institutions,FARC,0,0,3,0
+2016,3,15,33.9125,71.7635,Pakistan,South Asia,Peshawar,Armed Assault,Firearms,Transportation,ETA,0,0,0,10
+2011,1,8,50.9358,30.5313,Ukraine,Eastern Europe,Kyiv,Hijacking,Melee,Civilians,ISIS,1,0,10,2
+2021,4,17,36.7266,39.2757,Syria,Middle East & North Africa,Raqqa,Hijacking,Incendiary,Religious Figures/Institutions,Hamas,1,1,3,0
+2020,6,4,36.5631,38.891,Syria,Middle East & North Africa,Raqqa,Unarmed Assault,Vehicle,Business,LTTE,1,0,0,0
+2012,11,13,31.6536,74.3948,Pakistan,South Asia,Lahore,Assassination,Vehicle,Police,Hezbollah,1,0,3,11
+2016,7,12,23.1371,90.7824,Bangladesh,South Asia,Dhaka,Hijacking,Unknown,Educational Institution,Hamas,1,1,0,9
+2016,3,15,33.8515,44.4663,Iraq,Middle East & North Africa,Baghdad,Armed Assault,Firearms,Police,Hezbollah,1,0,3,1
+2005,6,20,30.1359,67.5116,Pakistan,South Asia,Quetta,Unarmed Assault,Unknown,Police,IRA,0,0,1,2
+2023,2,16,-12.9863,41.0422,Mozambique,Sub-Saharan Africa,Pemba,Unarmed Assault,Melee,Journalists & Media,Boko Haram,0,0,1,0
+2000,4,2,49.1952,2.8736,France,Western Europe,Paris,Armed Assault,Vehicle,Transportation,Al-Qaeda,0,0,0,1
+2018,3,2,35.3792,38.7637,Syria,Middle East & North Africa,Raqqa,Armed Assault,Incendiary,Government (General),Hezbollah,1,0,1,6
+2023,12,22,33.5918,43.9675,Iraq,Middle East & North Africa,Fallujah,Hijacking,Incendiary,Police,Boko Haram,1,0,1,9
+2015,3,8,43.2671,46.4646,Russia,Eastern Europe,Grozny,Hijacking,Melee,Transportation,Al-Qaeda,0,0,3,0
+2008,3,24,-5.9261,106.5652,Indonesia,Southeast Asia,Jakarta,Unarmed Assault,Incendiary,Journalists & Media,ETA,0,0,3,0
+2004,2,1,18.9118,-98.5638,Mexico,North America,Mexico City,Armed Assault,Vehicle,NGO,IRA,1,0,0,9
+2005,8,20,33.5348,35.7236,Lebanon,Middle East & North Africa,Beirut,Facility/Infrastructure Attack,Explosives,NGO,Hezbollah,0,0,3,3
+2019,9,27,34.2135,68.7182,Afghanistan,South Asia,Kabul,Bombing/Explosion,Unknown,Religious Figures/Institutions,Hezbollah,1,0,0,1
+2022,9,14,36.1971,39.7083,Syria,Middle East & North Africa,Raqqa,Armed Assault,Unknown,Journalists & Media,Naxalites,1,0,6,7
+2013,3,9,34.3495,35.759,Lebanon,Middle East & North Africa,Beirut,Hostage Taking (Kidnapping),Unknown,Civilians,Unknown,0,0,0,11
+2013,5,7,43.5112,77.0417,Kazakhstan,Central Asia,Almaty,Bombing/Explosion,Chemical,Military,ETA,0,0,0,2
+2020,4,23,-22.9694,-42.5897,Brazil,South America,Rio de Janeiro,Hijacking,Incendiary,Religious Figures/Institutions,FARC,0,0,2,2
+2008,9,14,2.8089,44.7202,Somalia,Sub-Saharan Africa,Mogadishu,Facility/Infrastructure Attack,Incendiary,Transportation,Al-Shabaab,1,0,1,0
+2017,9,16,49.2398,3.0209,France,Western Europe,Paris,Armed Assault,Incendiary,NGO,Hezbollah,1,0,0,9
+2018,6,25,-4.6545,15.9792,Democratic Republic of the Congo,Sub-Saharan Africa,Kinshasa,Unarmed Assault,Melee,Government (General),LTTE,0,0,4,8
+2022,3,4,51.7488,14.1455,Germany,Western Europe,Berlin,Armed Assault,Vehicle,Religious Figures/Institutions,Naxalites,1,0,3,1
+2005,7,21,15.879,43.8574,Yemen,Middle East & North Africa,Sanaa,Bombing/Explosion,Unknown,Police,LTTE,0,0,6,0
+2002,2,9,40.7429,-3.6379,Spain,Western Europe,Madrid,Armed Assault,Incendiary,Police,ETA,0,0,0,1
+2019,11,17,31.7418,-117.087,Mexico,North America,Tijuana,Assassination,Chemical,Transportation,Taliban,0,0,1,4
+2000,4,28,41.0606,1.8529,Spain,Western Europe,Barcelona,Unarmed Assault,Unknown,NGO,Al-Shabaab,0,0,4,0
+2016,12,8,-5.5634,107.4086,Indonesia,Southeast Asia,Jakarta,Facility/Infrastructure Attack,Firearms,Military,FARC,0,0,3,4
+2002,5,25,25.4877,66.5065,Pakistan,South Asia,Karachi,Hostage Taking (Kidnapping),Incendiary,Religious Figures/Institutions,PKK,0,0,0,1
+2002,9,10,33.3593,12.4465,Libya,Middle East & North Africa,Tripoli,Unarmed Assault,Unknown,NGO,Unknown,1,0,2,26
+2007,10,7,-3.4739,39.7023,Kenya,Sub-Saharan Africa,Mombasa,Hostage Taking (Kidnapping),Melee,Transportation,Taliban,1,0,0,8
+2003,9,3,8.0274,123.7909,Philippines,Southeast Asia,Mindanao,Facility/Infrastructure Attack,Incendiary,Educational Institution,ISIS,1,1,0,12
+2022,8,13,2.3167,45.8699,Somalia,Sub-Saharan Africa,Mogadishu,Facility/Infrastructure Attack,Melee,Civilians,Naxalites,1,1,6,4
+2021,8,19,50.8779,4.2407,Belgium,Western Europe,Brussels,Hijacking,Explosives,Journalists & Media,ISIS,1,0,1,2
+2021,12,8,24.2482,90.5751,Bangladesh,South Asia,Dhaka,Hijacking,Incendiary,Religious Figures/Institutions,FARC,0,0,6,2
+2007,5,3,-0.1867,42.7551,Somalia,Sub-Saharan Africa,Kismayo,Hostage Taking (Kidnapping),Chemical,Educational Institution,ISIS,0,0,2,6
+2006,10,9,3.0309,-76.5112,Colombia,South America,Cali,Armed Assault,Chemical,Civilians,Hamas,0,0,0,2
+2008,4,8,9.0383,7.7416,Nigeria,Sub-Saharan Africa,Abuja,Armed Assault,Unknown,Civilians,LTTE,1,0,9,4
+2003,2,22,41.3988,28.987,Turkey,Middle East & North Africa,Istanbul,Unarmed Assault,Melee,Transportation,Taliban,0,0,3,0
+2019,6,16,10.087,-67.125,Venezuela,South America,Caracas,Facility/Infrastructure Attack,Unknown,Business,Hamas,0,1,1,0
+2008,7,8,-6.784,106.4879,Indonesia,Southeast Asia,Jakarta,Hijacking,Vehicle,Government (General),Taliban,1,0,10,2
+2001,9,12,43.2093,76.4588,Kazakhstan,Central Asia,Almaty,Hostage Taking (Kidnapping),Unknown,Government (General),Hamas,0,0,2,1
+2010,12,1,50.3812,4.3785,Belgium,Western Europe,Brussels,Bombing/Explosion,Chemical,Civilians,PKK,0,0,0,0
+2005,9,9,-0.8075,41.8038,Somalia,Sub-Saharan Africa,Kismayo,Armed Assault,Incendiary,Journalists & Media,ETA,1,0,0,2
+2013,4,14,15.0831,121.0993,Philippines,Southeast Asia,Manila,Unarmed Assault,Unknown,Educational Institution,FARC,1,0,2,1
+2018,3,19,30.8728,66.8322,Pakistan,South Asia,Quetta,Unarmed Assault,Firearms,Police,TTP,1,0,0,4
+2012,4,5,39.7991,-3.9506,Spain,Western Europe,Madrid,Hijacking,Chemical,Government (General),Hamas,0,0,2,10
+2004,11,17,14.5887,121.3076,Philippines,Southeast Asia,Manila,Facility/Infrastructure Attack,Chemical,Educational Institution,Naxalites,1,0,14,0
+2012,2,23,14.9916,44.0383,Yemen,Middle East & North Africa,Sanaa,Armed Assault,Explosives,Civilians,LTTE,1,0,1,2
+2014,12,11,34.5402,35.8375,Lebanon,Middle East & North Africa,Beirut,Assassination,Incendiary,Educational Institution,Hezbollah,1,0,2,1
+2003,6,28,49.3741,3.0801,France,Western Europe,Paris,Unarmed Assault,Vehicle,Civilians,ETA,0,1,5,0
+2011,6,22,12.8682,-8.7182,Mali,Sub-Saharan Africa,Bamako,Facility/Infrastructure Attack,Melee,Journalists & Media,Unknown,0,0,0,0
+2014,11,5,12.8161,-7.7015,Mali,Sub-Saharan Africa,Bamako,Hijacking,Firearms,Educational Institution,PKK,1,0,0,2
+2002,3,11,29.963,31.0235,Egypt,Middle East & North Africa,Cairo,Armed Assault,Incendiary,Educational Institution,IRA,1,0,0,2
+2008,8,25,32.0919,-107.1104,Mexico,North America,Juarez,Hijacking,Incendiary,Transportation,Hezbollah,1,0,0,2
+2000,3,24,30.8888,67.2667,Pakistan,South Asia,Quetta,Armed Assault,Chemical,Business,TTP,0,0,3,2
+2003,2,3,31.8399,-107.2078,Mexico,North America,Juarez,Hostage Taking (Kidnapping),Vehicle,Military,Taliban,1,0,3,12
+2003,5,20,29.6801,34.5979,Egypt,Middle East & North Africa,Sinai,Armed Assault,Explosives,Religious Figures/Institutions,Al-Shabaab,0,0,3,0
+2014,11,5,13.2939,-8.6937,Mali,Sub-Saharan Africa,Bamako,Armed Assault,Vehicle,Government (General),Taliban,0,0,2,0
+2015,8,28,8.2437,38.6223,Ethiopia,Sub-Saharan Africa,Addis Ababa,Facility/Infrastructure Attack,Incendiary,NGO,Hamas,0,1,1,3
+2005,10,20,43.3615,76.215,Kazakhstan,Central Asia,Almaty,Hostage Taking (Kidnapping),Chemical,Transportation,PKK,1,1,0,4
+2017,4,26,50.1991,30.8897,Ukraine,Eastern Europe,Kyiv,Bombing/Explosion,Melee,Business,FARC,1,0,3,9
+2000,1,17,10.899,14.2049,Cameroon,Sub-Saharan Africa,Maroua,Hijacking,Unknown,Government (General),FARC,1,0,3,1
+2022,8,25,36.0251,43.5814,Iraq,Middle East & North Africa,Mosul,Hostage Taking (Kidnapping),Incendiary,Military,Naxalites,1,0,1,8
+2000,9,12,12.3619,13.7321,Nigeria,Sub-Saharan Africa,Maiduguri,Armed Assault,Melee,NGO,PKK,1,0,7,2
+2012,4,9,19.1422,-99.0015,Mexico,North America,Mexico City,Bombing/Explosion,Melee,Civilians,Hezbollah,1,0,1,4
+2008,7,7,41.6279,69.5414,Uzbekistan,Central Asia,Tashkent,Hijacking,Explosives,Government (General),Al-Qaeda,1,0,1,0
+2019,8,9,50.7388,3.7802,Belgium,Western Europe,Brussels,Unarmed Assault,Vehicle,Journalists & Media,Boko Haram,1,0,6,2
+2017,1,6,14.7991,43.4477,Yemen,Middle East & North Africa,Sanaa,Bombing/Explosion,Incendiary,Business,Al-Qaeda,1,0,3,5

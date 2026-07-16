@@ -1,0 +1,17 @@
+[
+  {
+    "content": "Inspect project dependencies and app error",
+    "active_form": "Inspecting dependencies and app error",
+    "status": "completed"
+  },
+  {
+    "content": "Install missing libraries",
+    "active_form": "Installing missing libraries",
+    "status": "completed"
+  },
+  {
+    "content": "Restart and verify the app",
+    "active_form": "Restarting and verifying the app",
+    "status": "completed"
+  }
+]

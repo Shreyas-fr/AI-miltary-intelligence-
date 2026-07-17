@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import './App.css'
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://127.0.0.1:8000'
@@ -11,7 +11,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     setIsLoading(true)
     setError('')
 
@@ -39,11 +39,11 @@ function App() {
     } finally {
       setIsLoading(false)
     }
-  }
+  }, [epsKm, minSamples])
 
   useEffect(() => {
     void fetchData()
-  }, [])
+  }, [fetchData])
 
   const handleSubmit = (event) => {
     event.preventDefault()

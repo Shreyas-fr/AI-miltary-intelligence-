@@ -1,33 +1,47 @@
 # Predictive Tactical Intelligence & Hotspot Forecasting
 
-A Streamlit decision-support dashboard using GTD incident data. It discovers geographic threat hotspots without political-boundary assumptions, ranks them with a casualty-based Threat Severity Index (TSI), and forecasts hotspot trends using AIC-selected SARIMA models validated against linear regression.
+This project now uses a **React frontend** and a **FastAPI backend** for GTD-based military intelligence analysis.
 
-## Pipeline
+## Architecture
 
-1. **DuckDB ingestion** queries the CSV directly and selects only required columns.
-2. **TSI scoring:** `(3 × fatalities + injuries)^0.85 × success factor`, where the factor is 1.0 for a successful event and 0.4 otherwise.
-3. **DBSCAN clustering** uses haversine great-circle distance and labels isolated events as noise.
-4. **Forecasting** aggregates annual TSI or incident count, selects a SARIMA order by AIC, evaluates held-out years using RMSE/MAE, compares linear regression, then produces an 80% interval.
-5. **Streamlit UI** preserves detection results in session state for forecasting.
+- `backend/main.py` exposes REST endpoints for health checks, dataset summary, and hotspot detection.
+- `frontend/` contains a Vite + React app that consumes the FastAPI API.
+- `utils/hotspot_utils.py` contains TSI scoring, hotspot clustering, and forecasting logic.
 
 ## Run
+
+### 1) Start backend (FastAPI)
 
 ```bash
 python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
-streamlit run app.py
+uvicorn backend.main:app --reload
 ```
 
-Place a GTD-compatible CSV at `data/globalterrorism.csv`. Required hotspot columns are `latitude`, `longitude`, `nkill`, `nwound`, `success`, `iyear`, `country_txt`, and `region_txt`.
+### 2) Start frontend (React)
 
-Open **Hotspot Detection** first, adjust DBSCAN parameters, and then open **Forecasting**. Forecast downloads are available as CSV.
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Frontend runs at `http://localhost:5173` and expects backend at `http://127.0.0.1:8000`.
+You can override this with `VITE_API_BASE_URL`.
+
+## API Endpoints
+
+- `GET /api/health`
+- `GET /api/summary`
+- `GET /api/hotspots?eps_km=100&min_samples=15`
 
 ## Verify
 
 ```bash
 python -m unittest discover -s tests -v
-python -m compileall app.py pages utils
+python -m compileall backend utils
+cd frontend && npm run build
 ```
 
-The system is an assisted analytical tool. Forecasts are estimates derived from historical data and should not be treated as autonomous operational recommendations.
+Place a GTD-compatible CSV at `data/globalterrorism.csv`.

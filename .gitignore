@@ -1,0 +1,32 @@
+# Python
+venv/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Data & DBs
+data/*.db
+data/intelligence.db
+globalterrorismdb_0718dist.csv
+archive.zip
+
+# Node / Frontend
+frontend/node_modules/
+frontend/dist/
+
+# OS / IDE
+.DS_Store
+.vscode/
+.devcontainer/
+.continue/
+.pytest_cache/
+
+# Streamlit
+.streamlit/credentials.toml
+.streamlit/machine_id_v4
+.streamlit/secrets.toml
+
+# Logs
+terminal_logs/
+*.log

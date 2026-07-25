@@ -1,18 +1,3 @@
-{
-  "models": [
-    {
-      "title": "Codestral",
-      "provider": "ollama",
-      "model": "codestral"
-    }
-  ],
-  "tabAutocompleteModel": {
-    "title": "Codestral",
-    "provider": "ollama",
-    "model": "codestral"
-  }
-}
-
 [*]
 cpp_indent_braces=false
 cpp_indent_multi_line_relative_to=innermost_parenthesis

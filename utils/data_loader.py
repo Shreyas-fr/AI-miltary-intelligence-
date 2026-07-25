@@ -39,3 +39,46 @@ def query_data(sql_query: str) -> pd.DataFrame:
 def load_data() -> pd.DataFrame:
     """Load the complete dataset only for legacy pages that require it."""
     return query_data(f"SELECT * FROM {TABLE_TOKEN}")
+
+
+# ---------------------------------------------------------------------------
+# Combined data access (GTD historical + live intelligence DB)
+# ---------------------------------------------------------------------------
+
+@st.cache_data(ttl=300, show_spinner=False)
+def query_combined(sql: str) -> pd.DataFrame:
+    """Execute SQL against the combined view (GTD CSV + live_events DB).
+
+    Use ``combined_incidents`` as the table name in your SQL.
+    Results are cached for 5 minutes to balance freshness and performance.
+
+    Example
+    -------
+    >>> df = query_combined(
+    ...     "SELECT country_txt, COUNT(*) as cnt "
+    ...     "FROM combined_incidents GROUP BY country_txt ORDER BY cnt DESC"
+    ... )
+    """
+    try:
+        from database.intelligence_db import query_combined as _db_query
+        return _db_query(sql)
+    except Exception:
+        # Graceful fallback: query GTD only
+        gtd_sql = sql.replace("combined_incidents", TABLE_TOKEN)
+        if TABLE_TOKEN in gtd_sql:
+            return query_data(gtd_sql)
+        return pd.DataFrame()
+
+
+@st.cache_data(ttl=300, show_spinner="Loading combined intelligence dataset...")
+def load_combined() -> pd.DataFrame:
+    """Load the full merged dataset (GTD historical + live events).
+
+    Falls back to GTD-only if the intelligence DB is not yet initialised.
+    """
+    try:
+        from database.intelligence_db import load_combined as _db_load
+        return _db_load()
+    except Exception:
+        return load_data()
+

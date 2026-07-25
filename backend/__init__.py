@@ -1,1 +1,1 @@
-"""Backend package for FastAPI service."""
+"""FastAPI backend package for the intelligence platform."""

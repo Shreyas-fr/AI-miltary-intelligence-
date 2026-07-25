@@ -81,9 +81,11 @@ class ThreatPredictionRequest(BaseModel):
     claimed: int = 0
 
 
+@app.get("/")
+@app.get("/api")
 @app.get("/api/health")
 def health() -> dict[str, str]:
-    return {"status": "ok", "service": "ai-military-intelligence-api"}
+    return {"status": "ok", "service": "ai-military-intelligence-api", "version": "1.0.0"}
 
 
 @app.get("/api/overview")

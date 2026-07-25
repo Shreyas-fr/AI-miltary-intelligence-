@@ -95,17 +95,30 @@ def run_dbscan(lat_arr, lon_arr, eps_km_val, min_samp):
       • handles arbitrarily shaped hotspots (not just circular)
     """
     R_EARTH = 6371.0
-    coords = np.radians(np.column_stack([lat_arr, lon_arr]))
     eps_rad = eps_km_val / R_EARTH
 
-    labels = DBSCAN(
+    # 1. Compress to unique coordinates to prevent OOM
+    df_coords = pd.DataFrame({'lat': lat_arr, 'lon': lon_arr})
+    unique_df = df_coords.groupby(['lat', 'lon']).size().reset_index(name='weight')
+    
+    unique_coords = np.radians(np.column_stack([unique_df["lat"].values, unique_df["lon"].values]))
+
+    # 2. Run DBSCAN on compressed data
+    db = DBSCAN(
         eps=eps_rad,
         min_samples=min_samp,
         algorithm="ball_tree",
         metric="haversine",
         n_jobs=-1
-    ).fit_predict(coords)
-
+    )
+    db.fit(unique_coords, sample_weight=unique_df['weight'].values)
+    
+    # 3. Map labels back to original dataset
+    unique_df['cluster'] = db.labels_
+    unique_df.set_index(['lat', 'lon'], inplace=True)
+    mapping = unique_df['cluster'].to_dict()
+    
+    labels = np.array([mapping[(lat, lon)] for lat, lon in zip(lat_arr, lon_arr)])
     return labels
 
 labels = run_dbscan(

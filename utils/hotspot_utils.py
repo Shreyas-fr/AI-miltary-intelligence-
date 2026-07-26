@@ -12,6 +12,7 @@ Contains:
 """
 
 import warnings
+import streamlit as st
 
 import numpy as np
 import pandas as pd
@@ -31,6 +32,7 @@ from utils.tsi import compute_tsi as compute_tsi_canonical
 # ===================================================================
 # 1. Threat Severity Index (TSI)
 # ===================================================================
+@st.cache_data(max_entries=10, show_spinner=False)
 def compute_tsi(
     df: pd.DataFrame,
     kill_weight: float = 3.0,
@@ -50,6 +52,7 @@ def compute_tsi(
 # ===================================================================
 # 2. DBSCAN Geospatial Hotspot Clustering
 # ===================================================================
+@st.cache_data(max_entries=10, show_spinner=False)
 def cluster_hotspots(
     df: pd.DataFrame,
     eps_km: float = 100.0,
@@ -138,6 +141,7 @@ def _grid_search_sarima(train: pd.Series):
     return best_fit, best_order
 
 
+@st.cache_data(max_entries=10, show_spinner=False)
 def forecast_hotspot(series: pd.Series, test_years: int = 3, forecast_years: int = 5) -> dict:
     """
     Train/test-splits a hotspot's yearly series, fits the best SARIMA

@@ -1,4 +1,7 @@
 import os
+# Fix for PyArrow mimalloc memory crashes on Apple Silicon (M-series Macs)
+os.environ["ARROW_DEFAULT_MEMORY_POOL"] = "system"
+
 import streamlit as st
 
 st.set_page_config(

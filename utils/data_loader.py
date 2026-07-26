@@ -21,7 +21,6 @@ def _dataset_sql() -> str:
     return f"read_csv_auto('{escaped}', header=true, sample_size=-1, all_varchar=false)"
 
 
-@st.cache_data(show_spinner=False)
 def query_data(sql_query: str) -> pd.DataFrame:
     """Run SQL directly against the GTD CSV without first loading it into pandas.
 
@@ -45,7 +44,6 @@ def load_data() -> pd.DataFrame:
 # Combined data access (GTD historical + live intelligence DB)
 # ---------------------------------------------------------------------------
 
-@st.cache_data(ttl=300, show_spinner=False)
 def query_combined(sql: str) -> pd.DataFrame:
     """Execute SQL against the combined view (GTD CSV + live_events DB).
 

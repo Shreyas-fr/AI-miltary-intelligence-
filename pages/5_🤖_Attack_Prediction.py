@@ -24,21 +24,25 @@ st.markdown("##### Enter incident details to predict the most likely attack type
 # -------------------------
 # Load Models & Preprocessors
 # -------------------------
-try:
-    model = joblib.load("models/attack_prediction_model.pkl")
-    target_encoder = joblib.load("models/target_encoder.pkl")
-    target_feature_encoder = joblib.load("models/target_feature_encoder.pkl")
-    cat_imputer = joblib.load("models/cat_imputer.pkl")
-    num_imputer = joblib.load("models/num_imputer.pkl")
-except FileNotFoundError:
-    import train_models
-    with st.spinner("Training ML models for the first time..."):
+@st.cache_resource(show_spinner="Loading ML models...")
+def load_attack_models():
+    try:
+        model = joblib.load("models/attack_prediction_model.pkl")
+        target_encoder = joblib.load("models/target_encoder.pkl")
+        target_feature_encoder = joblib.load("models/target_feature_encoder.pkl")
+        cat_imputer = joblib.load("models/cat_imputer.pkl")
+        num_imputer = joblib.load("models/num_imputer.pkl")
+    except FileNotFoundError:
+        import train_models
         train_models.train_all()
-    model = joblib.load("models/attack_prediction_model.pkl")
-    target_encoder = joblib.load("models/target_encoder.pkl")
-    target_feature_encoder = joblib.load("models/target_feature_encoder.pkl")
-    cat_imputer = joblib.load("models/cat_imputer.pkl")
-    num_imputer = joblib.load("models/num_imputer.pkl")
+        model = joblib.load("models/attack_prediction_model.pkl")
+        target_encoder = joblib.load("models/target_encoder.pkl")
+        target_feature_encoder = joblib.load("models/target_feature_encoder.pkl")
+        cat_imputer = joblib.load("models/cat_imputer.pkl")
+        num_imputer = joblib.load("models/num_imputer.pkl")
+    return model, target_encoder, target_feature_encoder, cat_imputer, num_imputer
+
+model, target_encoder, target_feature_encoder, cat_imputer, num_imputer = load_attack_models()
 
 
 # -------------------------

@@ -150,11 +150,12 @@ def ingest_live_events(
         )
 
         fresh = new_df[~new_df["source_id"].isin(existing_ids)]
+        fresh = fresh.drop_duplicates(subset=["source_id"])
         count = len(fresh)
 
         if count > 0:
             conn.register("_incoming", fresh)
-            conn.execute("INSERT INTO live_events SELECT * FROM _incoming")
+            conn.execute("INSERT INTO live_events SELECT * FROM _incoming ON CONFLICT (source_id) DO NOTHING")
             conn.execute(
                 "INSERT INTO event_log VALUES (?, ?, ?, ?)",
                 [

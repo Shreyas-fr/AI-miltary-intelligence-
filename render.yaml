@@ -7,3 +7,5 @@ services:
     envVars:
       - key: PYTHON_VERSION
         value: 3.10.12
+      - key: ARROW_DEFAULT_MEMORY_POOL
+        value: system

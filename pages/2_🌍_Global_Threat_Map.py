@@ -248,18 +248,13 @@ view_state = pdk.ViewState(
     min_zoom=1, max_zoom=15, pitch=0, bearing=0
 )
 
-tooltip = {
-    "html": "<b>Cluster {cluster_id}</b><br/>Incidents: {count}<br/>Fatalities: {nkill_sum}",
-    "style": {"background": "#0f3460", "color": "white", "font-family": "'Inter', sans-serif"}
-}
-
 r = pdk.Deck(
     layers=layers,
     initial_view_state=view_state,
-    tooltip=tooltip,
+    tooltip=True,
     map_style=MAP_STYLES[selected_style],
 )
-st.pydeck_chart(r)
+st.pydeck_chart(r, use_container_width=True)
 
 # -----------------------------------------------
 # Cluster Hotspot Table

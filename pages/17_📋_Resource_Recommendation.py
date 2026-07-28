@@ -1,3 +1,4 @@
+import concurrent.futures
 import os
 
 import pandas as pd
@@ -104,16 +105,25 @@ historical = load_data()
 
 live_events = pd.DataFrame()
 live_count = 0
+live_error_msg = None
 if use_live_feed:
     try:
-        live_df = fetch_gdelt_events(timespan="1d", max_records=50)
-        if not live_df.empty and "country" in live_df.columns:
-            country_live = live_df[
-                live_df["country"].astype(str).str.lower() == selected_country.lower()
-            ]
-            live_count = len(country_live)
-    except Exception:
+        with st.spinner("Fetching public-source conflict intelligence from GDELT..."):
+            with concurrent.futures.ThreadPoolExecutor() as executor:
+                future = executor.submit(fetch_gdelt_events, timespan="1d", max_records=50)
+                live_df = future.result(timeout=5)
+                
+            if not live_df.empty and "country" in live_df.columns:
+                country_live = live_df[
+                    live_df["country"].astype(str).str.lower() == selected_country.lower()
+                ]
+                live_count = len(country_live)
+    except concurrent.futures.TimeoutError:
         live_count = 0
+        live_error_msg = "Live feed timeout (exceeded 5s). Falling back to historical data."
+    except Exception as e:
+        live_count = 0
+        live_error_msg = f"Live feed error ({e}). Falling back to historical data."
 
 # 7a. Compute risk for selected country
 risk = compute_country_risk(selected_country, historical, live_events if not live_events.empty else None)
@@ -143,6 +153,9 @@ with st.expander("ℹ️ Operational Context & Assessment Factors", expanded=Fal
     c2.metric("Dominant Attack Type", dominant_attack or "N/A")
     c3.metric("Activity Trend", trend.capitalize())
     c4.metric("Live 24h Conflict Events", live_count)
+
+if live_error_msg:
+    st.warning(live_error_msg)
 
 # 8a. KPI Row
 kpi_col1, kpi_col2, kpi_col3 = st.columns(3)

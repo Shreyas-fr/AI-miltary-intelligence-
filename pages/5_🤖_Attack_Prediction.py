@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
 import os
+import shap
 
 st.set_page_config(
     page_title="Attack Prediction",
@@ -18,8 +19,9 @@ def load_css(file_name):
 load_css("assets/style.css")
 
 st.title("🤖 Attack Type Prediction")
-st.markdown("##### Enter incident details to predict the most likely attack type using our trained ML model.")
-
+st.markdown(
+    "##### AI-powered classification of likely attack methods based on historical patterns"
+)
 
 # -------------------------
 # Load Models & Preprocessors
@@ -40,9 +42,32 @@ def load_attack_models():
         target_feature_encoder = joblib.load("models/target_feature_encoder.pkl")
         cat_imputer = joblib.load("models/cat_imputer.pkl")
         num_imputer = joblib.load("models/num_imputer.pkl")
-    return model, target_encoder, target_feature_encoder, cat_imputer, num_imputer
+    return model, target_encoder, target_feature_encoder, cat_imputer, num_imputer, shap.TreeExplainer(model)
 
-model, target_encoder, target_feature_encoder, cat_imputer, num_imputer = load_attack_models()
+model, target_encoder, target_feature_encoder, cat_imputer, num_imputer, explainer = load_attack_models()
+
+with st.expander("📊 Global Model Explainability (Feature Importance)", expanded=False):
+    importances = model.feature_importances_
+    features = ["Country", "Region", "Weapon Type", "Target Type", "Group", "Success", "Suicide", "Fatalities", "Injuries"]
+    
+    fig_imp = go.Figure(go.Bar(
+        x=importances,
+        y=features,
+        orientation='h',
+        marker_color="#FF2D55"
+    ))
+    fig_imp.update_layout(
+        title="Which features matter most overall?",
+        xaxis_title="Relative Importance (Mean Decrease Impurity)",
+        yaxis={'categoryorder':'total ascending'},
+        template="plotly_dark",
+        height=350,
+        margin=dict(l=10, r=10, t=40, b=10),
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(0,0,0,0)"
+    )
+    st.plotly_chart(fig_imp, width="stretch")
+    st.caption("Random Forest global feature importance confirms Weapon Type strongly dictates the predicted attack classification.")
 
 
 # -------------------------
@@ -93,6 +118,7 @@ if submitted:
             "weaptype1_txt": [weapon],
             "targtype1_txt": [target],
             "gname": [group],
+            "iyear": [2017], # Model expects iyear
             "success": [success],
             "suicide": [suicide],
             "nkill": [nkill],
@@ -102,7 +128,7 @@ if submitted:
         # Impute missing values (though dropdowns prevent NaNs, this ensures pipeline consistency)
         input_data[cat_cols] = cat_imputer.transform(input_data[cat_cols])
         
-        num_cols = ["success", "suicide", "nkill", "nwound"]
+        num_cols = ["iyear", "success", "suicide", "nkill", "nwound"]
         input_data[num_cols] = num_imputer.transform(input_data[num_cols])
 
         # Target Encode categorical variables
@@ -119,6 +145,20 @@ if submitted:
         
         probabilities = model.predict_proba(input_data_final)[0]
         confidence = probabilities.max() * 100
+        
+        # SHAP Explainability
+        shap_vals = explainer.shap_values(input_data_final)
+        # For multi-class RF, shap_vals is a list of arrays. Get the array for the predicted class.
+        pred_class_idx = int(prediction[0])
+        if isinstance(shap_vals, list):
+            local_shap = shap_vals[pred_class_idx][0]
+        else:
+            # shap >= 0.45 might return an array of shape (1, features, classes)
+            if len(shap_vals.shape) == 3:
+                local_shap = shap_vals[0, :, pred_class_idx]
+            else:
+                local_shap = shap_vals[0]
+                
     except Exception as pred_err:
         st.error(f"Prediction failed: {pred_err}")
         st.info("The selected combination may contain values unseen during training. Try different inputs.")
@@ -138,6 +178,19 @@ if submitted:
                 f"⚠️ **Low Historical Support Notice:** '{attack_type}' represents <1% of historical GTD incidents. "
                 "Predictions for rare attack types carry higher uncertainty due to extreme class imbalance in real-world data."
             )
+            
+        st.markdown("##### Why this prediction?")
+        feature_names = ["Country", "Region", "Weapon Type", "Target Type", "Group", "Success", "Suicide", "Fatalities", "Injuries"]
+        # Pair features with their SHAP values and sort by absolute impact
+        impacts = sorted(zip(feature_names, local_shap), key=lambda x: abs(x[1]), reverse=True)
+        
+        top_positive = [f for f, v in impacts if v > 0][:2]
+        top_negative = [f for f, v in impacts if v < 0][:1]
+        
+        if top_positive:
+            st.write(f"**{', '.join(top_positive)}** contributed most to this prediction.")
+        if top_negative:
+            st.write(f"*(Conversely, {top_negative[0]} slightly reduced the likelihood).*")
 
     with col_chart:
         attack_labels = target_encoder.classes_

@@ -199,6 +199,11 @@ def compute_country_risk(
 
     total_events = max(len(historical), 1)
     country_events = len(country_hist)
+    
+    # CLAMPING RATIONALE (0.08 / 8%): 
+    # High-volume conflict zones (e.g., Iraq, Afghanistan) account for massive shares of total GTD incidents.
+    # Without a ceiling, they warp the 0-100 scale, causing most other countries to score near zero. 
+    # Clamping at 8% of global incidents ensures the worst outliers max out at 100/100, preserving dynamic range for the rest of the world.
     historical_activity = min(country_events / max(total_events * 0.08, 1), 1) * 100
 
     recent_events = min(len(country_live) / 10, 1) * 100
@@ -214,6 +219,11 @@ def compute_country_risk(
             lat_bin=geo_events["latitude"].round(1),
             lon_bin=geo_events["longitude"].round(1),
         )
+        
+        # CLAMPING RATIONALE (250 incidents):
+        # A 0.1 x 0.1 degree grid cell is roughly 11km x 11km at the equator.
+        # >250 incidents in a single neighborhood historically denotes a severe, sustained urban conflict zone (e.g., Baghdad, Mogadishu).
+        # We cap density here so extreme multi-thousand incident clusters don't squash the scale for emerging hotspots.
         cluster_density = min(rounded_places.groupby(["lat_bin", "lon_bin"]).size().max() / 250, 1) * 100
 
     instability = 0.0

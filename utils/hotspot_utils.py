@@ -191,16 +191,17 @@ def forecast_hotspot(series: pd.Series, test_years: int = 3, forecast_years: int
         future = full_model.get_forecast(steps=forecast_years)
         future_mean = np.maximum(future.predicted_mean, 0)
         conf_int = future.conf_int(alpha=0.2).clip(lower=0)
+        conf_int_95 = future.conf_int(alpha=0.05).clip(lower=0)
     except Exception:
         X_full = np.arange(len(series)).reshape(-1, 1)
         lr_full = LinearRegression().fit(X_full, series.values)
         X_fut = np.arange(len(series), len(series) + forecast_years).reshape(-1, 1)
         future_mean = pd.Series(np.maximum(lr_full.predict(X_fut), 0))
         conf_int = pd.DataFrame({0: future_mean * 0.8, 1: future_mean * 1.2})
+        conf_int_95 = pd.DataFrame({0: future_mean * 0.6, 1: future_mean * 1.4})
 
 
-    last_year = int(series.index.max())
-    future_years = list(range(last_year + 1, last_year + forecast_years + 1))
+    future_years = np.arange(test.index[-1] + 1, test.index[-1] + 1 + forecast_years)
 
     return {
         "order": order,
@@ -213,4 +214,5 @@ def forecast_hotspot(series: pd.Series, test_years: int = 3, forecast_years: int
         "future_years": future_years,
         "future_forecast": pd.Series(future_mean.values, index=future_years),
         "future_conf_int": conf_int.set_axis(future_years),
+        "future_conf_int_95": conf_int_95.set_axis(future_years),
     }

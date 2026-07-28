@@ -62,7 +62,7 @@ selected_cluster = hotspot_options[selected_label]
 
 value_col = st.sidebar.radio(
     "Forecast target", ["tsi", "count"],
-    format_func=lambda x: "Threat Severity Index" if x == "tsi" else "Attack Count",
+    format_func=lambda x: "Annual Cumulative TSI" if x == "tsi" else "Attack Count",
 )
 test_years = st.sidebar.slider("Validation window (years held out)", 1, 5, 3)
 forecast_years = st.sidebar.slider("Forecast horizon (years)", 1, 10, 5)
@@ -132,14 +132,22 @@ fig.add_trace(go.Scatter(
 fig.add_trace(go.Scatter(
     x=result["future_years"] + result["future_years"][::-1],
     y=list(result["future_conf_int"].iloc[:, 1]) + list(result["future_conf_int"].iloc[:, 0])[::-1],
-    fill="toself", fillcolor="rgba(255,107,107,0.15)",
+    fill="toself", fillcolor="rgba(255,107,107,0.30)",
     line=dict(color="rgba(255,107,107,0)"), name="80% Confidence Interval",
 ))
+
+if "future_conf_int_95" in result:
+    fig.add_trace(go.Scatter(
+        x=result["future_years"] + result["future_years"][::-1],
+        y=list(result["future_conf_int_95"].iloc[:, 1]) + list(result["future_conf_int_95"].iloc[:, 0])[::-1],
+        fill="toself", fillcolor="rgba(255,107,107,0.10)",
+        line=dict(color="rgba(255,107,107,0)"), name="95% Confidence Interval",
+    ))
 
 fig.update_layout(
     title=f"Threat Forecast — {selected_label}",
     xaxis_title="Year",
-    yaxis_title="Threat Severity Index" if value_col == "tsi" else "Attack Count",
+    yaxis_title="Annual Cumulative TSI" if value_col == "tsi" else "Attack Count",
     template="plotly_dark",
     height=480,
     paper_bgcolor="rgba(0,0,0,0)",

@@ -1,5 +1,6 @@
 import streamlit as st
 import plotly.express as px
+import plotly.graph_objects as go
 from utils.data_loader import query_data
 import os
 
@@ -57,6 +58,29 @@ c4.metric("Groups", f"{country_df['gname'].nunique():,}")
 c5.metric("Threat Score", f"{threat_score}/100 ({risk_lvl})")
 
 st.divider()
+
+if 'risk_breakdown' in locals() and risk_breakdown.components:
+    with st.expander("🔍 Threat Score Breakdown", expanded=False):
+        comp = risk_breakdown.components
+        fig_comp = go.Figure(go.Bar(
+            x=list(comp.values()),
+            y=list(comp.keys()),
+            orientation="h",
+            marker_color="#00E5FF",
+            text=[f"{v:.1f}" for v in comp.values()],
+            textposition="auto"
+        ))
+        fig_comp.update_layout(
+            title="How is this score calculated?",
+            xaxis_title="Points Contributed",
+            yaxis={'categoryorder':'total ascending'},
+            template="plotly_dark",
+            height=250,
+            margin=dict(l=10, r=10, t=30, b=10),
+            paper_bgcolor="rgba(0,0,0,0)",
+            plot_bgcolor="rgba(0,0,0,0)"
+        )
+        st.plotly_chart(fig_comp, width="stretch")
 
 # -----------------------------
 # Attacks Over Time

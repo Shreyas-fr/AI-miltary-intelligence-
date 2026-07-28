@@ -46,6 +46,9 @@ def load_attack_models():
 
 model, target_encoder, target_feature_encoder, cat_imputer, num_imputer, explainer = load_attack_models()
 
+import gc
+gc.collect()
+
 with st.expander("📊 Global Model Explainability (Feature Importance)", expanded=False):
     importances = model.feature_importances_
     features = ["Country", "Region", "Weapon Type", "Target Type", "Group", "Success", "Suicide", "Fatalities", "Injuries"]

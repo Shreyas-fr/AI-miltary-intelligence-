@@ -66,6 +66,9 @@ with st.spinner("Running DBSCAN over incident geometry..."):
 st.session_state["hotspot_df"] = df_clustered
 st.session_state["hotspot_summary"] = hotspots
 
+import gc
+gc.collect()
+
 c1, c2, c3 = st.columns(3)
 c1.metric("Hotspots Detected", f"{len(hotspots):,}")
 c2.metric("Incidents in Hotspots", f"{len(df_clustered[df_clustered['cluster'] != -1]):,}")

@@ -1,7 +1,8 @@
 [server]
 headless = true
-port = 8501
-enableCORS = false
+enableCORS = true
+enableXsrfProtection = false
+maxMessageSize = 25
 
 [browser]
 gatherUsageStats = false

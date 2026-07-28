@@ -130,6 +130,9 @@ labels = run_dbscan(
 )
 
 df["cluster"] = labels
+
+import gc
+gc.collect()
 n_clusters = len(set(labels)) - (1 if -1 in labels else 0)
 n_noise    = (labels == -1).sum()
 

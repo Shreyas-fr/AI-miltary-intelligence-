@@ -34,10 +34,34 @@ def query_data(sql_query: str) -> pd.DataFrame:
         return connection.execute(resolved_query).fetch_df()
 
 
-@st.cache_data(show_spinner="Loading GTD dataset...")
+@st.cache_data(max_entries=1, show_spinner="Loading GTD dataset...")
 def load_data() -> pd.DataFrame:
-    """Load the complete dataset only for legacy pages that require it."""
-    return query_data(f"SELECT * FROM {TABLE_TOKEN}")
+    """Load the dataset with aggressive memory optimizations."""
+    usecols = [
+        "iyear", "imonth", "iday", "country_txt", "region_txt", "city",
+        "attacktype1_txt", "weaptype1_txt", "targtype1_txt", "gname",
+        "latitude", "longitude", "nkill", "nwound", "success", "suicide"
+    ]
+    dtypes = {
+        "iyear": "Int32",
+        "nkill": "float32",
+        "nwound": "float32",
+        "latitude": "float32",
+        "longitude": "float32",
+        "country_txt": "category",
+        "region_txt": "category",
+        "attacktype1_txt": "category",
+        "weaptype1_txt": "category",
+        "targtype1_txt": "category",
+        "gname": "category",
+        "success": "Int32",
+        "suicide": "Int32",
+    }
+    # nkill and nwound can have NaNs, pandas float32 is safer for NaNs but the prompt requested int32.
+    # We will read as float32 first, then we can leave as float32 or Int32. 
+    # Using Int32 for integer columns with NaNs.
+    df = pd.read_csv(DB_PATH, usecols=lambda c: c in usecols, dtype=dtypes, encoding="ISO-8859-1", low_memory=False)
+    return df
 
 
 # ---------------------------------------------------------------------------
@@ -68,7 +92,7 @@ def query_combined(sql: str) -> pd.DataFrame:
         return pd.DataFrame()
 
 
-@st.cache_data(ttl=300, show_spinner="Loading combined intelligence dataset...")
+@st.cache_data(max_entries=1, ttl=300, show_spinner="Loading combined intelligence dataset...")
 def load_combined() -> pd.DataFrame:
     """Load the full merged dataset (GTD historical + live events).
 

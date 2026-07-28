@@ -30,7 +30,6 @@ years_list = ["All"] + years_df["iyear"].astype(int).tolist()
 selected_year = st.sidebar.selectbox("Year", years_list)
 
 view_mode = st.sidebar.radio("View Mode", ["Hexbin Density", "DBSCAN Clusters", "Both"], index=2)
-is_mobile = st.sidebar.checkbox("Mobile / Lite Mode", value=True)
 
 st.sidebar.markdown("---")
 st.sidebar.subheader("Map Style")
@@ -210,77 +209,56 @@ polygon_data = cluster_polygons(df)
 # -----------------------------------------------
 # Map Rendering Logic
 # -----------------------------------------------
-if is_mobile:
-    st.info("📱 Mobile / Lite Mode enabled: Rendering 2D map with a maximum of 2,000 incidents to preserve mobile GPU memory.")
-    # Downsample for mobile to guarantee rendering
-    df_mobile = df.sample(n=min(2000, len(df)), random_state=42)
-    
-    import plotly.express as px
-    fig = px.scatter_mapbox(
-        df_mobile,
-        lat="latitude",
-        lon="longitude",
-        color="nkill",
-        size="nkill",
-        color_continuous_scale="Reds",
-        size_max=15,
-        zoom=1,
-        mapbox_style="carto-positron",
-        hover_data={"latitude": False, "longitude": False, "nkill": True}
+layers = []
+
+if view_mode in ["Hexbin Density", "Both"]:
+    hex_layer = pdk.Layer(
+        'HexagonLayer',
+        data=df,
+        get_position=['longitude', 'latitude'],
+        radius=20000,
+        elevation_scale=50,
+        elevation_range=[0, 3000],
+        pickable=True,
+        extruded=True,
+        get_weight="nkill",
+        color_range=[
+            [255, 255, 178],
+            [254, 204, 92],
+            [253, 141, 60],
+            [240, 59, 32],
+            [189, 0, 38]
+        ],
     )
-    fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0}, paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)")
-    st.plotly_chart(fig, use_container_width=True)
+    layers.append(hex_layer)
 
-else:
-    layers = []
-
-    if view_mode in ["Hexbin Density", "Both"]:
-        hex_layer = pdk.Layer(
-            'HexagonLayer',
-            data=df,
-            get_position=['longitude', 'latitude'],
-            radius=20000,
-            elevation_scale=50,
-            elevation_range=[0, 3000],
-            pickable=True,
-            extruded=True,
-            get_weight="nkill",
-            color_range=[
-                [255, 255, 178],
-                [254, 204, 92],
-                [253, 141, 60],
-                [240, 59, 32],
-                [189, 0, 38]
-            ]
-        )
-        layers.append(hex_layer)
-
-    if view_mode in ["DBSCAN Clusters", "Both"] and polygon_data:
-        poly_layer = pdk.Layer(
-            "PolygonLayer",
-            data=polygon_data,
-            get_polygon="polygon",
-            get_fill_color=[0, 229, 255, 40],
-            get_line_color=[0, 229, 255, 200],
-            get_line_width=5000,
-            pickable=True,
-            stroked=True,
-            filled=True,
-        )
-        layers.append(poly_layer)
-
-    view_state = pdk.ViewState(
-        longitude=0, latitude=20, zoom=1.5,
-        min_zoom=1, max_zoom=15, pitch=0, bearing=0
+if view_mode in ["DBSCAN Clusters", "Both"] and polygon_data:
+    poly_layer = pdk.Layer(
+        "PolygonLayer",
+        data=polygon_data,
+        get_polygon="polygon",
+        get_fill_color=[0, 255, 255, 140],
+        get_line_color=[0, 255, 255, 255],
+        line_width_min_pixels=2,
+        pickable=True,
+        extruded=False,
     )
+    layers.append(poly_layer)
 
-    r = pdk.Deck(
-        layers=layers,
-        initial_view_state=view_state,
-        tooltip=True,
-        map_style=MAP_STYLES[selected_style],
-    )
-    st.pydeck_chart(r, use_container_width=True)
+view_state = pdk.ViewState(
+    longitude=0, latitude=20, zoom=1.2, min_zoom=1, max_zoom=15, pitch=45, bearing=0
+)
+
+r = pdk.Deck(
+    layers=layers,
+    initial_view_state=view_state,
+    map_style=MAP_STYLES[selected_style],
+    tooltip={
+        "html": "<b>Incidents / Weight:</b> {nkill}<br/><b>Cluster ID:</b> {cluster_id}<br/><b>Total Deaths in Cluster:</b> {nkill_sum}",
+        "style": {"backgroundColor": "steelblue", "color": "white"}
+    }
+)
+st.pydeck_chart(r, use_container_width=True)
 
 # -----------------------------------------------
 # Cluster Hotspot Table

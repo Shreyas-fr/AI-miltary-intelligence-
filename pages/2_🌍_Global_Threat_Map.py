@@ -30,6 +30,7 @@ years_list = ["All"] + years_df["iyear"].astype(int).tolist()
 selected_year = st.sidebar.selectbox("Year", years_list)
 
 view_mode = st.sidebar.radio("View Mode", ["Hexbin Density", "DBSCAN Clusters", "Both"], index=2)
+mobile_fallback = st.sidebar.toggle("📱 Mobile-Friendly 2D View", value=False, help="Enable this if the 3D Hexbin map crashes or fails to load on your mobile device due to WebGL limits.")
 
 st.sidebar.markdown("---")
 st.sidebar.subheader("Map Style")
@@ -204,57 +205,79 @@ def cluster_polygons(df_in):
 polygon_data = cluster_polygons(df)
 
 # -----------------------------------------------
-# PyDeck Map
+# Map Rendering Logic
 # -----------------------------------------------
-layers = []
-
-if view_mode in ["Hexbin Density", "Both"]:
-    hex_layer = pdk.Layer(
-        'HexagonLayer',
-        data=df,
-        get_position=['longitude', 'latitude'],
-        radius=20000,
-        elevation_scale=50,
-        elevation_range=[0, 3000],
-        pickable=True,
-        extruded=True,
-        get_weight="nkill",
-        color_range=[
-            [255, 255, 178],
-            [254, 204, 92],
-            [253, 141, 60],
-            [240, 59, 32],
-            [189, 0, 38]
-        ]
+if mobile_fallback:
+    st.info("📱 Mobile view enabled: Rendering 2D map with a maximum of 10,000 incidents to preserve mobile GPU memory.")
+    # Downsample for mobile to guarantee rendering
+    df_mobile = df.sample(n=min(10000, len(df)), random_state=42)
+    fallback_style = "carto-darkmatter" if "dark" in selected_style.lower() else "carto-positron"
+    
+    fig = px.scatter_mapbox(
+        df_mobile,
+        lat="latitude",
+        lon="longitude",
+        color="nkill",
+        size="nkill",
+        color_continuous_scale="Reds",
+        size_max=15,
+        zoom=1,
+        mapbox_style=fallback_style,
+        hover_data={"latitude": False, "longitude": False, "nkill": True}
     )
-    layers.append(hex_layer)
+    fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0}, paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)")
+    st.plotly_chart(fig, use_container_width=True)
 
-if view_mode in ["DBSCAN Clusters", "Both"] and polygon_data:
-    poly_layer = pdk.Layer(
-        "PolygonLayer",
-        data=polygon_data,
-        get_polygon="polygon",
-        get_fill_color=[0, 229, 255, 40],
-        get_line_color=[0, 229, 255, 200],
-        get_line_width=5000,
-        pickable=True,
-        stroked=True,
-        filled=True,
+else:
+    layers = []
+
+    if view_mode in ["Hexbin Density", "Both"]:
+        hex_layer = pdk.Layer(
+            'HexagonLayer',
+            data=df,
+            get_position=['longitude', 'latitude'],
+            radius=20000,
+            elevation_scale=50,
+            elevation_range=[0, 3000],
+            pickable=True,
+            extruded=True,
+            get_weight="nkill",
+            color_range=[
+                [255, 255, 178],
+                [254, 204, 92],
+                [253, 141, 60],
+                [240, 59, 32],
+                [189, 0, 38]
+            ]
+        )
+        layers.append(hex_layer)
+
+    if view_mode in ["DBSCAN Clusters", "Both"] and polygon_data:
+        poly_layer = pdk.Layer(
+            "PolygonLayer",
+            data=polygon_data,
+            get_polygon="polygon",
+            get_fill_color=[0, 229, 255, 40],
+            get_line_color=[0, 229, 255, 200],
+            get_line_width=5000,
+            pickable=True,
+            stroked=True,
+            filled=True,
+        )
+        layers.append(poly_layer)
+
+    view_state = pdk.ViewState(
+        longitude=0, latitude=20, zoom=1.5,
+        min_zoom=1, max_zoom=15, pitch=0, bearing=0
     )
-    layers.append(poly_layer)
 
-view_state = pdk.ViewState(
-    longitude=0, latitude=20, zoom=1.5,
-    min_zoom=1, max_zoom=15, pitch=0, bearing=0
-)
-
-r = pdk.Deck(
-    layers=layers,
-    initial_view_state=view_state,
-    tooltip=True,
-    map_style=MAP_STYLES[selected_style],
-)
-st.pydeck_chart(r, use_container_width=True)
+    r = pdk.Deck(
+        layers=layers,
+        initial_view_state=view_state,
+        tooltip=True,
+        map_style=MAP_STYLES[selected_style],
+    )
+    st.pydeck_chart(r, use_container_width=True)
 
 # -----------------------------------------------
 # Cluster Hotspot Table

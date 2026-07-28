@@ -22,6 +22,8 @@ st.markdown(
     "ranked by a non-linear Threat Severity Index (TSI)."
 )
 
+is_mobile = st.sidebar.checkbox("Mobile / Lite Mode", value=True)
+
 st.sidebar.header("Clustering Parameters")
 eps_km = st.sidebar.slider(
     "Cluster radius (km)", 25, 500, 100, step=25,
@@ -90,53 +92,79 @@ plot_df = df_clustered[df_clustered["cluster"] != -1]
 if plot_df.empty:
     st.warning("No hotspots found with these parameters — try a larger radius or lower minimum incidents.")
 else:
-    layers = []
+    if is_mobile:
+        import plotly.express as px
+        df_mobile = plot_df.sample(n=min(2000, len(plot_df)), random_state=42)
+        fig = px.scatter_mapbox(
+            df_mobile,
+            lat="latitude",
+            lon="longitude",
+            color="tsi",
+            size="tsi",
+            color_continuous_scale="Reds",
+            size_max=15,
+            zoom=1,
+            mapbox_style="carto-positron",
+            hover_data={"latitude": False, "longitude": False, "tsi": True}
+        )
+        fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0}, paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)")
+        st.plotly_chart(fig, use_container_width=True)
+        
+        migration_data = []
+        if show_migration:
+            centroids_df = compute_window_centroids(df, window_years=window_years, eps_km=eps_km, min_samples=min_samples)
+            m_vectors = compute_migration_vectors(centroids_df)
+            p_vectors = predict_future_positions(m_vectors)
+            migration_data = m_vectors + p_vectors
 
-    hex_layer = pdk.Layer(
-        "HexagonLayer",
-        data=plot_df,
-        get_position=["longitude", "latitude"],
-        radius=int(eps_km * 300),
-        elevation_scale=40,
-        elevation_range=[0, 3000],
-        pickable=True,
-        extruded=True,
-        get_weight="tsi",
-        color_range=[
-            [255, 255, 178], [254, 204, 92], [253, 141, 60],
-            [240, 59, 32], [189, 0, 38],
-        ],
-    )
-    layers.append(hex_layer)
-
-    migration_data = []
-    if show_migration:
-        centroids_df = compute_window_centroids(df, window_years=window_years, eps_km=eps_km, min_samples=min_samples)
-        m_vectors = compute_migration_vectors(centroids_df)
-        p_vectors = predict_future_positions(m_vectors)
-
-        all_vectors = m_vectors + p_vectors
-        if all_vectors:
-            arc_layer = pdk.Layer(
-                "ArcLayer",
-                data=all_vectors,
-                get_source_position=["from_lon", "from_lat"],
-                get_target_position=["to_lon", "to_lat"],
-                get_source_color=[0, 229, 255, 200],
-                get_target_color=[255, 45, 85, 255],
-                get_width=4,
-                pickable=True,
-            )
-            layers.append(arc_layer)
-            migration_data = all_vectors
-
-    view_state = pdk.ViewState(longitude=0, latitude=20, zoom=1.5, pitch=0, bearing=0)
-    r = pdk.Deck(
-        layers=layers,
-        initial_view_state=view_state,
-        tooltip={"html": "<b>Hotspot Data / Migration Vector</b>"},
-    )
-    st.pydeck_chart(r)
+    else:
+        layers = []
+    
+        hex_layer = pdk.Layer(
+            "HexagonLayer",
+            data=plot_df,
+            get_position=["longitude", "latitude"],
+            radius=int(eps_km * 300),
+            elevation_scale=40,
+            elevation_range=[0, 3000],
+            pickable=True,
+            extruded=True,
+            get_weight="tsi",
+            color_range=[
+                [255, 255, 178], [254, 204, 92], [253, 141, 60],
+                [240, 59, 32], [189, 0, 38],
+            ],
+        )
+        layers.append(hex_layer)
+    
+        migration_data = []
+        if show_migration:
+            centroids_df = compute_window_centroids(df, window_years=window_years, eps_km=eps_km, min_samples=min_samples)
+            m_vectors = compute_migration_vectors(centroids_df)
+            p_vectors = predict_future_positions(m_vectors)
+    
+            all_vectors = m_vectors + p_vectors
+            if all_vectors:
+                arc_layer = pdk.Layer(
+                    "ArcLayer",
+                    data=all_vectors,
+                    get_source_position=["from_lon", "from_lat"],
+                    get_target_position=["to_lon", "to_lat"],
+                    get_source_color=[0, 229, 255, 200],
+                    get_target_color=[255, 45, 85, 255],
+                    get_width=4,
+                    pickable=True,
+                )
+                layers.append(arc_layer)
+                migration_data = all_vectors
+    
+        view_state = pdk.ViewState(longitude=0, latitude=20, zoom=1.5, pitch=0, bearing=0)
+        r = pdk.Deck(
+            layers=layers,
+            initial_view_state=view_state,
+            tooltip={"html": "<b>Hotspot Data / Migration Vector</b>"},
+        )
+        st.pydeck_chart(r)
 
     if show_migration and migration_data:
         st.subheader("🔮 Predictive Hotspot Migration Vectors")

@@ -30,7 +30,7 @@ years_list = ["All"] + years_df["iyear"].astype(int).tolist()
 selected_year = st.sidebar.selectbox("Year", years_list)
 
 view_mode = st.sidebar.radio("View Mode", ["Hexbin Density", "DBSCAN Clusters", "Both"], index=2)
-mobile_fallback = st.sidebar.toggle("📱 Mobile-Friendly 2D View", value=False, help="Enable this if the 3D Hexbin map crashes or fails to load on your mobile device due to WebGL limits.")
+is_mobile = st.sidebar.checkbox("Mobile / Lite Mode", value=True)
 
 st.sidebar.markdown("---")
 st.sidebar.subheader("Map Style")
@@ -207,12 +207,12 @@ polygon_data = cluster_polygons(df)
 # -----------------------------------------------
 # Map Rendering Logic
 # -----------------------------------------------
-if mobile_fallback:
-    st.info("📱 Mobile view enabled: Rendering 2D map with a maximum of 10,000 incidents to preserve mobile GPU memory.")
+if is_mobile:
+    st.info("📱 Mobile / Lite Mode enabled: Rendering 2D map with a maximum of 2,000 incidents to preserve mobile GPU memory.")
     # Downsample for mobile to guarantee rendering
-    df_mobile = df.sample(n=min(10000, len(df)), random_state=42)
-    fallback_style = "carto-darkmatter" if "dark" in selected_style.lower() else "carto-positron"
+    df_mobile = df.sample(n=min(2000, len(df)), random_state=42)
     
+    import plotly.express as px
     fig = px.scatter_mapbox(
         df_mobile,
         lat="latitude",
@@ -222,7 +222,7 @@ if mobile_fallback:
         color_continuous_scale="Reds",
         size_max=15,
         zoom=1,
-        mapbox_style=fallback_style,
+        mapbox_style="carto-positron",
         hover_data={"latitude": False, "longitude": False, "nkill": True}
     )
     fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0}, paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)")

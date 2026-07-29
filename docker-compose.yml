@@ -1,0 +1,9 @@
+version: '3.8'
+services:
+  military_intel_platform:
+    build: .
+    ports:
+      - "8501:8501"
+    restart: unless-stopped
+    environment:
+      - ARROW_DEFAULT_MEMORY_POOL=system

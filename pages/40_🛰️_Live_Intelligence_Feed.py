@@ -7,6 +7,7 @@ from utils.intelligence import (
     DEFAULT_LIVE_QUERY,
     enrich_live_events_with_country_centroids,
     fetch_gdelt_events,
+    get_historical_fallback_events
 )
 from database.intelligence_db import ingest_live_events, get_live_count, init_db
 
@@ -62,9 +63,8 @@ try:
     with st.spinner("Fetching public-source conflict intelligence from GDELT..."):
         live_events = load_live_feed(query, timespan, max_records)
 except Exception as exc:
-    st.error(f"Unable to fetch GDELT feed: {exc}")
-    st.info("Check your internet connection, then use the Refresh Live Feed button.")
-    st.stop()
+    st.warning(f"GDELT API is unreachable ({exc}). Loading historical GTD fallback data...")
+    live_events = get_historical_fallback_events(limit=50)
 
 # Auto-ingest into persistent intelligence DB
 if auto_ingest and not live_events.empty:

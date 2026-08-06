@@ -2,8 +2,10 @@ import os
 import pandas as pd
 import pydeck as pdk
 import streamlit as st
+import numpy as np
 
-from utils.weather import WeatherData, assess_operational_impact, fetch_weather
+from utils.weather_utils import fetch_weather_by_coords, compute_weather_impact
+from utils.ui_components import st_custom_kpi_card, fetch_weather
 
 # 1. Page config
 st.set_page_config(page_title="Weather Intelligence", page_icon="⛅", layout="wide")
@@ -17,8 +19,8 @@ def load_css(file_name: str) -> None:
 load_css("assets/style.css")
 
 # 3. Title & 4. Subtitle
-st.title("🌦️ Weather Intelligence")
-st.markdown("##### Operational weather conditions for mission planning")
+st.title("🌦️ | Weather Intelligence")
+st.markdown("##### Operational weather conditions for mission planning.")
 
 # 6. Sidebar configuration
 st.sidebar.header("⚙️ Weather Settings")
@@ -130,7 +132,8 @@ def render_map(latitude: float, longitude: float, loc_name: str, status_desc: st
         map_style=None,
     )
 
-    st.pydeck_chart(deck, width="stretch")
+    with st.spinner("Rendering operational map..."):
+        st.pydeck_chart(deck, use_container_width=True)
 
 
 # Determine whether weather data can be fetched
@@ -146,31 +149,13 @@ if weather:
     st.subheader("📊 Weather Metrics")
     col1, col2, col3, col4 = st.columns(4)
     with col1:
-        st.metric(
-            label="🌡️ Temperature",
-            value=f"{weather.temperature_c:.1f} °C",
-            delta=f"Feels like {weather.feels_like_c:.1f} °C",
-            delta_color="off",
-        )
+        st_custom_kpi_card("Temperature", f"{weather.temperature_c:.1f} °C", f"Feels like {weather.feels_like_c:.1f} °C", "🌡️")
     with col2:
-        st.metric(
-            label="💨 Wind Speed",
-            value=f"{weather.wind_speed_ms:.1f} m/s",
-            delta=f"Direction: {weather.wind_direction}°",
-            delta_color="off",
-        )
+        st_custom_kpi_card("Wind Speed", f"{weather.wind_speed_ms:.1f} m/s", f"Direction: {weather.wind_direction}°", "💨")
     with col3:
-        st.metric(
-            label="👁️ Visibility",
-            value=f"{weather.visibility_km:.1f} km",
-        )
+        st_custom_kpi_card("Visibility", f"{weather.visibility_km:.1f} km", "", "👁️")
     with col4:
-        st.metric(
-            label="💧 Humidity",
-            value=f"{weather.humidity}%",
-            delta=f"Pressure: {weather.pressure_hpa} hPa",
-            delta_color="off",
-        )
+        st_custom_kpi_card("Humidity", f"{weather.humidity}%", f"Pressure: {weather.pressure_hpa} hPa", "💧")
 
     # c. Display weather description and icon
     st.markdown("---")

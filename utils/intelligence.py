@@ -14,6 +14,8 @@ from urllib.request import Request, urlopen
 import numpy as np
 import pandas as pd
 
+from utils.data_loader import query_data
+
 
 GDELT_DOC_API = "https://api.gdeltproject.org/api/v2/doc/doc"
 DEFAULT_LIVE_QUERY = (
@@ -55,7 +57,7 @@ def fetch_gdelt_events(
     query: str = DEFAULT_LIVE_QUERY,
     timespan: str = "1d",
     max_records: int = 100,
-    timeout: int = 12,
+    timeout: int = 5,
 ) -> pd.DataFrame:
     """Fetch recent conflict-related articles from GDELT's DOC 2.1 API."""
     params = {
@@ -72,12 +74,12 @@ def fetch_gdelt_events(
     try:
         with urlopen(request, timeout=timeout) as response:
             payload = json.loads(response.read().decode("utf-8"))
-    except Exception:
-        return _sample_live_frame()
+    except Exception as e:
+        raise ConnectionError(f"GDELT API request failed or timed out: {e}")
 
     articles = payload.get("articles", [])
     if not articles:
-        return _sample_live_frame()
+        return pd.DataFrame()
 
     rows = []
     for article in articles:
@@ -349,38 +351,34 @@ def _empty_live_frame() -> pd.DataFrame:
     )
 
 
-def _sample_live_frame() -> pd.DataFrame:
+def get_historical_fallback_events(limit: int = 50) -> pd.DataFrame:
+    """Returns historical GTD records formatted as live events for resilient fallbacks."""
+    df = query_data(f"SELECT * FROM 'data/globalterrorism.csv' ORDER BY iyear DESC, imonth DESC, iday DESC LIMIT {limit}")
+    
+    rows = []
     now = pd.Timestamp.now(tz=timezone.utc)
-    data = [
-        {
-            "country": "India", "location": "India", "event": "Border Clash",
-            "title": "Cross-border security exchange reported along line of control",
-            "date": now - pd.Timedelta(hours=2), "source": "defence-news.org",
-            "url": "https://gdeltproject.org", "severity": "Medium", "language": "English"
-        },
-        {
-            "country": "Ukraine", "location": "Ukraine", "event": "Missile / Rocket",
-            "title": "Drone strike intercepted over eastern regional corridor",
-            "date": now - pd.Timedelta(hours=4), "source": "reuters.com",
-            "url": "https://gdeltproject.org", "severity": "High", "language": "English"
-        },
-        {
-            "country": "Israel", "location": "Israel", "event": "Terror Incident",
-            "title": "Security forces respond to perimeter incident in northern sector",
-            "date": now - pd.Timedelta(hours=6), "source": "apnews.com",
-            "url": "https://gdeltproject.org", "severity": "High", "language": "English"
-        },
-        {
-            "country": "Somalia", "location": "Somalia", "event": "Explosion / Bombing",
-            "title": "IED explosion targeting military convoy reported in lower Shabelle",
-            "date": now - pd.Timedelta(hours=8), "source": "bbc.com",
-            "url": "https://gdeltproject.org", "severity": "Critical", "language": "English"
-        },
-        {
-            "country": "Syria", "location": "Syria", "event": "Armed Conflict",
-            "title": "Artillery shelling exchange reported near northern de-escalation zone",
-            "date": now - pd.Timedelta(hours=10), "source": "aljazeera.com",
-            "url": "https://gdeltproject.org", "severity": "Medium", "language": "English"
-        },
-    ]
-    return pd.DataFrame(data)
+    for i, row in df.iterrows():
+        # Synthesize a date based on historical values if valid, else use current
+        try:
+            date = pd.Timestamp(year=int(row["iyear"]), month=int(row["imonth"]), day=int(row["iday"]), tz=timezone.utc)
+        except ValueError:
+            date = now - pd.Timedelta(hours=i)
+            
+        severity = "High" if row.get("nkill", 0) > 0 else "Medium"
+        if row.get("nkill", 0) > 10:
+            severity = "Critical"
+            
+        rows.append({
+            "country": str(row.get("country_txt", "Unknown")),
+            "location": str(row.get("city", "Unknown")),
+            "event": str(row.get("attacktype1_txt", "Security Event")),
+            "title": f"Historical Event: {row.get('attacktype1_txt', 'Attack')} in {row.get('city', 'Unknown')}",
+            "date": date,
+            "source": "GTD Historical Archive",
+            "url": "https://start.umd.edu/gtd",
+            "severity": severity,
+            "language": "English",
+            "latitude": float(row.get("latitude", np.nan)),
+            "longitude": float(row.get("longitude", np.nan))
+        })
+    return pd.DataFrame(rows)

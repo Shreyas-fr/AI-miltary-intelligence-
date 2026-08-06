@@ -70,18 +70,19 @@ class MLModelsAndPipelineTests(unittest.TestCase):
             "success": 1,
             "suicide": 0,
             "nkill": 2,
-            "nwound": 5
+            "nwound": 5,
+            "iyear": 2020
         }])
 
         cat_cols = ["country_txt", "region_txt", "weaptype1_txt", "targtype1_txt", "gname"]
-        num_cols = ["success", "suicide", "nkill", "nwound"]
+        num_cols = ["iyear", "success", "suicide", "nkill", "nwound"]
 
         input_df[cat_cols] = cat_imp.transform(input_df[cat_cols])
         input_df[num_cols] = num_imp.transform(input_df[num_cols])
 
         cat_enc = target_feat_enc.transform(input_df[cat_cols])
         final_features = np.hstack([cat_enc, input_df[num_cols].values])
-
+        
         pred = model.predict(final_features)
         pred_label = target_enc.inverse_transform(pred)[0]
         self.assertTrue(isinstance(pred_label, str))

@@ -1,4 +1,6 @@
 import streamlit as st
+import numpy as np
+from utils.ui_components import st_custom_kpi_card
 import pydeck as pdk
 import pandas as pd
 import os
@@ -16,7 +18,7 @@ def load_css(file_name):
 
 load_css("assets/style.css")
 
-st.title("🎯 Spatial Hotspot Detection")
+st.title("🎯 | Spatial Hotspot Detection")
 st.markdown(
     "##### DBSCAN clustering (haversine distance) over incident geometry, "
     "ranked by a non-linear Threat Severity Index (TSI)."
@@ -27,7 +29,7 @@ eps_km = st.sidebar.slider(
     "Cluster radius (km)", 25, 500, 100, step=25,
     help="Max distance between two incidents to be grouped into the same hotspot.",
 )
-min_samples = st.sidebar.slider("Minimum incidents per hotspot", 5, 50, 15, step=5)
+min_samples = st.sidebar.slider("Minimum incidents per hotspot", 5, 50, 15, step=5, help="Minimum incidents needed to define a hotspot.")
 
 st.sidebar.markdown("---")
 st.sidebar.subheader("Data Source")
@@ -68,9 +70,9 @@ import gc
 gc.collect()
 
 c1, c2, c3 = st.columns(3)
-c1.metric("Hotspots Detected", f"{len(hotspots):,}")
-c2.metric("Incidents in Hotspots", f"{len(df_clustered[df_clustered['cluster'] != -1]):,}")
-c3.metric("Noise (isolated incidents)", f"{(df_clustered['cluster'] == -1).sum():,}")
+with c1: st_custom_kpi_card("Hotspots Detected", f"{len(hotspots):,}", "Identified via DBSCAN", "🎯")
+with c2: st_custom_kpi_card("Incidents in Hotspots", f"{len(df_clustered[df_clustered['cluster'] != -1]):,}", "Clustered events", "🔗")
+with c3: st_custom_kpi_card("Noise (isolated incidents)", f"{(df_clustered['cluster'] == -1).sum():,}", "Too isolated for hotspot", "📉")
 
 st.divider()
 
@@ -83,7 +85,7 @@ from utils.migration import (
 st.sidebar.markdown("---")
 st.sidebar.subheader("Predictive Migration Analysis")
 show_migration = st.sidebar.checkbox("Show Hotspot Migration Vectors", value=False)
-window_years = st.sidebar.slider("Migration Window (Years)", 3, 10, 5, step=1)
+window_years = st.sidebar.slider("Migration Window (Years)", 3, 10, 5, step=1, help="Time window to calculate hotspot centroid migrations.")
 
 # -----------------------------------------------
 # Map — hexbin height/color driven by aggregated TSI
@@ -139,7 +141,8 @@ else:
         initial_view_state=view_state,
         tooltip={"html": "<b>Hotspot Data / Migration Vector</b>"},
     )
-    st.pydeck_chart(r)
+    with st.spinner("Rendering predictive map..."):
+        st.pydeck_chart(r, use_container_width=True)
 
     if show_migration and migration_data:
         st.subheader("🔮 Predictive Hotspot Migration Vectors")
@@ -154,7 +157,8 @@ else:
                 "to_lat": "Target Lat", "to_lon": "Target Lon",
                 "drift_km": "Drift Distance (km)"
             }),
-            width="stretch"
+            use_container_width=True,
+            hide_index=True
         )
 
 st.divider()
@@ -178,7 +182,8 @@ else:
                 "centroid_lat": "Lat", "centroid_lon": "Lon",
             }
         ),
-        width="stretch",
+        use_container_width=True,
+        hide_index=True
     )
 
 st.info("👉 Go to **Hotspot Forecasting** to project attack trends for any hotspot above.")

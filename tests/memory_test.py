@@ -18,15 +18,15 @@ print_mem("Startup - After Initial Run")
 
 def simulate_navigation():
     # Simulate loading Global Threat Map
-    at_map = AppTest.from_file("pages/2_🌍_Global_Threat_Map.py", default_timeout=30)
+    at_map = AppTest.from_file("pages/20_🌍_Global_Threat_Map.py", default_timeout=30)
     at_map.run()
     
     # Simulate loading Attack Prediction
-    at_pred = AppTest.from_file("pages/5_🤖_Attack_Prediction.py", default_timeout=30)
+    at_pred = AppTest.from_file("pages/30_🤖_Attack_Prediction.py", default_timeout=30)
     at_pred.run()
 
     # Simulate loading Data Explorer
-    at_explore = AppTest.from_file("pages/9_📊_Data_Explorer.py", default_timeout=30)
+    at_explore = AppTest.from_file("pages/51_📊_Data_Explorer.py", default_timeout=30)
     at_explore.run()
 
 simulate_navigation()

@@ -31,8 +31,8 @@ load_css("assets/style.css")
 # -----------------------------------------------------------------------------
 # 3 & 4. Title and Subtitle
 # -----------------------------------------------------------------------------
-st.title("📋 AI Resource Recommendation")
-st.markdown("##### AI-driven operational response suggestions based on threat assessment")
+st.title("📋 | AI Resource Recommendation")
+st.markdown("##### AI-driven operational response suggestions based on threat assessment.")
 
 # -----------------------------------------------------------------------------
 # 6. Sidebar Controls
@@ -52,7 +52,7 @@ def get_country_options() -> list[str]:
 
 st.sidebar.header("Filter Options")
 country_list = get_country_options()
-selected_country = st.sidebar.selectbox("Select Country", country_list)
+selected_country = st.sidebar.selectbox("Select Country", country_list, help="Target country for resource allocation analysis.")
 use_live_feed = st.sidebar.checkbox("Include Live GDELT Signals", value=True)
 
 # -----------------------------------------------------------------------------
@@ -155,7 +155,11 @@ with st.expander("ℹ️ Operational Context & Assessment Factors", expanded=Fal
     c4.metric("Live 24h Conflict Events", live_count)
 
 if live_error_msg:
-    st.warning(live_error_msg)
+    st.info(
+        "📡 **Live Feed Status:** External SIGINT stream (GDELT/API) unreachable or degraded. "
+        "Automatically failing over to **Cached GTD Tactical Intelligence Database** (Offline Mode).",
+        icon="🛡️"
+    )
 
 # 8a. KPI Row
 kpi_col1, kpi_col2, kpi_col3 = st.columns(3)
@@ -195,7 +199,7 @@ gauge_fig.update_layout(
     margin=dict(l=20, r=20, t=40, b=10)
 )
 
-st.plotly_chart(gauge_fig, width="stretch")
+st.plotly_chart(gauge_fig, use_container_width=True)
 
 st.divider()
 

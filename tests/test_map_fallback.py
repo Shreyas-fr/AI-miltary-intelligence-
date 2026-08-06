@@ -2,7 +2,7 @@ import sys
 from streamlit.testing.v1 import AppTest
 
 def test_map():
-    at = AppTest.from_file("pages/2_🌍_Global_Threat_Map.py")
+    at = AppTest.from_file("pages/20_🌍_Global_Threat_Map.py")
     
     print("Running with default settings (Mobile Fallback OFF)...")
     at.run(timeout=30)

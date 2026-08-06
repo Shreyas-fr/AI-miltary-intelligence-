@@ -13,7 +13,7 @@ def load_css(file_name):
             st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 load_css("assets/style.css")
 
-st.title("⚙️ Dashboard Settings")
+st.title("⚙️ | Dashboard Settings")
 st.markdown("##### Configure your AI Military Intelligence Dashboard preferences.")
 
 st.divider()

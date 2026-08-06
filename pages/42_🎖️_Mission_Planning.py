@@ -9,6 +9,8 @@ from utils.data_loader import load_data, query_data
 from utils.intelligence import compute_country_risk
 from utils.recommendations import generate_recommendations, priority_color
 from utils.tsi import tsi_label
+from utils.pdf_export import generate_mission_brief_pdf
+from utils.ui_components import st_custom_kpi_card
 
 st.set_page_config(
     page_title="Mission Planning",
@@ -27,8 +29,8 @@ def load_css(file_name: str) -> None:
 load_css("assets/style.css")
 
 # Title & Subtitle
-st.title("🎖️ Mission Planning Simulator")
-st.markdown("##### Location-based threat assessment for operational planning")
+st.title("🎖️ | Mission Planning Simulator")
+st.markdown("##### Location-based threat assessment for operational planning.")
 
 st.markdown('<div style="margin-top:0.75rem"></div>', unsafe_allow_html=True)
 
@@ -48,11 +50,11 @@ def get_countries() -> list[str]:
 
 countries = get_countries()
 default_country_idx = countries.index("Iraq") if "Iraq" in countries else 0
-selected_country = st.sidebar.selectbox("Country", countries, index=default_country_idx)
+selected_country = st.sidebar.selectbox("Country", countries, index=default_country_idx, help="Set the initial map view to a country.")
 
-lat = st.sidebar.number_input("Latitude", value=33.0, format="%.4f")
-lon = st.sidebar.number_input("Longitude", value=44.0, format="%.4f")
-radius_km = st.sidebar.slider("Mission Radius (km)", min_value=50, max_value=500, value=200, step=10)
+lat = st.sidebar.number_input("Latitude", value=33.0, format="%.4f", help="Operation center latitude.")
+lon = st.sidebar.number_input("Longitude", value=44.0, format="%.4f", help="Operation center longitude.")
+radius_km = st.sidebar.slider("Mission Radius (km)", min_value=50, max_value=500, value=200, step=10, help="Operational radius around the center coordinates.")
 
 
 # -----------------------------------------------
@@ -99,9 +101,9 @@ threat_level, threat_color = tsi_label(threat_score)
 # 7a. KPI Row
 # -----------------------------------------------
 kpi1, kpi2, kpi3 = st.columns(3)
-kpi1.metric("Country Risk Score", f"{risk_breakdown.score} / 100", delta=risk_breakdown.level)
-kpi2.metric("Nearby Incidents (within radius)", f"{len(nearby_df):,}")
-kpi3.metric("Estimated Threat Level", threat_level)
+with kpi1: st_custom_kpi_card("Country Risk Score", f"{risk_breakdown.score} / 100", f"{risk_breakdown.level}", "🛡️")
+with kpi2: st_custom_kpi_card("Nearby Incidents (within radius)", f"{len(nearby_df):,}", "Clustered events", "📍")
+with kpi3: st_custom_kpi_card("Estimated Threat Level", threat_level, "Local vicinity", "🚨")
 
 st.markdown('<div style="margin-top:1.5rem"></div>', unsafe_allow_html=True)
 
@@ -183,7 +185,7 @@ deck = pdk.Deck(
     },
 )
 
-st.pydeck_chart(deck, width="stretch")
+st.pydeck_chart(deck, use_container_width=True)
 
 st.markdown('<div style="margin-top:1.5rem"></div>', unsafe_allow_html=True)
 
@@ -213,7 +215,7 @@ if not nearby_df.empty:
     if "Distance (km)" in table_df.columns:
         table_df["Distance (km)"] = table_df["Distance (km)"].round(1)
 
-    st.dataframe(table_df, width="stretch")
+    st.dataframe(table_df, use_container_width=True, hide_index=True)
 
     # Additional visual charts for nearby incidents
     c_chart1, c_chart2 = st.columns(2)
@@ -238,7 +240,7 @@ if not nearby_df.empty:
                 margin=dict(l=10, r=10, t=40, b=10),
                 coloraxis_showscale=False,
             )
-            st.plotly_chart(fig_atk, width="stretch")
+            st.plotly_chart(fig_atk, use_container_width=True)
 
     with c_chart2:
         if "iyear" in nearby_df.columns:
@@ -260,7 +262,7 @@ if not nearby_df.empty:
                 xaxis_title="Year",
                 yaxis_title="Incidents",
             )
-            st.plotly_chart(fig_trend, width="stretch")
+            st.plotly_chart(fig_trend, use_container_width=True)
 else:
     st.info(f"No historical incidents recorded within {radius_km} km of coordinates ({lat:.4f}, {lon:.4f}).")
 
@@ -333,3 +335,30 @@ if recs:
         col.markdown(card_html, unsafe_allow_html=True)
 else:
     st.info("No specific resource recommendations generated for current threat level.")
+
+st.markdown('<div style="margin-top:2rem"></div>', unsafe_allow_html=True)
+
+# -----------------------------------------------
+# 8. PDF Export
+# -----------------------------------------------
+st.subheader("📥 Export Intelligence Brief")
+
+with st.spinner("Preparing PDF export..."):
+    pdf_bytes = generate_mission_brief_pdf(
+        country=selected_country,
+        lat=lat,
+        lon=lon,
+        radius=radius_km,
+        threat_score=threat_score,
+        threat_level=threat_level,
+        incident_count=len(nearby_df),
+        dominant_attack=dominant_attack_type,
+        recommendations=recs
+    )
+
+st.download_button(
+    label="📄 Download Mission Brief (PDF)",
+    data=pdf_bytes,
+    file_name=f"Mission_Brief_{selected_country}_{lat}_{lon}.pdf",
+    mime="application/pdf"
+)

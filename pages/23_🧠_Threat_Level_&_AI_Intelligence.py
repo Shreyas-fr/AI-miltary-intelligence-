@@ -15,6 +15,7 @@ from sklearn.ensemble import RandomForestClassifier
 
 from utils.data_loader import load_data, query_data
 from utils.tsi import compute_single_tsi, tsi_label
+from utils.ui_components import st_custom_kpi_card, st_custom_threat_banner
 from utils.intelligence import (
     DEFAULT_LIVE_QUERY,
     build_pdf,
@@ -39,8 +40,8 @@ def load_css(file_name):
             st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 load_css("assets/style.css")
 
-st.title("🧠 Threat Level & AI Intelligence")
-st.markdown("##### Streamlined quantitative threat scoring and AI narrative generation under a single view.")
+st.title("🧠 | Threat Level & AI Intelligence")
+st.markdown("##### Quantitative threat scoring and AI narrative generation in a unified view.")
 
 # -----------------------------------------------
 # Load ML Model
@@ -99,23 +100,23 @@ def country_options() -> list[str]:
 # -----------------------------------------------
 st.sidebar.header("Geography Filter")
 country_list = country_options()
-selected_country = st.sidebar.selectbox("Select Sovereign Nation", country_list)
+selected_country = st.sidebar.selectbox("Select Sovereign Nation", country_list, help="Choose the country to analyze.")
 
 st.sidebar.markdown("---")
 st.sidebar.header("ML Incident Parameters")
-region   = st.sidebar.selectbox("Region",      get_original_labels("region_txt"))
-attack   = st.sidebar.selectbox("Attack Type", get_original_labels("attacktype1_txt"))
-weapon   = st.sidebar.selectbox("Weapon Type", get_original_labels("weaptype1_txt"))
-target_t = st.sidebar.selectbox("Target Type", get_original_labels("targtype1_txt"))
-nkill    = st.sidebar.number_input("Estimated Killed",   min_value=0, max_value=5000, value=2)
-nwound   = st.sidebar.number_input("Estimated Wounded",  min_value=0, max_value=5000, value=5)
-success  = st.sidebar.selectbox("Attack Successful?", ["Yes", "No"])
-claimed  = st.sidebar.selectbox("Responsibility Claimed?", ["Yes", "No"])
+region   = st.sidebar.selectbox("Region", get_original_labels("region_txt"), help="Filter the incident history by region.")
+attack   = st.sidebar.selectbox("Attack Type", get_original_labels("attacktype1_txt"), help="Specify the type of attack to simulate.")
+weapon   = st.sidebar.selectbox("Weapon Type", get_original_labels("weaptype1_txt"), help="Specify the weapon used in the simulated attack.")
+target_t = st.sidebar.selectbox("Target Type", get_original_labels("targtype1_txt"), help="Identify the target of the simulated attack.")
+nkill    = st.sidebar.number_input("Estimated Killed", min_value=0, max_value=5000, value=2, help="Number of fatalities.")
+nwound   = st.sidebar.number_input("Estimated Wounded", min_value=0, max_value=5000, value=5, help="Number of non-fatal injuries.")
+success  = st.sidebar.selectbox("Attack Successful?", ["Yes", "No"], help="Whether the attack achieved its goal.")
+claimed  = st.sidebar.selectbox("Responsibility Claimed?", ["Yes", "No"], help="Whether a group claimed responsibility.")
 
 st.sidebar.markdown("---")
 st.sidebar.header("AI Narrative Settings")
-lookback = st.sidebar.selectbox("Live intelligence window", ["15m", "1h", "6h", "1d", "3d", "7d"], index=3)
-max_records = st.sidebar.slider("Live records", 25, 250, 100, step=25)
+lookback = st.sidebar.selectbox("Live intelligence window", ["15m", "1h", "6h", "1d", "3d", "7d"], index=3, help="Timeframe to fetch recent events from the live intelligence database.")
+max_records = st.sidebar.slider("Live records", 25, 250, 100, step=25, help="Maximum number of live intelligence records to retrieve.")
 use_live = st.sidebar.checkbox("Include GDELT live feed", value=True)
 api_key = os.environ.get("GEMINI_API_KEY") or st.sidebar.text_input("Gemini API Key (optional)", type="password")
 
@@ -162,8 +163,8 @@ with tab_ml:
         """)
 
     tsi_col1, tsi_col2, tsi_col3 = st.columns(3)
-    tsi_col1.metric("TSI Score", f"{tsi_score:.1f} / 100")
-    tsi_col2.metric("Severity Label", tsi_lbl)
+    with tsi_col1: st_custom_kpi_card("TSI Score", f"{tsi_score:.1f} / 100", "", "🔢")
+    with tsi_col2: st_custom_kpi_card("Severity Label", tsi_lbl, "", "🚨")
     tsi_col3.markdown(
         f"<div style='padding:14px;border-radius:8px;background:{tsi_color}22;"
         f"border:2px solid {tsi_color};text-align:center;"
@@ -198,7 +199,7 @@ with tab_ml:
         height=250,
         margin=dict(l=20, r=20, t=40, b=10)
     )
-    st.plotly_chart(gauge_fig, width="stretch")
+    st.plotly_chart(gauge_fig, use_container_width=True)
 
     st.divider()
 
@@ -238,8 +239,10 @@ with tab_ml:
                 st.error(f"### 🔴 Threat Level: {result}")
                 st.markdown("Incident is classified as **HIGH SEVERITY**. Significant casualties expected. Immediate response required.")
 
-            st.metric("Model Confidence", f"{confidence:.1f}%")
-            st.metric("TSI Score (corroborating)", f"{tsi_score:.1f}/100 — {tsi_lbl}")
+            st.markdown("#### Evidence & Context")
+            c1, c2 = st.columns(2)
+            with c1: st_custom_kpi_card("Model Confidence", f"{confidence:.1f}%", "", "🧠")
+            with c2: st_custom_kpi_card("TSI Score (corroborating)", f"{tsi_score:.1f}/100", tsi_lbl, "📊")
 
         with col2:
             labels = target_enc.classes_
@@ -261,7 +264,7 @@ with tab_ml:
                 height=300,
                 margin=dict(l=20, r=20, t=40, b=20)
             )
-            st.plotly_chart(fig, width="stretch")
+            st.plotly_chart(fig, use_container_width=True)
 
         st.divider()
 
@@ -283,7 +286,7 @@ with tab_ml:
             height=300,
             margin=dict(l=20, r=20, t=40, b=20)
         )
-        st.plotly_chart(fig2, width="stretch")
+        st.plotly_chart(fig2, use_container_width=True)
     else:
         st.info("👈 Configure the incident parameters in the sidebar and click **Predict Threat Level**.")
 
@@ -332,13 +335,17 @@ with tab_ai:
     report = build_situation_report(selected_country, f"Live window: {lookback}", stats, risk, country_live)
 
     if live_error:
-        st.warning(f"Live feed unavailable, using historical data only: {live_error}")
+        st.info(
+            "📡 **Live Feed Status:** External SIGINT stream (GDELT/API) unreachable or degraded. "
+            "Automatically failing over to **Cached GTD Tactical Intelligence Database** (Offline Mode).",
+            icon="🛡️"
+        )
 
-    c1, c2, c3, c4 = st.columns(4)
-    c1.metric("Threat Score", f"{risk.score}/100")
-    c2.metric("Risk Level", risk.level)
-    c3.metric("Historical Incidents", f"{len(country_hist):,}")
-    c4.metric("Live Items", f"{len(country_live):,}")
+    st_custom_threat_banner(risk.level, f"{risk.score}/100")
+    
+    c1, c2 = st.columns(2)
+    with c1: st_custom_kpi_card("Historical Incidents", f"{len(country_hist):,}", "Recorded events", "📚")
+    with c2: st_custom_kpi_card("Live Items", f"{len(country_live):,}", "Recent 24h events", "⚡")
 
     fig = go.Figure(
         go.Indicator(
@@ -358,7 +365,7 @@ with tab_ai:
         )
     )
     fig.update_layout(template="plotly_dark", height=300, paper_bgcolor="rgba(0,0,0,0)")
-    st.plotly_chart(fig, width="stretch")
+    st.plotly_chart(fig, use_container_width=True)
 
     with st.expander("🔍 What drives this score?", expanded=True):
         comp = risk.components
@@ -381,7 +388,7 @@ with tab_ai:
                 paper_bgcolor="rgba(0,0,0,0)",
                 plot_bgcolor="rgba(0,0,0,0)"
             )
-            st.plotly_chart(fig_comp, width="stretch")
+            st.plotly_chart(fig_comp, use_container_width=True)
         else:
             st.write("Not enough data to calculate components.")
 
@@ -413,7 +420,11 @@ include a short analyst recommendation.
                     generated_report = response.text
                     st.session_state["generated_sitrep"] = generated_report
                 except Exception as exc:
-                    st.error(f"Gemini enhancement failed: {exc}")
+                    st.info(
+                        "📡 **Live Feed Status:** External SIGINT stream (Gemini/API) unreachable or degraded. "
+                        "Automatically failing over to **Local Report Generation** (Offline Mode).",
+                        icon="🛡️"
+                    )
                     st.session_state["generated_sitrep"] = report
         else:
             if genai is None:
@@ -464,7 +475,7 @@ include a short analyst recommendation.
                     "url": "URL",
                 }
             ),
-            width="stretch",
+            use_container_width=True,
             hide_index=True,
             column_config={"URL": st.column_config.LinkColumn("Source Link")},
         )

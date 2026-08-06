@@ -5,6 +5,7 @@ import streamlit as st
 
 from utils.similarity import SimilarityEngine
 from utils.data_loader import query_data
+from utils.ui_components import st_custom_kpi_card
 
 # -----------------------------------------------
 # Page Configuration
@@ -28,8 +29,8 @@ load_css("assets/style.css")
 # -----------------------------------------------
 # Header
 # -----------------------------------------------
-st.title("🔍 Event Similarity Engine")
-st.markdown("##### Find historically similar incidents using AI-powered pattern matching")
+st.title("🔍 | Event Similarity Engine")
+st.markdown("##### Find historically similar incidents using AI-powered pattern matching.")
 
 # -----------------------------------------------
 # Cache SimilarityEngine Initialization
@@ -71,7 +72,7 @@ with st.form(key="similarity_query_form"):
         nwound = st.number_input("Injuries (nwound)", min_value=0, max_value=10000, value=0, step=1)
         success = st.toggle("Attack Successful", value=True)
         
-    submitted = st.form_submit_button("🔍 Find Similar Events", width="stretch")
+    submitted = st.form_submit_button("🔍 Find Similar Events", use_container_width=True)
 
 # -----------------------------------------------
 # Compute and Display Results
@@ -95,7 +96,8 @@ if submitted or "similarity_has_run" not in st.session_state:
         "success": 1 if success else 0,
     }
 
-    results = engine.find_similar(query_dict, top_k=10)
+    with st.spinner("Finding similar historical events..."):
+        results = engine.find_similar(query_dict, top_k=10)
 
     st.divider()
 
@@ -106,10 +108,10 @@ if submitted or "similarity_has_run" not in st.session_state:
     top_year = int(results["iyear"].iloc[0]) if not results.empty and pd.notna(results["iyear"].iloc[0]) else "N/A"
 
     kpi1, kpi2, kpi3, kpi4 = st.columns(4)
-    kpi1.metric("Top Similarity Score", f"{top_sim:.1f}%")
-    kpi2.metric("Average Similarity", f"{avg_sim:.1f}%")
-    kpi3.metric("Top Match Location", f"{top_country}")
-    kpi4.metric("Top Match Year", f"{top_year}")
+    with kpi1: st_custom_kpi_card("Top Similarity Score", f"{top_sim:.1f}%", "", "🎯")
+    with kpi2: st_custom_kpi_card("Average Similarity", f"{avg_sim:.1f}%", "", "📊")
+    with kpi3: st_custom_kpi_card("Top Match Location", f"{top_country}", "", "📍")
+    with kpi4: st_custom_kpi_card("Top Match Year", f"{top_year}", "", "📅")
 
     st.markdown("---")
 
@@ -132,7 +134,7 @@ if submitted or "similarity_has_run" not in st.session_state:
         template="plotly_dark"
     )
     fig.update_layout(yaxis=dict(autorange="reversed"))
-    st.plotly_chart(fig, width="stretch")
+    st.plotly_chart(fig, use_container_width=True)
 
     st.markdown("---")
 
@@ -150,7 +152,7 @@ if submitted or "similarity_has_run" not in st.session_state:
         "Injuries": results["nwound"].fillna(0).astype(int),
         "Similarity %": results["similarity_pct"].apply(lambda x: f"{x:.1f}%")
     })
-    st.dataframe(table_df, width="stretch", hide_index=True)
+    st.dataframe(table_df, use_container_width=True, hide_index=True)
 
     st.markdown("---")
 

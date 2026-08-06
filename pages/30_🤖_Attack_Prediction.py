@@ -5,6 +5,7 @@ import numpy as np
 import plotly.graph_objects as go
 import os
 import shap
+from utils.ui_components import st_custom_kpi_card
 
 st.set_page_config(
     page_title="Attack Prediction",
@@ -18,9 +19,9 @@ def load_css(file_name):
             st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 load_css("assets/style.css")
 
-st.title("🤖 Attack Type Prediction")
+st.title("🤖 | Attack Type Prediction")
 st.markdown(
-    "##### AI-powered classification of likely attack methods based on historical patterns"
+    "##### AI-powered classification of likely attack methods based on historical patterns."
 )
 
 # -------------------------
@@ -69,7 +70,7 @@ with st.expander("📊 Global Model Explainability (Feature Importance)", expand
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)"
     )
-    st.plotly_chart(fig_imp, width="stretch")
+    st.plotly_chart(fig_imp, use_container_width=True)
     st.caption("Random Forest global feature importance confirms Weapon Type strongly dictates the predicted attack classification.")
 
 
@@ -174,7 +175,7 @@ if submitted:
 
     with col_res:
         st.success(f"### Predicted Attack Type: **{attack_type}**")
-        st.metric("Model Confidence", f"{confidence:.1f}%")
+        st_custom_kpi_card("Model Confidence", f"{confidence:.1f}%", "", "🧠")
 
         if attack_type in ["Hijacking", "Unarmed Assault"]:
             st.warning(
@@ -216,4 +217,4 @@ if submitted:
             height=320,
             margin=dict(l=10, r=10, t=40, b=10)
         )
-        st.plotly_chart(fig, width="stretch")
+        st.plotly_chart(fig, use_container_width=True)

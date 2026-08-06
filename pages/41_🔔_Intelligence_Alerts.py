@@ -4,6 +4,7 @@ import streamlit as st
 
 from utils.data_loader import load_data, query_data
 from utils.intelligence import compute_country_risk
+from utils.ui_components import st_custom_kpi_card
 
 st.set_page_config(
     page_title="Intelligence Alerts",
@@ -20,8 +21,8 @@ def load_css(file_name: str) -> None:
 
 load_css("assets/style.css")
 
-st.title("🔔 Intelligence Alerts")
-st.markdown("##### Threshold-based monitoring for critical threat changes")
+st.title("🔔 | Intelligence Alerts")
+st.markdown("##### Threshold-based monitoring for critical threat changes.")
 
 # Sidebar: alert configuration
 st.sidebar.header("Alert Configuration")
@@ -191,9 +192,9 @@ critical_alerts_count = sum(1 for a in alerts if a["severity"] == "Critical")
 countries_monitored_count = len(selected_countries)
 
 c1, c2, c3 = st.columns(3)
-c1.metric("Active Alerts", f"{active_alerts_count}")
-c2.metric("Critical Alerts", f"{critical_alerts_count}")
-c3.metric("Countries Monitored", f"{countries_monitored_count}")
+with c1: st_custom_kpi_card("Active Alerts", f"{active_alerts_count}", "", "🔔")
+with c2: st_custom_kpi_card("Critical Alerts", f"{critical_alerts_count}", "", "🚨")
+with c3: st_custom_kpi_card("Countries Monitored", f"{countries_monitored_count}", "", "🌎")
 
 st.divider()
 
@@ -256,4 +257,4 @@ st.subheader("Monitored Countries Risk Summary")
 
 if summary_rows:
     summary_df = pd.DataFrame(summary_rows)
-    st.dataframe(summary_df, width="stretch", hide_index=True)
+    st.dataframe(summary_df, use_container_width=True, hide_index=True)

@@ -17,6 +17,7 @@ from utils.intelligence import (
     DEFAULT_LIVE_QUERY,
 )
 from utils.data_loader import query_data
+from utils.ui_components import st_custom_kpi_card
 
 st.set_page_config(
     page_title="Intelligence Database",
@@ -36,17 +37,17 @@ load_css("assets/style.css")
 # Initialise database on page load
 init_db()
 
-st.title("🗄️ Intelligence Database")
-st.markdown("##### Persistent live intelligence storage for AI-enhanced predictions")
+st.title("🗄️ | Intelligence Database")
+st.markdown("##### Persistent live intelligence storage for AI-enhanced predictions.")
 
 # Section 1 - Database Health KPIs
 stats = get_db_stats()
 col1, col2, col3, col4, col5 = st.columns(5)
-col1.metric("Total Combined Events", f"{stats.get('total_rows', 0):,}")
-col2.metric("GTD Historical Events", f"{stats.get('gtd_rows', 0):,}")
-col3.metric("Live Events Stored", f"{stats.get('live_rows', 0):,}")
-col4.metric("Countries in Live DB", f"{stats.get('live_countries', 0):,}")
-col5.metric("DB Size (KB)", f"{stats.get('db_size_kb', 0):,} KB")
+with col1: st_custom_kpi_card("Total Combined Events", f"{stats.get('total_rows', 0):,}", "", "📚")
+with col2: st_custom_kpi_card("GTD Historical Events", f"{stats.get('gtd_rows', 0):,}", "", "🏛️")
+with col3: st_custom_kpi_card("Live Events Stored", f"{stats.get('live_rows', 0):,}", "", "⚡")
+with col4: st_custom_kpi_card("Countries in Live DB", f"{stats.get('live_countries', 0):,}", "", "🌎")
+with col5: st_custom_kpi_card("DB Size", f"{stats.get('db_size_kb', 0):,} KB", "", "🗄️")
 
 st.divider()
 
@@ -107,7 +108,7 @@ with st.expander("Live Events in Database", expanded=True):
                 "original_title": "Original Title / Headline",
             }
         )
-        st.dataframe(display_df, width="stretch", hide_index=True)
+        st.dataframe(display_df, use_container_width=True, hide_index=True)
         st.download_button(
             "Download Live Events CSV",
             data=live_df.to_csv(index=False),
@@ -130,7 +131,7 @@ with st.expander("Ingestion History", expanded=True):
                 "rows_added": "Rows Added",
             }
         )
-        st.dataframe(display_log, width="stretch", hide_index=True)
+        st.dataframe(display_log, use_container_width=True, hide_index=True)
 
 # Section 5 - Export Combined Dataset
 with st.expander("📥 Export Combined Dataset", expanded=True):
@@ -186,7 +187,7 @@ else:
             plot_bgcolor="rgba(0,0,0,0)",
             yaxis={"categoryorder": "total ascending"},
         )
-        st.plotly_chart(fig_bar, width="stretch")
+        st.plotly_chart(fig_bar, use_container_width=True)
 
     with chart_col2:
         attack_types = (
@@ -207,4 +208,4 @@ else:
             paper_bgcolor="rgba(0,0,0,0)",
             plot_bgcolor="rgba(0,0,0,0)",
         )
-        st.plotly_chart(fig_pie, width="stretch")
+        st.plotly_chart(fig_pie, use_container_width=True)

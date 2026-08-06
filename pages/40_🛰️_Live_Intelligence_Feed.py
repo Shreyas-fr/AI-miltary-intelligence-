@@ -3,6 +3,7 @@ import os
 import pandas as pd
 import pydeck as pdk
 from utils.data_loader import query_data
+from utils.ui_components import st_custom_kpi_card
 from utils.intelligence import (
     DEFAULT_LIVE_QUERY,
     enrich_live_events_with_country_centroids,
@@ -25,12 +26,12 @@ load_css("assets/style.css")
 # Ensure DB exists on page load
 init_db()
 
-st.title("🛰️ Live Intelligence Feed")
+st.title("🛰️ | Live Intelligence Feed")
 st.markdown("##### Public-source conflict monitoring from GDELT, refreshed on analyst demand.")
 
 st.sidebar.header("Live Feed Controls")
-timespan = st.sidebar.selectbox("Lookback window", ["15m", "1h", "6h", "1d", "3d", "7d"], index=3)
-max_records = st.sidebar.slider("Maximum records", 25, 250, 100, step=25)
+timespan = st.sidebar.selectbox("Lookback window", ["15m", "1h", "6h", "1d", "3d", "7d"], index=3, help="Timeframe to fetch incoming intelligence data.")
+max_records = st.sidebar.slider("Maximum records", 25, 250, 100, step=25, help="Limit the number of results rendered.")
 query = st.sidebar.text_area("GDELT query", DEFAULT_LIVE_QUERY, height=110)
 
 auto_ingest = st.sidebar.checkbox(
@@ -40,7 +41,8 @@ auto_ingest = st.sidebar.checkbox(
 )
 
 st.sidebar.markdown("---")
-st.sidebar.metric("📦 Events in DB", f"{get_live_count():,}")
+with st.sidebar:
+    st_custom_kpi_card("📦 Events in DB", f"{get_live_count():,}")
 
 
 @st.cache_data(ttl=900, show_spinner=False)
@@ -63,7 +65,11 @@ try:
     with st.spinner("Fetching public-source conflict intelligence from GDELT..."):
         live_events = load_live_feed(query, timespan, max_records)
 except Exception as exc:
-    st.warning(f"GDELT API is unreachable ({exc}). Loading historical GTD fallback data...")
+    st.info(
+        "📡 **Live Feed Status:** External SIGINT stream (GDELT/API) unreachable or degraded. "
+        "Automatically failing over to **Cached GTD Tactical Intelligence Database** (Offline Mode).",
+        icon="🛡️"
+    )
     live_events = get_historical_fallback_events(limit=50)
 
 # Auto-ingest into persistent intelligence DB
@@ -84,10 +90,10 @@ if live_events.empty:
 live_events["date"] = pd.to_datetime(live_events["date"], errors="coerce", utc=True)
 
 c1, c2, c3, c4 = st.columns(4)
-c1.metric("Live Items", f"{len(live_events):,}")
-c2.metric("Countries / Sources", f"{live_events['country'].nunique():,}")
-c3.metric("High+ Severity", f"{live_events['severity'].isin(['High', 'Critical']).sum():,}")
-c4.metric("Event Types", f"{live_events['event'].nunique():,}")
+with c1: st_custom_kpi_card("Live Items", f"{len(live_events):,}", "", "⚡")
+with c2: st_custom_kpi_card("Countries / Sources", f"{live_events['country'].nunique():,}", "", "🌎")
+with c3: st_custom_kpi_card("High+ Severity", f"{live_events['severity'].isin(['High', 'Critical']).sum():,}", "", "🚨")
+with c4: st_custom_kpi_card("Event Types", f"{live_events['event'].nunique():,}", "", "📋")
 
 st.divider()
 
@@ -128,7 +134,8 @@ else:
             "style": {"backgroundColor": "#101827", "color": "white"},
         },
     )
-    st.pydeck_chart(deck)
+    with st.spinner("Rendering intelligence map..."):
+        st.pydeck_chart(deck, use_container_width=True)
     st.caption("Map points use GTD-derived country centroids when GDELT articles do not provide precise coordinates.")
 
 st.divider()
@@ -161,7 +168,7 @@ table = filtered[
 
 st.dataframe(
     table,
-    width="stretch",
+    use_container_width=True,
     hide_index=True,
     column_config={
         "URL": st.column_config.LinkColumn("Source Link"),

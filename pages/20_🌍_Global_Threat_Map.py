@@ -7,6 +7,7 @@ import os
 from sklearn.cluster import DBSCAN
 from scipy.spatial import ConvexHull
 import pydeck as pdk
+from utils.ui_components import st_custom_kpi_card
 from utils.data_loader import query_data, load_data
 
 st.set_page_config(page_title="Global Threat Map", page_icon="🌍", layout="wide")
@@ -17,7 +18,7 @@ def load_css(file_name):
             st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 load_css("assets/style.css")
 
-st.title("🌍 Global Threat Map")
+st.title("🌍 | Global Threat Map")
 st.markdown("##### 3D hexbin map of global terrorist incidents with DBSCAN geospatial cluster analysis.")
 
 # -----------------------------------------------
@@ -27,9 +28,10 @@ st.sidebar.header("Filters")
 
 years_df = query_data("SELECT DISTINCT iyear FROM 'data/globalterrorism.csv' ORDER BY iyear")
 years_list = ["All"] + years_df["iyear"].astype(int).tolist()
-selected_year = st.sidebar.selectbox("Year", years_list)
+selected_year = st.sidebar.selectbox("Year", years_list, help="Filter the map to display incidents from a specific year.")
 
 view_mode = st.sidebar.radio("View Mode", ["Hexbin Density", "DBSCAN Clusters", "Both"], index=2)
+mobile_fallback = st.sidebar.toggle("📱 Mobile-Friendly 2D View", value=False, help="Enable this if the 3D Hexbin map crashes or fails to load on your mobile device due to WebGL limits.")
 
 st.sidebar.markdown("---")
 st.sidebar.subheader("Map Style")
@@ -39,7 +41,7 @@ MAP_STYLES = {
     "Satellite": "mapbox://styles/mapbox/satellite-streets-v12",
     "Terrain": "mapbox://styles/mapbox/outdoors-v12",
 }
-selected_style = st.sidebar.selectbox("Map theme", list(MAP_STYLES.keys()))
+selected_style = st.sidebar.selectbox("Map theme", list(MAP_STYLES.keys()), help="Choose the visual style for the base map.")
 
 st.sidebar.markdown("---")
 st.sidebar.subheader("DBSCAN Parameters")
@@ -56,8 +58,9 @@ if selected_year == "All":
 else:
     sql = f"SELECT latitude, longitude, nkill, country_txt FROM 'data/globalterrorism.csv' WHERE iyear = {selected_year} AND latitude IS NOT NULL AND longitude IS NOT NULL"
 
-df = query_data(sql)
-df["nkill"] = df["nkill"].fillna(0)
+with st.spinner("Loading geospatial data..."):
+    df = query_data(sql)
+    df["nkill"] = df["nkill"].fillna(0)
 
 st.markdown(f"**Showing {len(df):,} incidents**  |  Year: `{selected_year}`")
 
@@ -139,9 +142,9 @@ n_noise    = (labels == -1).sum()
 # Cluster Summary
 # -----------------------------------------------
 kc1, kc2, kc3 = st.columns(3)
-kc1.metric("DBSCAN Clusters Found", n_clusters)
-kc2.metric("Noise / Isolated Incidents", f"{n_noise:,}")
-kc3.metric("Clustered Incidents", f"{(labels != -1).sum():,}")
+with kc1: st_custom_kpi_card("DBSCAN Clusters Found", str(n_clusters), "", "🧩")
+with kc2: st_custom_kpi_card("Noise / Isolated Incidents", f"{n_noise:,}", "", "📉")
+with kc3: st_custom_kpi_card("Clustered Incidents", f"{(labels != -1).sum():,}", "", "🔗")
 
 with st.expander("ℹ️ Why DBSCAN with haversine distance?", expanded=False):
     st.markdown("""
@@ -209,56 +212,79 @@ polygon_data = cluster_polygons(df)
 # -----------------------------------------------
 # Map Rendering Logic
 # -----------------------------------------------
-layers = []
-
-if view_mode in ["Hexbin Density", "Both"]:
-    hex_layer = pdk.Layer(
-        'HexagonLayer',
-        data=df,
-        get_position=['longitude', 'latitude'],
-        radius=20000,
-        elevation_scale=50,
-        elevation_range=[0, 3000],
-        pickable=True,
-        extruded=True,
-        get_weight="nkill",
-        color_range=[
-            [255, 255, 178],
-            [254, 204, 92],
-            [253, 141, 60],
-            [240, 59, 32],
-            [189, 0, 38]
-        ],
+if mobile_fallback:
+    st.info("📱 Mobile view enabled: Rendering 2D map with a maximum of 10,000 incidents to preserve mobile GPU memory.")
+    # Downsample for mobile to guarantee rendering
+    df_mobile = df.sample(n=min(10000, len(df)), random_state=42)
+    fallback_style = "carto-darkmatter" if "dark" in selected_style.lower() else "carto-positron"
+    
+    fig = px.scatter_mapbox(
+        df_mobile,
+        lat="latitude",
+        lon="longitude",
+        color="nkill",
+        size="nkill",
+        color_continuous_scale="Reds",
+        size_max=15,
+        zoom=1,
+        mapbox_style=fallback_style,
+        hover_data={"latitude": False, "longitude": False, "nkill": True}
     )
-    layers.append(hex_layer)
+    fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0}, paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)")
+    st.plotly_chart(fig, use_container_width=True)
 
-if view_mode in ["DBSCAN Clusters", "Both"] and polygon_data:
-    poly_layer = pdk.Layer(
-        "PolygonLayer",
-        data=polygon_data,
-        get_polygon="polygon",
-        get_fill_color=[0, 255, 255, 140],
-        get_line_color=[0, 255, 255, 255],
-        line_width_min_pixels=2,
-        pickable=True,
-        extruded=False,
+else:
+    layers = []
+
+    if view_mode in ["Hexbin Density", "Both"]:
+        hex_layer = pdk.Layer(
+            'HexagonLayer',
+            data=df,
+            get_position=['longitude', 'latitude'],
+            radius=20000,
+            elevation_scale=50,
+            elevation_range=[0, 3000],
+            pickable=True,
+            extruded=True,
+            get_weight="nkill",
+            color_range=[
+                [255, 255, 178],
+                [254, 204, 92],
+                [253, 141, 60],
+                [240, 59, 32],
+                [189, 0, 38]
+            ],
+        )
+        layers.append(hex_layer)
+
+    if view_mode in ["DBSCAN Clusters", "Both"] and polygon_data:
+        poly_layer = pdk.Layer(
+            "PolygonLayer",
+            data=polygon_data,
+            get_polygon="polygon",
+            get_fill_color=[0, 255, 255, 140],
+            get_line_color=[0, 255, 255, 255],
+            line_width_min_pixels=2,
+            pickable=True,
+            extruded=False,
+        )
+        layers.append(poly_layer)
+
+    view_state = pdk.ViewState(
+        longitude=0, latitude=20, zoom=1.2, min_zoom=1, max_zoom=15, pitch=45, bearing=0
     )
-    layers.append(poly_layer)
 
-view_state = pdk.ViewState(
-    longitude=0, latitude=20, zoom=1.2, min_zoom=1, max_zoom=15, pitch=45, bearing=0
-)
-
-r = pdk.Deck(
-    layers=layers,
-    initial_view_state=view_state,
-    map_style=MAP_STYLES[selected_style],
-    tooltip={
-        "html": "<b>Incidents / Weight:</b> {nkill}<br/><b>Cluster ID:</b> {cluster_id}<br/><b>Total Deaths in Cluster:</b> {nkill_sum}",
-        "style": {"backgroundColor": "steelblue", "color": "white"}
-    }
-)
-st.pydeck_chart(r, use_container_width=True)
+    r = pdk.Deck(
+        layers=layers,
+        initial_view_state=view_state,
+        map_style=MAP_STYLES[selected_style],
+        tooltip={
+            "html": "<b>Incidents / Weight:</b> {nkill}<br/><b>Cluster ID:</b> {cluster_id}<br/><b>Total Deaths in Cluster:</b> {nkill_sum}",
+            "style": {"backgroundColor": "steelblue", "color": "white"}
+        }
+    )
+    with st.spinner("Rendering 3D map..."):
+        st.pydeck_chart(r, use_container_width=True)
 
 # -----------------------------------------------
 # Cluster Hotspot Table
@@ -278,6 +304,6 @@ if n_clusters > 0:
     cluster_df["Lon_Center"] = cluster_df["Lon_Center"].round(3)
     cluster_df["Fatalities"] = cluster_df["Fatalities"].astype(int)
 
-    st.dataframe(cluster_df.reset_index(drop=True), width="stretch")
+    st.dataframe(cluster_df, use_container_width=True, hide_index=True)
 
 st.info("👈 Change filters from the sidebar. Toggle between Hexbin, DBSCAN clusters, or both.")

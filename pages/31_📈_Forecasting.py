@@ -3,6 +3,7 @@ import plotly.graph_objects as go
 import pandas as pd
 import os
 from utils.hotspot_utils import build_yearly_series, forecast_hotspot
+from utils.ui_components import st_custom_kpi_card
 
 st.set_page_config(page_title="Hotspot Forecasting", page_icon="📈", layout="wide")
 
@@ -15,7 +16,7 @@ def load_css(file_name):
 
 load_css("assets/style.css")
 
-st.title("📈 Hotspot Threat Forecasting")
+st.title("📈 | Hotspot Threat Forecasting")
 st.markdown(
     "##### SARIMA time-series forecasting per detected hotspot, "
     "validated on held-out years against a linear-regression baseline."
@@ -57,15 +58,15 @@ hotspot_options = {
     f"#{row.rank} — {row.countries} ({row.incidents} incidents, TSI {row.total_tsi:.0f})": row.cluster
     for row in hotspots.itertuples()
 }
-selected_label = st.sidebar.selectbox("Select Hotspot", list(hotspot_options.keys()))
+selected_label = st.sidebar.selectbox("Select Hotspot", list(hotspot_options.keys()), help="Choose a hotspot cluster to forecast.")
 selected_cluster = hotspot_options[selected_label]
 
 value_col = st.sidebar.radio(
     "Forecast target", ["tsi", "count"],
     format_func=lambda x: "Annual Cumulative TSI" if x == "tsi" else "Attack Count",
 )
-test_years = st.sidebar.slider("Validation window (years held out)", 1, 5, 3)
-forecast_years = st.sidebar.slider("Forecast horizon (years)", 1, 10, 5)
+test_years = st.sidebar.slider("Validation window (years held out)", 1, 5, 3, help="Years of data to hold out for model backtesting.")
+forecast_years = st.sidebar.slider("Forecast horizon (years)", 1, 10, 5, help="Number of years into the future to project.")
 
 series = build_yearly_series(df_clustered, selected_cluster, value_col=value_col)
 
@@ -92,12 +93,12 @@ st.subheader("Model Validation (held-out years)")
 c1, c2 = st.columns(2)
 with c1:
     st.markdown(f"**SARIMA{result['order']}**")
-    st.metric("RMSE", f"{result['sarima_metrics']['RMSE']:.2f}")
-    st.metric("MAE", f"{result['sarima_metrics']['MAE']:.2f}")
+    st_custom_kpi_card("RMSE", f"{result['sarima_metrics']['RMSE']:.2f}", "", "📉")
+    st_custom_kpi_card("MAE", f"{result['sarima_metrics']['MAE']:.2f}", "", "🎯")
 with c2:
     st.markdown("**Linear Regression (baseline)**")
-    st.metric("RMSE", f"{result['lr_metrics']['RMSE']:.2f}")
-    st.metric("MAE", f"{result['lr_metrics']['MAE']:.2f}")
+    st_custom_kpi_card("RMSE", f"{result['lr_metrics']['RMSE']:.2f}", "", "📉")
+    st_custom_kpi_card("MAE", f"{result['lr_metrics']['MAE']:.2f}", "", "🎯")
 
 better = "SARIMA" if result["sarima_metrics"]["RMSE"] < result["lr_metrics"]["RMSE"] else "Linear Regression"
 st.success(f"✅ **{better}** performs better on held-out validation years for this hotspot.")
@@ -154,7 +155,7 @@ fig.update_layout(
     plot_bgcolor="rgba(0,0,0,0)",
     legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
 )
-st.plotly_chart(fig, width="stretch")
+st.plotly_chart(fig, use_container_width=True)
 
 st.divider()
 
@@ -165,7 +166,7 @@ forecast_table = pd.DataFrame({
     "Lower Bound": result["future_conf_int"].iloc[:, 0].values.round(2),
     "Upper Bound": result["future_conf_int"].iloc[:, 1].values.round(2),
 })
-st.dataframe(forecast_table, width="stretch")
+st.dataframe(forecast_table, use_container_width=True, hide_index=True)
 
 csv = forecast_table.to_csv(index=False)
 st.download_button("📥 Download Forecast", csv, file_name=f"{selected_label}_forecast.csv", mime="text/csv")

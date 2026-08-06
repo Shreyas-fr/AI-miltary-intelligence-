@@ -1,8 +1,9 @@
 import json
 import os
+import streamlit as st
 import pandas as pd
 import pydeck as pdk
-import streamlit as st
+from utils.ui_components import st_custom_kpi_card
 
 st.set_page_config(page_title="Military Assets", page_icon="🏗️", layout="wide")
 
@@ -15,8 +16,8 @@ def load_css(file_name):
 
 load_css("assets/style.css")
 
-st.title("🏗️ Military Asset Overlay")
-st.markdown("##### Simulated military installations with threat radius analysis")
+st.title("🏗️ | Military Asset Overlay")
+st.markdown("##### Simulated military installations with threat radius analysis.")
 
 # Color mapping for asset types
 COLOR_MAP = {
@@ -83,9 +84,9 @@ total_count = len(filtered_df)
 type_counts = filtered_df["type"].value_counts().to_dict()
 
 kpi_cols = st.columns(6)
-kpi_cols[0].metric("Total Assets Shown", total_count)
+with kpi_cols[0]: st_custom_kpi_card("Total Assets", str(total_count), "Visible", "📦")
 for i, atype in enumerate(asset_types, start=1):
-    kpi_cols[i].metric(atype, type_counts.get(atype, 0))
+    with kpi_cols[i]: st_custom_kpi_card(atype, str(type_counts.get(atype, 0)), "", "🛡️")
 
 st.markdown("---")
 
@@ -146,7 +147,8 @@ if not filtered_df.empty:
         tooltip=tooltip_html,
     )
 
-    st.pydeck_chart(r)
+    with st.spinner("Rendering asset overlay map..."):
+        st.pydeck_chart(r, use_container_width=True)
 else:
     st.warning("No military assets match the selected filters.")
 
@@ -165,8 +167,8 @@ if not filtered_df.empty:
             "lon": "Longitude",
         }
     )
-    st.dataframe(display_df, width="stretch", hide_index=True)
+    st.dataframe(display_df, use_container_width=True, hide_index=True)
 else:
-    st.dataframe(pd.DataFrame(), width="stretch")
+    st.dataframe(pd.DataFrame(), use_container_width=True)
 
 st.caption("This is a simulated demonstration layer. Actual military installation data is classified.")

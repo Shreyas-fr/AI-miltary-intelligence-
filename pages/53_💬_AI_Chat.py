@@ -19,8 +19,8 @@ def load_css(file_name):
 load_css("assets/style.css")
 
 # Title & Subtitle
-st.title("💬 AI Intelligence Assistant")
-st.markdown("##### Ask questions about global threats, country risks, and intelligence data")
+st.title("💬 | AI Intelligence Assistant")
+st.markdown("##### Ask questions about global threats, country risks, and intelligence data.")
 
 st.markdown('<div style="margin-top:0.75rem"></div>', unsafe_allow_html=True)
 
@@ -51,7 +51,7 @@ st.session_state.setdefault("chat_history", [])
 
 # Clear Chat History Button
 st.sidebar.markdown("---")
-if st.sidebar.button("🗑️ Clear Chat History", width="stretch"):
+if st.sidebar.button("🗑️ Clear Chat History", use_container_width=True):
     st.session_state.chat_history = []
     st.rerun()
 

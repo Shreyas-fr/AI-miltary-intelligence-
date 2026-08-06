@@ -22,7 +22,7 @@ def time_page(name, path):
     print(f"{name} rerun time: {duration2:.2f} seconds")
     return duration, duration2
 
-time_page("Global Threat Map", "pages/2_🌍_Global_Threat_Map.py")
-time_page("Hotspot Detection", "pages/3_🎯_Hotspot_Detection.py")
-time_page("Forecasting", "pages/7_📈_Forecasting.py")
-time_page("Event Similarity", "pages/13_🔍_Event_Similarity.py")
+time_page("Global Threat Map", "pages/20_🌍_Global_Threat_Map.py")
+time_page("Hotspot Detection", "pages/21_🎯_Hotspot_Detection.py")
+time_page("Forecasting", "pages/31_📈_Forecasting.py")
+time_page("Event Similarity", "pages/32_🔍_Event_Similarity.py")

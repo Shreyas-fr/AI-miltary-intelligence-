@@ -7,6 +7,7 @@ import networkx as nx
 
 from utils.data_loader import query_data
 from utils.network_utils import build_group_profiles, compute_similarity_network, generate_network_layout
+from utils.ui_components import st_custom_kpi_card
 
 st.set_page_config(page_title="Group Networks", page_icon="🕸️", layout="wide")
 
@@ -16,8 +17,8 @@ def load_css(file_name):
             st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 load_css("assets/style.css")
 
-st.title("🕸️ Perpetrator Group Networks")
-st.markdown("##### Tactical and Geographic Similarity Graph")
+st.title("🕸️ | Perpetrator Group Networks")
+st.markdown("##### Tactical and Geographic Similarity Graph.")
 st.info("This module maps relationships between terrorist organizations based on overlapping operational profiles. Two groups are connected if they share highly similar tactical preferences (weapons, targets) and geographic operating areas, indicating potential emulation, competition, or shared resources.")
 
 # -----------------------------------------------
@@ -40,7 +41,7 @@ similarity_threshold = st.sidebar.slider(
 st.sidebar.markdown("---")
 region_df = query_data("SELECT DISTINCT region_txt FROM 'data/globalterrorism.csv' WHERE region_txt IS NOT NULL ORDER BY region_txt")
 regions = ["Global"] + region_df["region_txt"].tolist()
-selected_region = st.sidebar.selectbox("Constrain to Region", regions)
+selected_region = st.sidebar.selectbox("Constrain to Region", regions, help="Analyze group networks operating in a specific area.")
 
 # -----------------------------------------------
 # Data Loading
@@ -68,13 +69,14 @@ if profiles.empty:
     st.warning(f"No groups found in this region with at least {min_incidents} incidents.")
     st.stop()
 
-G = compute_similarity_network(profiles, threshold=similarity_threshold)
-
-if len(G.nodes) == 0:
-    st.warning("No groups met the similarity threshold. Try lowering the threshold or minimum incidents.")
-    st.stop()
-
-pos = generate_network_layout(G)
+with st.spinner("Computing similarity network (this may take a moment)..."):
+    G = compute_similarity_network(profiles, threshold=similarity_threshold)
+    
+    if len(G.nodes) == 0:
+        st.warning("No groups met the similarity threshold. Try lowering the threshold or minimum incidents.")
+        st.stop()
+    
+    pos = generate_network_layout(G)
 
 # -----------------------------------------------
 # Plotly Visualization
@@ -173,12 +175,12 @@ st.plotly_chart(fig, use_container_width=True)
 # -----------------------------------------------
 st.divider()
 c1, c2, c3 = st.columns(3)
-c1.metric("Groups Displayed", len(G.nodes))
-c2.metric("Connections", len(G.edges))
+with c1: st_custom_kpi_card("Groups Displayed", str(len(G.nodes)), "", "👥")
+with c2: st_custom_kpi_card("Connections", str(len(G.edges)), "Shared tactics", "🔗")
 
 # Most connected group
 degrees = dict(G.degree())
 if degrees:
     top_group = max(degrees, key=degrees.get)
     top_degree = degrees[top_group]
-    c3.metric("Most Influential Node", top_group, f"{top_degree} connections")
+    with c3: st_custom_kpi_card("Most Influential Node", top_group, f"{top_degree} connections", "👑")

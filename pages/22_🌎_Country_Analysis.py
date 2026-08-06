@@ -2,6 +2,7 @@ import streamlit as st
 import plotly.express as px
 import plotly.graph_objects as go
 from utils.data_loader import query_data
+from utils.ui_components import st_custom_kpi_card
 import os
 
 st.set_page_config(
@@ -17,7 +18,8 @@ def load_css(file_name):
             st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 load_css("assets/style.css")
 
-st.title("🌎 Country Analysis")
+st.title("🌎 | Country Analysis")
+st.markdown("##### Detailed intelligence and historical risk analysis for a specific nation.")
 
 # -----------------------------
 # Sidebar
@@ -26,24 +28,30 @@ st.title("🌎 Country Analysis")
 countries_df = query_data("SELECT DISTINCT country_txt FROM 'data/globalterrorism.csv' WHERE country_txt IS NOT NULL ORDER BY country_txt")
 countries = countries_df["country_txt"].tolist()
 
-country = st.sidebar.selectbox("Select Country", countries)
+country = st.sidebar.selectbox("Select Country", countries, help="Select a nation to analyze historical and predictive threat data.")
 
 # Use DuckDB to fetch ONLY the data for the selected country
-safe_country = country.replace("'", "''")
-country_df = query_data(f"SELECT * FROM 'data/globalterrorism.csv' WHERE country_txt = '{safe_country}'")
+with st.spinner(f"Loading data for {country}..."):
+    safe_country = country.replace("'", "''")
+    country_df = query_data(f"SELECT * FROM 'data/globalterrorism.csv' WHERE country_txt = '{safe_country}'")
 
-st.header(f"Intelligence Report : {country}")
+if country_df.empty:
+    st.warning(f"No historical incidents found for {country}.")
+    st.stop()
+
+st.header(f"Intelligence Report: {country}")
 
 from utils.data_loader import load_data
 from utils.intelligence import compute_country_risk
 
 # Calculate threat score
 try:
-    historical_all = load_data()
-    risk_breakdown = compute_country_risk(country, historical_all)
-    threat_score = risk_breakdown.score
-    risk_lvl = risk_breakdown.level
-    risk_color = risk_breakdown.color
+    with st.spinner("Computing threat score..."):
+        historical_all = load_data()
+        risk_breakdown = compute_country_risk(country, historical_all)
+        threat_score = risk_breakdown.score
+        risk_lvl = risk_breakdown.level
+        risk_color = risk_breakdown.color
 except Exception:
     threat_score = "N/A"
     risk_lvl = "Unknown"
@@ -51,11 +59,11 @@ except Exception:
 
 c1, c2, c3, c4, c5 = st.columns(5)
 
-c1.metric("Incidents", f"{len(country_df):,}")
-c2.metric("Fatalities", f"{int(country_df['nkill'].fillna(0).sum()):,}")
-c3.metric("Injured", f"{int(country_df['nwound'].fillna(0).sum()):,}")
-c4.metric("Groups", f"{country_df['gname'].nunique():,}")
-c5.metric("Threat Score", f"{threat_score}/100 ({risk_lvl})")
+with c1: st_custom_kpi_card("Incidents", f"{len(country_df):,}", "Recorded events", "📉")
+with c2: st_custom_kpi_card("Fatalities", f"{int(country_df['nkill'].fillna(0).sum()):,}", "Estimated deaths", "💀")
+with c3: st_custom_kpi_card("Injured", f"{int(country_df['nwound'].fillna(0).sum()):,}", "Estimated wounded", "🩹")
+with c4: st_custom_kpi_card("Groups", f"{country_df['gname'].nunique():,}", "Known actors", "👥")
+with c5: st_custom_kpi_card("Threat Score", f"{threat_score}/100", f"Level: {risk_lvl}", "🛡️")
 
 st.divider()
 
@@ -80,7 +88,7 @@ if 'risk_breakdown' in locals() and risk_breakdown.components:
             paper_bgcolor="rgba(0,0,0,0)",
             plot_bgcolor="rgba(0,0,0,0)"
         )
-        st.plotly_chart(fig_comp, width="stretch")
+        st.plotly_chart(fig_comp, use_container_width=True)
 
 # -----------------------------
 # Attacks Over Time
@@ -108,7 +116,7 @@ with left:
         font=dict(family="Outfit, sans-serif", color="#CBD5E1"),
         margin=dict(l=10, r=10, t=40, b=10)
     )
-    st.plotly_chart(fig, width="stretch")
+    st.plotly_chart(fig, use_container_width=True)
 
 with right:
     attack = country_df.groupby("attacktype1_txt").size().reset_index(name="Count")
@@ -123,7 +131,7 @@ with right:
         font=dict(family="Outfit, sans-serif", color="#CBD5E1"),
         margin=dict(l=10, r=10, t=40, b=10)
     )
-    st.plotly_chart(fig, width="stretch")
+    st.plotly_chart(fig, use_container_width=True)
 
 st.divider()
 
@@ -136,12 +144,12 @@ left, right = st.columns(2)
 with left:
     groups = country_df.groupby("gname").size().reset_index(name="Attacks").sort_values("Attacks", ascending=False).head(10)
     fig = px.bar(groups, x="Attacks", y="gname", orientation="h", title="Top Terrorist Organizations", template="plotly_dark")
-    st.plotly_chart(fig, width="stretch")
+    st.plotly_chart(fig, use_container_width=True)
 
 with right:
     weapon = country_df.groupby("weaptype1_txt").size().reset_index(name="Count").sort_values("Count", ascending=False)
     fig = px.bar(weapon, x="weaptype1_txt", y="Count", title="Weapon Types", template="plotly_dark")
-    st.plotly_chart(fig, width="stretch")
+    st.plotly_chart(fig, use_container_width=True)
 
 st.divider()
 
@@ -167,7 +175,7 @@ if not map_df.empty:
         template="plotly_dark"
     )
     fig.update_layout(margin=dict(l=0, r=0, t=50, b=0))
-    st.plotly_chart(fig, width="stretch")
+    st.plotly_chart(fig, use_container_width=True)
 else:
     st.warning("No geospatial coordinates available for this country.")
 
@@ -180,7 +188,7 @@ st.divider()
 st.subheader("Incident Details")
 
 cols = ["iyear", "city", "attacktype1_txt", "targtype1_txt", "weaptype1_txt", "gname", "nkill", "nwound"]
-st.dataframe(country_df[cols], width="stretch")
+st.dataframe(country_df[cols], use_container_width=True, hide_index=True)
 
 # -----------------------------
 # Download

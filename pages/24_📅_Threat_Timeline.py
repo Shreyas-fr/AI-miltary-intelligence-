@@ -4,6 +4,7 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 from utils.data_loader import query_data
+from utils.ui_components import st_custom_kpi_card
 
 # -----------------------------------------------
 # 1. Page Configuration
@@ -27,8 +28,8 @@ load_css("assets/style.css")
 # -----------------------------------------------
 # 3. Header & Subtitle
 # -----------------------------------------------
-st.title("📅 Threat Timeline")
-st.markdown("##### Interactive temporal analysis of global threat events")
+st.title("📅 | Threat Timeline")
+st.markdown("##### Interactive temporal analysis of global threat events.")
 
 # -----------------------------------------------
 # 4. Sidebar Filters
@@ -118,7 +119,8 @@ query_sql = f"""
     ORDER BY iyear ASC, imonth ASC, iday ASC
 """
 
-df = query_data(query_sql)
+with st.spinner("Loading timeline events..."):
+    df = query_data(query_sql)
 
 # Clean numeric columns
 df["nkill"] = df["nkill"].fillna(0).astype(int)
@@ -148,29 +150,10 @@ top_country_count = int(country_counts.max())
 
 c1, c2, c3, c4 = st.columns(4)
 
-c1.metric(
-    label="Total Incidents",
-    value=f"{total_incidents:,}",
-    delta=f"{year_range[0]} - {year_range[1]}"
-)
-
-c2.metric(
-    label="Peak Threat Year",
-    value=f"{peak_year}",
-    delta=f"{peak_year_count:,} incidents"
-)
-
-c3.metric(
-    label="Most Affected Country",
-    value=top_country,
-    delta=f"{top_country_count:,} incidents"
-)
-
-c4.metric(
-    label="Total Casualties",
-    value=f"{(total_fatalities + total_injured):,}",
-    delta=f"{total_fatalities:,} killed | {total_injured:,} injured"
-)
+with c1: st_custom_kpi_card("Total Incidents", f"{total_incidents:,}", f"{year_range[0]} - {year_range[1]}", "📉")
+with c2: st_custom_kpi_card("Peak Threat Year", f"{peak_year}", f"{peak_year_count:,} incidents", "🔥")
+with c3: st_custom_kpi_card("Most Affected Country", top_country, f"{top_country_count:,} incidents", "📍")
+with c4: st_custom_kpi_card("Total Casualties", f"{(total_fatalities + total_injured):,}", f"{total_fatalities:,} k | {total_injured:,} i", "💀")
 
 st.markdown("---")
 
@@ -260,7 +243,8 @@ fig_timeline.update_layout(
     font=dict(family="Outfit, Inter, sans-serif")
 )
 
-st.plotly_chart(fig_timeline, width="stretch")
+with st.spinner("Rendering timeline scatter matrix..."):
+    st.plotly_chart(fig_timeline, use_container_width=True)
 
 # -----------------------------------------------
 # 8. Yearly Trend Line Chart
@@ -310,7 +294,7 @@ with col_left:
         font=dict(family="Outfit, Inter, sans-serif")
     )
 
-    st.plotly_chart(fig_trend, width="stretch")
+    st.plotly_chart(fig_trend, use_container_width=True)
 
 with col_right:
     attack_counts = df["attacktype1_txt"].value_counts().reset_index()
@@ -332,7 +316,7 @@ with col_right:
         legend=dict(orientation="v", yanchor="middle", y=0.5, xanchor="left", x=1.02),
         font=dict(family="Outfit, Inter, sans-serif")
     )
-    st.plotly_chart(fig_donut, width="stretch")
+    st.plotly_chart(fig_donut, use_container_width=True)
 
 # -----------------------------------------------
 # 9. Expandable Detail Section
@@ -377,7 +361,8 @@ with st.expander(f"🔍 Detailed Threat Event Records ({year_range[0]} - {year_r
             "Injured": st.column_config.NumberColumn("Injured", format="%d"),
         },
         height=350,
-        width="stretch"
+        use_container_width=True,
+        hide_index=True
     )
 
     # Download CSV button

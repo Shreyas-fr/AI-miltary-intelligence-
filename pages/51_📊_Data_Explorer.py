@@ -1,7 +1,9 @@
 import streamlit as st
+import pandas as pd
 import plotly.express as px
 import os
 from utils.data_loader import load_data, query_data
+from utils.ui_components import st_custom_kpi_card
 
 # -----------------------------------------------
 # Page Configuration
@@ -18,7 +20,7 @@ def load_css(file_name):
             st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 load_css("assets/style.css")
 
-st.title("📊 Global Terrorism Data Explorer")
+st.title("📊 | Global Terrorism Data Explorer")
 st.markdown("##### Filter, visualize and download the full GTD dataset.")
 
 # -----------------------------------------------
@@ -71,12 +73,16 @@ if search:
 # -----------------------------------------------
 # KPI Metrics
 # -----------------------------------------------
+if filtered_df.empty:
+    st.warning("No records match the selected filters. Please broaden your search criteria.")
+    st.stop()
+
 st.subheader("Dataset Summary")
 c1, c2, c3, c4 = st.columns(4)
-c1.metric("Incidents",   f"{len(filtered_df):,}")
-c2.metric("Countries",   f"{filtered_df['country_txt'].nunique():,}")
-c3.metric("Fatalities",  f"{int(filtered_df['nkill'].fillna(0).sum()):,}")
-c4.metric("Injuries",    f"{int(filtered_df['nwound'].fillna(0).sum()):,}")
+with c1: st_custom_kpi_card("Incidents",   f"{len(filtered_df):,}", "", "📉")
+with c2: st_custom_kpi_card("Countries",   f"{filtered_df['country_txt'].nunique():,}", "", "🌎")
+with c3: st_custom_kpi_card("Fatalities",  f"{int(filtered_df['nkill'].fillna(0).sum()):,}", "", "💀")
+with c4: st_custom_kpi_card("Injuries",    f"{int(filtered_df['nwound'].fillna(0).sum()):,}", "", "🩹")
 
 st.divider()
 
@@ -96,7 +102,7 @@ with tab1:
         template="plotly_dark"
     )
     fig.update_layout(paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)")
-    st.plotly_chart(fig, width="stretch")
+    st.plotly_chart(fig, use_container_width=True)
 
 with tab2:
     atk_chart = filtered_df["attacktype1_txt"].value_counts().reset_index()
@@ -108,7 +114,7 @@ with tab2:
         color_discrete_sequence=px.colors.sequential.Blues_r
     )
     fig.update_layout(paper_bgcolor="rgba(0,0,0,0)")
-    st.plotly_chart(fig, width="stretch")
+    st.plotly_chart(fig, use_container_width=True)
 
 with tab3:
     wpn_chart = filtered_df["weaptype1_txt"].value_counts().reset_index()
@@ -120,7 +126,7 @@ with tab3:
         template="plotly_dark"
     )
     fig.update_layout(paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)")
-    st.plotly_chart(fig, width="stretch")
+    st.plotly_chart(fig, use_container_width=True)
 
 st.divider()
 
@@ -129,7 +135,7 @@ st.divider()
 # -----------------------------------------------
 st.subheader("Filtered Dataset")
 st.caption(f"Showing {len(filtered_df):,} records")
-st.dataframe(filtered_df, height=450, width="stretch")
+st.dataframe(filtered_df, height=450, use_container_width=True, hide_index=True)
 
 csv = filtered_df.to_csv(index=False)
 st.download_button("📥 Download Filtered Data", csv, file_name="Filtered_GTD_Data.csv", mime="text/csv")
@@ -141,9 +147,9 @@ st.divider()
 # -----------------------------------------------
 with st.expander("🔎 Dataset Info"):
     col1, col2, col3 = st.columns(3)
-    col1.metric("Rows", f"{filtered_df.shape[0]:,}")
-    col2.metric("Columns", f"{filtered_df.shape[1]:,}")
-    col3.metric("Memory (MB)", f"{round(filtered_df.memory_usage(deep=True).sum() / 1024**2, 2)}")
+    with col1: st_custom_kpi_card("Rows", f"{filtered_df.shape[0]:,}", "", "🔢")
+    with col2: st_custom_kpi_card("Columns", f"{filtered_df.shape[1]:,}", "", "📋")
+    with col3: st_custom_kpi_card("Memory", f"{round(filtered_df.memory_usage(deep=True).sum() / 1024**2, 2)} MB", "", "💾")
 
     st.markdown("**Column Names:**")
     st.write(filtered_df.columns.tolist())
@@ -153,4 +159,4 @@ with st.expander("🔎 Dataset Info"):
     missing = missing[missing["Missing Values"] > 0]
     if not missing.empty:
         st.markdown("**Missing Values:**")
-        st.dataframe(missing, width="stretch")
+        st.dataframe(missing, use_container_width=True, hide_index=True)

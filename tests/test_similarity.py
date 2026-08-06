@@ -46,6 +46,8 @@ class SimilarityEngineTests(unittest.TestCase):
                 "city": "Mosul",
             },
         ])
+        
+        self.data = pd.concat([self.data, self.data], ignore_index=True)
         self.engine = SimilarityEngine(self.data)
 
     def test_find_similar(self):

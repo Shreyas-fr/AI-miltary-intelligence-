@@ -5,6 +5,12 @@ import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
 
+# --- Authentication & Role Check ---
+from utils.auth import require_auth
+require_auth(['Analyst', 'Commander'])
+# -----------------------------------
+
+
 from utils.data_loader import load_data, query_data
 from utils.intelligence import compute_country_risk, fetch_gdelt_events
 from utils.recommendations import generate_recommendations, priority_color

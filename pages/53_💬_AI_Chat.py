@@ -1,5 +1,11 @@
 import os
 import streamlit as st
+
+# --- Authentication & Role Check ---
+from utils.auth import require_auth
+require_auth(['Analyst', 'Commander'])
+# -----------------------------------
+
 from utils.chat_engine import build_context, chat_with_gemini
 from utils.data_loader import query_data
 

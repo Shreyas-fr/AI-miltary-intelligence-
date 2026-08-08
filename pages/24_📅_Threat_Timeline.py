@@ -1,5 +1,11 @@
 import os
 import streamlit as st
+
+# --- Authentication & Role Check ---
+from utils.auth import require_auth
+require_auth(['Viewer', 'Analyst', 'Commander'])
+# -----------------------------------
+
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go

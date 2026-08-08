@@ -1,4 +1,10 @@
 import streamlit as st
+
+# --- Authentication & Role Check ---
+from utils.auth import require_auth
+require_auth(['Analyst', 'Commander'])
+# -----------------------------------
+
 import os
 import pandas as pd
 import pydeck as pdk

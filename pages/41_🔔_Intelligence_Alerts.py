@@ -2,6 +2,12 @@ import os
 import pandas as pd
 import streamlit as st
 
+# --- Authentication & Role Check ---
+from utils.auth import require_auth
+require_auth(['Analyst', 'Commander'])
+# -----------------------------------
+
+
 from utils.data_loader import load_data, query_data
 from utils.intelligence import compute_country_risk
 from utils.ui_components import st_custom_kpi_card

@@ -1,6 +1,12 @@
 import json
 import os
 import streamlit as st
+
+# --- Authentication & Role Check ---
+from utils.auth import require_auth
+require_auth(['Analyst', 'Commander'])
+# -----------------------------------
+
 import pandas as pd
 import pydeck as pdk
 from utils.ui_components import st_custom_kpi_card

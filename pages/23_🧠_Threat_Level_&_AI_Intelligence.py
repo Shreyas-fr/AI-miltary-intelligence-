@@ -5,6 +5,12 @@ import numpy as np
 import plotly.graph_objects as go
 import streamlit as st
 
+# --- Authentication & Role Check ---
+from utils.auth import require_auth
+require_auth(['Analyst', 'Commander'])
+# -----------------------------------
+
+
 try:
     from google import genai
 except Exception:

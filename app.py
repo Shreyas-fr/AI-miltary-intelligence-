@@ -11,6 +11,10 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+import yaml
+from yaml.loader import SafeLoader
+import streamlit_authenticator as stauth
+
 # Load CSS
 def load_css(file_name):
     if os.path.exists(file_name):
@@ -18,6 +22,39 @@ def load_css(file_name):
             st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
 load_css("assets/style.css")
+
+# --- Authentication Setup ---
+with open('credentials.yaml') as file:
+    config = yaml.load(file, Loader=SafeLoader)
+
+authenticator = stauth.Authenticate(
+    config['credentials'],
+    config['cookie']['name'],
+    config['cookie']['key'],
+    config['cookie']['expiry_days']
+)
+
+# Render login widget
+authenticator.login(location="main")
+
+auth_status = st.session_state.get("authentication_status")
+
+if auth_status:
+    authenticator.logout(location="sidebar")
+    st.sidebar.markdown(f"**User:** {st.session_state.get('name', 'Unknown')}")
+    
+    roles = st.session_state.get("roles")
+    role_display = roles[0] if roles and isinstance(roles, list) else "Viewer"
+    st.sidebar.markdown(f"**Role:** {role_display}")
+    
+elif auth_status is False:
+    st.error('Username/password is incorrect')
+    st.stop()
+elif auth_status is None:
+    st.warning('Please enter your username and password')
+    st.stop()
+    
+# --- Main Application (Only visible if authenticated) ---
 
 # Hero Section
 st.markdown("<h1>🛡️ AI Military Intelligence Command Center</h1>", unsafe_allow_html=True)

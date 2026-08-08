@@ -1,4 +1,10 @@
 import streamlit as st
+
+# --- Authentication & Role Check ---
+from utils.auth import require_auth
+require_auth(['Analyst', 'Commander'])
+# -----------------------------------
+
 import numpy as np
 from utils.ui_components import st_custom_kpi_card
 import pydeck as pdk

@@ -1,4 +1,10 @@
 import streamlit as st
+
+# --- Authentication & Role Check ---
+from utils.auth import require_auth
+require_auth(['Commander'])
+# -----------------------------------
+
 import os
 
 st.set_page_config(

@@ -1,6 +1,12 @@
 import os
 import json
 import streamlit as st
+
+# --- Authentication & Role Check ---
+from utils.auth import require_auth
+require_auth(['Commander'])
+# -----------------------------------
+
 import pandas as pd
 import plotly.express as px
 from database.intelligence_db import (

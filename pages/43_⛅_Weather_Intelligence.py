@@ -2,6 +2,12 @@ import os
 import pandas as pd
 import pydeck as pdk
 import streamlit as st
+
+# --- Authentication & Role Check ---
+from utils.auth import require_auth
+require_auth(['Viewer', 'Analyst', 'Commander'])
+# -----------------------------------
+
 import numpy as np
 
 from utils.weather_utils import fetch_weather_by_coords, compute_weather_impact

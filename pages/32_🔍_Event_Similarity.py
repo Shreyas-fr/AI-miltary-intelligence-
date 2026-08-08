@@ -3,6 +3,12 @@ import pandas as pd
 import plotly.express as px
 import streamlit as st
 
+# --- Authentication & Role Check ---
+from utils.auth import require_auth
+require_auth(['Analyst', 'Commander'])
+# -----------------------------------
+
+
 from utils.similarity import SimilarityEngine
 from utils.data_loader import query_data
 from utils.ui_components import st_custom_kpi_card

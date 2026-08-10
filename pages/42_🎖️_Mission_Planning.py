@@ -47,19 +47,57 @@ st.sidebar.header("Mission Parameters")
 
 
 @st.cache_data(show_spinner=False)
-def get_countries() -> list[str]:
+def get_countries_and_centroids() -> pd.DataFrame:
     df_c = query_data(
-        "SELECT DISTINCT country_txt FROM 'data/globalterrorism.csv' WHERE country_txt IS NOT NULL ORDER BY country_txt"
+        """
+        SELECT country_txt, 
+               MEDIAN(latitude) as med_lat, 
+               MEDIAN(longitude) as med_lon,
+               COUNT(*) as incident_count
+        FROM 'data/globalterrorism.csv' 
+        WHERE country_txt IS NOT NULL 
+          AND latitude IS NOT NULL 
+          AND longitude IS NOT NULL
+        GROUP BY country_txt
+        ORDER BY country_txt
+        """
     )
-    return df_c["country_txt"].tolist()
+    return df_c
 
+country_df = get_countries_and_centroids()
+countries = country_df["country_txt"].tolist()
 
-countries = get_countries()
-default_country_idx = countries.index("Iraq") if "Iraq" in countries else 0
-selected_country = st.sidebar.selectbox("Country", countries, index=default_country_idx, help="Set the initial map view to a country.")
+# Handle initial state
+if "mission_lat" not in st.session_state:
+    st.session_state.mission_lat = 33.3152 # Baghdad default
+if "mission_lon" not in st.session_state:
+    st.session_state.mission_lon = 44.3661 # Baghdad default
+if "selected_country" not in st.session_state:
+    default_idx = countries.index("Iraq") if "Iraq" in countries else 0
+    st.session_state.selected_country = countries[default_idx]
 
-lat = st.sidebar.number_input("Latitude", value=33.0, format="%.4f", help="Operation center latitude.")
-lon = st.sidebar.number_input("Longitude", value=44.0, format="%.4f", help="Operation center longitude.")
+def on_country_change():
+    chosen = st.session_state.selected_country
+    row = country_df[country_df["country_txt"] == chosen]
+    if not row.empty:
+        st.session_state.mission_lat = float(row.iloc[0]["med_lat"])
+        st.session_state.mission_lon = float(row.iloc[0]["med_lon"])
+
+selected_country = st.sidebar.selectbox(
+    "Country", 
+    countries, 
+    key="selected_country",
+    on_change=on_country_change,
+    help="Set the initial map view to a country."
+)
+
+row = country_df[country_df["country_txt"] == selected_country]
+incident_count = int(row.iloc[0]["incident_count"]) if not row.empty else 0
+if incident_count < 10:
+    st.sidebar.caption("⚠️ *Approximate centroid based on limited historical data.*")
+
+lat = st.sidebar.number_input("Latitude", key="mission_lat", format="%.4f", help="Operation center latitude.")
+lon = st.sidebar.number_input("Longitude", key="mission_lon", format="%.4f", help="Operation center longitude.")
 radius_km = st.sidebar.slider("Mission Radius (km)", min_value=50, max_value=500, value=200, step=10, help="Operational radius around the center coordinates.")
 
 

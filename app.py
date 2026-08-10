@@ -24,8 +24,13 @@ def load_css(file_name):
 load_css("assets/style.css")
 
 # --- Authentication Setup ---
-with open('credentials.yaml') as file:
-    config = yaml.load(file, Loader=SafeLoader)
+try:
+    with open('credentials.yaml') as file:
+        config = yaml.load(file, Loader=SafeLoader)
+except FileNotFoundError:
+    st.error("🔒 **Configuration Error:** `credentials.yaml` not found.")
+    st.warning("If running on a cloud platform (like Render), ensure you have mounted the credentials as a Secret File, since they are intentionally excluded from Git.")
+    st.stop()
 
 authenticator = stauth.Authenticate(
     config['credentials'],

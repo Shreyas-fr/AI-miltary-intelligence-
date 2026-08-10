@@ -38,7 +38,7 @@ def test_unauthorized_access():
 
 def test_role_restriction():
     # 1. Perform a REAL login as Viewer
-    real_state = _get_real_login_state("viewer", "V1ewer#Charlie")
+    real_state = _get_real_login_state("viewer", "V1ewer#Echo99")
     
     # 2. Hit a protected page (Database) and inject the REAL session state
     at = AppTest.from_file("pages/50_🗄️_Intelligence_Database.py")
@@ -55,7 +55,7 @@ def test_role_restriction():
 
 def test_role_allowed():
     # 1. Perform a REAL login as Viewer
-    real_state = _get_real_login_state("viewer", "V1ewer#Charlie")
+    real_state = _get_real_login_state("viewer", "V1ewer#Echo99")
     
     # 2. Hit an allowed page (Global Threat Map) and inject the REAL session state
     at = AppTest.from_file("pages/20_🌍_Global_Threat_Map.py")

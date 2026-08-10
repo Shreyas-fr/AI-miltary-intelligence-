@@ -124,63 +124,24 @@ for country in selected_countries:
         prev_cnt = 0
         act_increase_pct = 0.0
 
+    from utils.alerts import generate_threat_score_alert, generate_activity_surge_alert
+
     triggered_types = []
 
     # b. Check if score exceeds threshold
-    if score >= score_threshold:
+    score_alert = generate_threat_score_alert(country, score, risk.level, score_threshold)
+    if score_alert:
         triggered_types.append("Threat Score")
-        if score >= 85 or risk.level == "Critical":
-            sev = "Critical"
-            sev_badge = "badge-critical"
-            border_col = "#FF2D55"
-        elif score >= 70 or risk.level == "High":
-            sev = "High"
-            sev_badge = "badge-high"
-            border_col = "#FF6B35"
-        else:
-            sev = "Medium"
-            sev_badge = "badge-medium"
-            border_col = "#FFD60A"
-
-        alerts.append({
-            "country": country,
-            "alert_type": "Threat Score",
-            "title": "Threat Score Threshold Exceeded",
-            "severity": sev,
-            "badge_class": sev_badge,
-            "border_color": border_col,
-            "current": f"{score}/100",
-            "threshold": f"{score_threshold}/100",
-            "detail": f"Composite risk score reached {score}/100 (Level: {risk.level}), meeting or exceeding configured alert threshold of {score_threshold}."
-        })
+        alerts.append(score_alert)
 
     # d. Check if activity increase exceeds threshold
-    if act_increase_pct >= activity_threshold:
+    activity_alert = generate_activity_surge_alert(
+        country, act_increase_pct, activity_threshold,
+        latest_cnt, prev_cnt, latest_yr, prev_yr
+    )
+    if activity_alert:
         triggered_types.append("Activity Surge")
-        if act_increase_pct >= 100:
-            sev = "Critical"
-            sev_badge = "badge-critical"
-            border_col = "#FF2D55"
-        elif act_increase_pct >= 60:
-            sev = "High"
-            sev_badge = "badge-high"
-            border_col = "#FF6B35"
-        else:
-            sev = "Medium"
-            sev_badge = "badge-medium"
-            border_col = "#FFD60A"
-
-        alerts.append({
-            "country": country,
-            "alert_type": "Activity Surge",
-            "title": "YoY Incident Activity Surge",
-            "severity": sev,
-            "badge_class": sev_badge,
-            "border_color": border_col,
-            "current": f"+{act_increase_pct:.1f}%",
-            "threshold": f"+{activity_threshold}%",
-            "detail": f"Year-over-year incident count increased from {prev_cnt} ({prev_yr}) to {latest_cnt} ({latest_yr}), representing a +{act_increase_pct:.1f}% surge."
-        })
+        alerts.append(activity_alert)
 
     status_str = ", ".join(triggered_types) if triggered_types else "Normal"
     summary_rows.append({

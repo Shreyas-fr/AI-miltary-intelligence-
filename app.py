@@ -24,12 +24,30 @@ def load_css(file_name):
 load_css("assets/style.css")
 
 # --- Authentication Setup ---
+# --- Authentication Setup ---
+import logging
+
+render_secret_path = '/etc/secrets/credentials.yaml'
+local_path = 'credentials.yaml'
+
+credentials_path = None
+if os.path.exists(render_secret_path):
+    credentials_path = render_secret_path
+elif os.path.exists(local_path):
+    credentials_path = local_path
+
+if not credentials_path:
+    st.error("🔒 **Configuration Error:** `credentials.yaml` not found in `/etc/secrets/` or local directory.")
+    st.warning("Ensure credentials are provided via Render Secret Files or local file.")
+    st.stop()
+
+print(f"✅ Successfully loaded credentials from: {credentials_path}")
+
 try:
-    with open('credentials.yaml') as file:
+    with open(credentials_path) as file:
         config = yaml.load(file, Loader=SafeLoader)
-except FileNotFoundError:
-    st.error("🔒 **Configuration Error:** `credentials.yaml` not found.")
-    st.warning("If running on a cloud platform (like Render), ensure you have mounted the credentials as a Secret File, since they are intentionally excluded from Git.")
+except Exception as e:
+    st.error(f"🔒 **Failed to parse credentials file:** {str(e)}")
     st.stop()
 
 authenticator = stauth.Authenticate(

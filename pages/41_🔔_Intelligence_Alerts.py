@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 import streamlit as st
+import textwrap
 
 # --- Authentication & Role Check ---
 from utils.auth import require_auth
@@ -172,7 +173,7 @@ if not alerts:
     st.success("✅ No active intelligence alerts triggered based on current threshold settings.")
 else:
     for alert in alerts:
-        card_html = f"""
+        card_html = textwrap.dedent(f"""
         <div style="
             background: rgba(18, 26, 42, 0.7);
             backdrop-filter: blur(12px);
@@ -215,7 +216,7 @@ else:
                 {alert['detail']}
             </div>
         </div>
-        """
+        """)
         st.markdown(card_html, unsafe_allow_html=True)
 
 # 8d & 9. Monitored countries summary table with width='stretch'

@@ -42,10 +42,9 @@ mobile_fallback = st.sidebar.toggle("📱 Mobile-Friendly 2D View", value=False,
 st.sidebar.markdown("---")
 st.sidebar.subheader("Map Style")
 MAP_STYLES = {
-    "Dark": "mapbox://styles/mapbox/dark-v11",
-    "Street": "mapbox://styles/mapbox/streets-v12",
-    "Satellite": "mapbox://styles/mapbox/satellite-streets-v12",
-    "Terrain": "mapbox://styles/mapbox/outdoors-v12",
+    "Dark": "dark",
+    "Light": "light",
+    "Road": "road",
 }
 selected_style = st.sidebar.selectbox("Map theme", list(MAP_STYLES.keys()), help="Choose the visual style for the base map.")
 

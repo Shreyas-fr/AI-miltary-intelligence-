@@ -72,8 +72,9 @@ try:
         live_events = load_live_feed(query, timespan, max_records)
 except Exception as exc:
     st.info(
-        "📡 **Live Feed Status:** External SIGINT stream (GDELT/API) unreachable or degraded. "
-        "Automatically failing over to **Cached GTD Tactical Intelligence Database** (Offline Mode).",
+        "📡 **Live Feed Status:** External SIGINT stream (GDELT API) unreachable or timed out. "
+        "Automatically failing over to **Cached GTD Tactical Intelligence Database** (Offline Mode). "
+        "**NOTE: This offline database covers verified historical incidents up to Dec 31, 2017.**",
         icon="🛡️"
     )
     live_events = get_historical_fallback_events(limit=50)

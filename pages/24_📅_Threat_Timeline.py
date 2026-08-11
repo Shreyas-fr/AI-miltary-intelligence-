@@ -37,6 +37,11 @@ load_css("assets/style.css")
 st.title("📅 | Threat Timeline")
 st.markdown("##### Interactive temporal analysis of global threat events.")
 
+st.info(
+    "ℹ️ **Data Scope Notice:** This timeline visualizes verified historical incidents from the Global Terrorism Database (GTD), "
+    "which covers events up to **December 31, 2017**. Live public-source events (GDELT) are not blended here to ensure strict analytical integrity."
+)
+
 # -----------------------------------------------
 # 4. Sidebar Filters
 # -----------------------------------------------

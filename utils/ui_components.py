@@ -1,10 +1,11 @@
 import streamlit as st
+import textwrap
 
 def st_custom_kpi_card(title: str, value: str, subtitle: str = "", icon: str = "") -> None:
     """
     Renders a custom HTML/CSS glassmorphism KPI card.
     """
-    html = f"""
+    html = textwrap.dedent(f"""
     <div class="custom-kpi-card">
         <div class="custom-kpi-title">
             {f'<span style="font-size: 1.1rem; margin-right: 4px;">{icon}</span>' if icon else ''} {title}
@@ -12,7 +13,7 @@ def st_custom_kpi_card(title: str, value: str, subtitle: str = "", icon: str = "
         <div class="custom-kpi-value">{value}</div>
         {f'<div class="custom-kpi-subtitle">{subtitle}</div>' if subtitle else ''}
     </div>
-    """
+    """)
     st.markdown(html, unsafe_allow_html=True)
 
 def st_custom_threat_banner(level: str, score: str) -> None:
@@ -31,7 +32,7 @@ def st_custom_threat_banner(level: str, score: str) -> None:
     
     css_class = level_class_map.get(str(level).upper(), "threat-medium")
     
-    html = f"""
+    html = textwrap.dedent(f"""
     <div class="custom-threat-banner {css_class}">
         <div>
             <div class="threat-banner-label">Current Threat Level</div>
@@ -42,5 +43,5 @@ def st_custom_threat_banner(level: str, score: str) -> None:
             <div class="threat-banner-value">{score}</div>
         </div>
     </div>
-    """
+    """)
     st.markdown(html, unsafe_allow_html=True)

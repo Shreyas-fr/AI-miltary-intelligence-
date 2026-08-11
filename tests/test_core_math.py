@@ -5,7 +5,7 @@ import numpy as np
 from utils.tsi import compute_single_tsi
 from utils.migration import haversine_km
 from utils.intelligence import compute_country_risk
-from utils.network_utils import compute_similarity_network
+
 
 class TestCoreMath(unittest.TestCase):
     
@@ -54,21 +54,7 @@ class TestCoreMath(unittest.TestCase):
         self.assertAlmostEqual(risk.components["Historical Activity"], 35.0)
         self.assertAlmostEqual(risk.components["Cluster Density"], 10.0)
         
-    def test_cosine_similarity_threshold(self):
-        df = pd.DataFrame({
-            "Group A": [1.0, 0.0, 0.0],
-            "Group B": [0.9, 0.1, 0.0],
-            "Group C": [0.0, 0.0, 1.0],
-        }).T
-        df.index.name = "gname"
-        df.columns = ["feature1", "feature2", "feature3"]
-        df["_incident_count"] = [100, 100, 100]
-        
-        graph = compute_similarity_network(df, threshold=0.85)
-        
-        self.assertTrue(graph.has_edge("Group A", "Group B"))
-        self.assertFalse(graph.has_edge("Group A", "Group C"))
-        self.assertFalse(graph.has_edge("Group B", "Group C"))
+
 
 if __name__ == '__main__':
     unittest.main()

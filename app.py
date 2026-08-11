@@ -184,13 +184,7 @@ with c3:
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown("""
-    <div class="module-card">
-        <div class="module-icon">💬</div>
-        <div class="module-title">AI Intelligence Chat</div>
-        <div class="module-desc">Conversational AI assistant powered by Gemini for natural-language intelligence Q&A.</div>
-    </div>
-    """, unsafe_allow_html=True)
+
 
     st.markdown("""
     <div class="module-card">

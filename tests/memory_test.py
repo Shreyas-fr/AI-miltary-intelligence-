@@ -12,6 +12,8 @@ def print_mem(step_name):
 
 # Initialize AppTest
 at = AppTest.from_file("app.py", default_timeout=30)
+at.session_state["authentication_status"] = True
+at.session_state["user_role"] = "Commander"
 print_mem("Startup - Before Run")
 at.run()
 print_mem("Startup - After Initial Run")
@@ -19,14 +21,20 @@ print_mem("Startup - After Initial Run")
 def simulate_navigation():
     # Simulate loading Global Threat Map
     at_map = AppTest.from_file("pages/20_🌍_Global_Threat_Map.py", default_timeout=30)
+    at_map.session_state["authentication_status"] = True
+    at_map.session_state["user_role"] = "Commander"
     at_map.run()
     
     # Simulate loading Attack Prediction
     at_pred = AppTest.from_file("pages/30_🤖_Attack_Prediction.py", default_timeout=30)
+    at_pred.session_state["authentication_status"] = True
+    at_pred.session_state["user_role"] = "Commander"
     at_pred.run()
 
     # Simulate loading Data Explorer
     at_explore = AppTest.from_file("pages/51_📊_Data_Explorer.py", default_timeout=30)
+    at_explore.session_state["authentication_status"] = True
+    at_explore.session_state["user_role"] = "Commander"
     at_explore.run()
 
 simulate_navigation()

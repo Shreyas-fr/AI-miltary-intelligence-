@@ -9,6 +9,8 @@ logging.getLogger("streamlit").setLevel(logging.ERROR)
 def time_page(name, path):
     print(f"\n--- Testing {name} ---")
     at = AppTest.from_file(path, default_timeout=60)
+    at.session_state["authentication_status"] = True
+    at.session_state["user_role"] = "Commander"
     
     start = time.time()
     at.run()
@@ -25,4 +27,3 @@ def time_page(name, path):
 time_page("Global Threat Map", "pages/20_🌍_Global_Threat_Map.py")
 time_page("Hotspot Detection", "pages/21_🎯_Hotspot_Detection.py")
 time_page("Forecasting", "pages/31_📈_Forecasting.py")
-time_page("Event Similarity", "pages/32_🔍_Event_Similarity.py")

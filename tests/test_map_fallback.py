@@ -3,6 +3,8 @@ from streamlit.testing.v1 import AppTest
 
 def test_map():
     at = AppTest.from_file("pages/20_🌍_Global_Threat_Map.py")
+    at.session_state["authentication_status"] = True
+    at.session_state["user_role"] = "Commander"
     
     print("Running with default settings (Mobile Fallback OFF)...")
     at.run(timeout=30)

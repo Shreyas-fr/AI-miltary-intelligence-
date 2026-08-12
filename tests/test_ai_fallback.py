@@ -10,6 +10,8 @@ def test_ai_fallback():
         mock_fetch.side_effect = Exception("Simulated GDELT network timeout or 500 Error")
         
         at = AppTest.from_file("pages/8_🧠_AI_Intelligence.py")
+        at.session_state["authentication_status"] = True
+        at.session_state["user_role"] = "Commander"
         try:
             at.run(timeout=30)
             

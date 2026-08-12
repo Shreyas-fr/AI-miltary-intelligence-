@@ -120,14 +120,6 @@ with c1:
 
     st.markdown("""
     <div class="module-card">
-        <div class="module-icon">📅</div>
-        <div class="module-title">Threat Timeline</div>
-        <div class="module-desc">Interactive year-by-year temporal event analysis and multi-decadal trend visualization.</div>
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown("""
-    <div class="module-card">
         <div class="module-icon">🔔</div>
         <div class="module-title">Intelligence Alerts</div>
         <div class="module-desc">Threshold-based surveillance rules for real-time risk score and activity surge spikes.</div>
@@ -148,14 +140,6 @@ with c2:
         <div class="module-icon">🛰️</div>
         <div class="module-title">Live Public Signals</div>
         <div class="module-desc">Real-time GDELT news metadata integration for event detection and risk trend tracking.</div>
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown("""
-    <div class="module-card">
-        <div class="module-icon">🔍</div>
-        <div class="module-title">Event Similarity Engine</div>
-        <div class="module-desc">TF-IDF + Cosine similarity search to match current incidents against historical GTD cases.</div>
     </div>
     """, unsafe_allow_html=True)
 

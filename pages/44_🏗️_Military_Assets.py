@@ -75,14 +75,28 @@ show_threat_overlay = st.sidebar.checkbox(
     value=True,
 )
 
-# Load data
 df = load_military_assets()
 
+# New Owner Filter
+owners = sorted(df["owner"].dropna().unique())
+selected_owners = st.sidebar.multiselect(
+    "Asset Owner (Operator)",
+    options=owners,
+    default=owners,
+)
+
 # Filter dataframe
-if selected_types:
-    filtered_df = df[df["type"].isin(selected_types)].copy()
+filtered_df = df.copy()
+
+if selected_owners:
+    filtered_df = filtered_df[filtered_df["owner"].isin(selected_owners)]
 else:
-    filtered_df = df.iloc[0:0].copy()
+    filtered_df = filtered_df.iloc[0:0]
+
+if selected_types:
+    filtered_df = filtered_df[filtered_df["type"].isin(selected_types)]
+else:
+    filtered_df = filtered_df.iloc[0:0]
 
 # KPI Metrics
 st.markdown("### Asset Metrics")
@@ -142,12 +156,14 @@ if not filtered_df.empty:
     tooltip_html = {
         "html": "<b>Asset Name:</b> {name}<br/>"
         "<b>Type:</b> {type}<br/>"
-        "<b>Country:</b> {country}<br/>"
+        "<b>Owner:</b> {owner}<br/>"
+        "<b>Host Country:</b> {country}<br/>"
         "<b>Status:</b> {status}",
-        "style": {"backgroundColor": "#1E1E1E", "color": "white"},
+        "style": {"backgroundColor": "#1E1E1E", "color": "white", "fontFamily": "Outfit, sans-serif"},
     }
 
     r = pdk.Deck(
+        map_style=pdk.map_styles.CARTO_DARK,
         layers=layers,
         initial_view_state=view_state,
         tooltip=tooltip_html,
@@ -163,18 +179,23 @@ st.markdown("---")
 # Asset Table
 st.subheader("Filtered Military Assets")
 if not filtered_df.empty:
-    display_df = filtered_df[["name", "type", "country", "status", "lat", "lon"]].rename(
-        columns={
-            "name": "Asset Name",
-            "type": "Type",
-            "country": "Country",
-            "status": "Status",
-            "lat": "Latitude",
-            "lon": "Longitude",
-        }
+    display_df = filtered_df[["name", "type", "owner", "country", "status", "lat", "lon"]]
+    
+    st.dataframe(
+        display_df,
+        column_config={
+            "name": st.column_config.TextColumn("Asset Name", width="large"),
+            "type": st.column_config.TextColumn("Facility Type", width="medium"),
+            "owner": st.column_config.TextColumn("Operating Nation", width="medium"),
+            "country": st.column_config.TextColumn("Host Country", width="medium"),
+            "status": st.column_config.TextColumn("Status"),
+            "lat": st.column_config.NumberColumn("Latitude", format="%.4f"),
+            "lon": st.column_config.NumberColumn("Longitude", format="%.4f"),
+        },
+        use_container_width=True, 
+        hide_index=True
     )
-    st.dataframe(display_df, use_container_width=True, hide_index=True)
 else:
     st.dataframe(pd.DataFrame(), use_container_width=True)
 
-st.caption("This is a simulated demonstration layer. Actual military installation data is classified.")
+st.caption("⚠️ **Data Disclaimer:** This is a simulated demonstration layer. Actual military installation coordinates are classified. The 'Operating Nation' (Ownership) assignments are illustrative estimates based on general public knowledge for UI demonstration purposes and do not represent verified or official defense intelligence.")

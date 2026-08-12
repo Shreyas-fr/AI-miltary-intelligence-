@@ -30,3 +30,4 @@ frontend/dist/
 # Logs
 terminal_logs/
 *.log
+credentials.yaml

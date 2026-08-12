@@ -29,9 +29,7 @@ updates = {
         (r'lookback = st\.sidebar\.selectbox\("Live intelligence window", \["15m", "1h", "6h", "1d", "3d", "7d"\], index=3\)', r'lookback = st.sidebar.selectbox("Live intelligence window", ["15m", "1h", "6h", "1d", "3d", "7d"], index=3, help="Timeframe to fetch recent events from the live intelligence database.")'),
         (r'max_records = st\.sidebar\.slider\("Live records", 25, 250, 100, step=25\)', r'max_records = st.sidebar.slider("Live records", 25, 250, 100, step=25, help="Maximum number of live intelligence records to retrieve.")')
     ],
-    "24_📅_Threat_Timeline.py": [
-        (r'year_range = st\.sidebar\.slider\(\n\s*"Select Year Range",\n\s*min_value=min_year,\n\s*max_value=max_year,\n\s*value=\(min_year, max_year\),\n\s*step=1\n\s*\)', r'year_range = st.sidebar.slider("Select Year Range", min_value=min_year, max_value=max_year, value=(min_year, max_year), step=1, help="Filter the timeline analysis to a specific period.")')
-    ],
+
     "25_🕸️_Group_Networks.py": [
         (r'min_incidents = st\.sidebar\.slider\(\n\s*"Minimum incidents per group",\n\s*10, 500, 50\n\s*\)', r'min_incidents = st.sidebar.slider("Minimum incidents per group", 10, 500, 50, help="Filter out smaller groups to focus on major actors.")'),
         (r'similarity_threshold = st\.sidebar\.slider\(\n\s*"Network edge threshold",\n\s*0\.0, 1\.0, 0\.4, 0\.05\n\s*\)', r'similarity_threshold = st.sidebar.slider("Network edge threshold", 0.0, 1.0, 0.4, 0.05, help="Higher values create stricter connections between groups.")'),

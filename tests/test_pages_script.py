@@ -12,6 +12,14 @@ def test_pages():
     for page_file in page_files:
         try:
             at = AppTest.from_file(page_file)
+            at.session_state["authentication_status"] = True
+            at.session_state["user_role"] = "Commander"
+            
+            # Inject authentication state to bypass auth gate and render the full page
+            at.session_state["authentication_status"] = True
+            at.session_state["user_role"] = "Commander" 
+            
+            # Increase timeout to 10s for heavy pages like the map
             at.run(timeout=30)
             
             if at.exception:

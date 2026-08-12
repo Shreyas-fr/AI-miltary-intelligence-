@@ -96,6 +96,12 @@ def _load_cat_options():
 
 df_cats = _load_cat_options()
 
+@st.cache_data(show_spinner=False)
+def _get_country_to_region_map():
+    return df_cats.groupby("country_txt")["region_txt"].first().to_dict()
+
+country_to_region = _get_country_to_region_map()
+
 # -------------------------
 # Create Input Form
 # -------------------------
@@ -104,7 +110,6 @@ with st.form("prediction_form"):
 
     with col1:
         country = st.selectbox("🌍 Country", sorted(df_cats["country_txt"].dropna().unique()))
-        region = st.selectbox("🌎 Region", sorted(df_cats["region_txt"].dropna().unique()))
         weapon = st.selectbox("🔫 Weapon Type", sorted(df_cats["weaptype1_txt"].dropna().unique()))
         target = st.selectbox("🎯 Target Type", sorted(df_cats["targtype1_txt"].dropna().unique()))
 
@@ -122,9 +127,11 @@ if submitted:
         # -------------------------
         # Preprocess Input Data
         # -------------------------
+        derived_region = country_to_region.get(country, "Unknown")
+        
         input_data = pd.DataFrame({
             "country_txt": [country],
-            "region_txt": [region],
+            "region_txt": [derived_region],
             "weaptype1_txt": [weapon],
             "targtype1_txt": [target],
             "gname": [group],

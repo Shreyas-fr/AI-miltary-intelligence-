@@ -72,14 +72,20 @@ with st.expander("🔄 Manual Ingestion Controls", expanded=True):
 
     if st.button("🔄 Fetch & Ingest Live Events"):
         with st.spinner("Fetching from GDELT..."):
-            live = fetch_gdelt_events(query=q, timespan=ts, max_records=mr)
-            historical_geo = query_data(
-                "SELECT country_txt, latitude, longitude FROM 'data/globalterrorism.csv' WHERE latitude IS NOT NULL AND longitude IS NOT NULL"
-            )
-            enriched = enrich_live_events_with_country_centroids(live, historical_geo)
-            new_rows = ingest_live_events(enriched)
-            st.session_state["ingest_success_msg"] = f"✅ {new_rows} new events ingested into the database!"
-            st.rerun()
+            try:
+                live = fetch_gdelt_events(query=q, timespan=ts, max_records=mr)
+                if live.empty:
+                    st.warning("No live events found matching the query and timespan.")
+                else:
+                    historical_geo = query_data(
+                        "SELECT country_txt, latitude, longitude FROM 'data/globalterrorism.csv' WHERE latitude IS NOT NULL AND longitude IS NOT NULL"
+                    )
+                    enriched = enrich_live_events_with_country_centroids(live, historical_geo)
+                    new_rows = ingest_live_events(enriched)
+                    st.session_state["ingest_success_msg"] = f"✅ {new_rows} new events ingested into the database!"
+                    st.rerun()
+            except Exception as e:
+                st.error(f"Failed to fetch live events from GDELT: {e}")
 
 # Section 3 - Live Events Table
 live_df = get_live_df()

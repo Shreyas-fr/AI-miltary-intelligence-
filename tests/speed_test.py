@@ -25,5 +25,5 @@ def time_page(name, path):
     return duration, duration2
 
 time_page("Global Threat Map", "pages/20_🌍_Global_Threat_Map.py")
-time_page("Hotspot Detection", "pages/21_🎯_Hotspot_Detection.py")
+time_page("Intelligence Database", "pages/50_🗄️_Intelligence_Database.py")
 time_page("Forecasting", "pages/31_📈_Forecasting.py")

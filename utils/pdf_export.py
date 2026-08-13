@@ -84,7 +84,7 @@ def generate_mission_brief_pdf(country, lat, lon, radius, threat_score, threat_l
 
     # Allied Military Assets
     story.append(Paragraph("Allied Military Assets in Range", h2_style))
-    if nearby_assets and len(nearby_assets) > 0:
+    if nearby_assets and isinstance(nearby_assets, list) and len(nearby_assets) > 0:
         for asset in nearby_assets:
             story.append(Paragraph(f"<b>{asset['name']}</b> ({asset['type']}) — {asset['distance_km']:.1f} km", bold_style))
             story.append(Paragraph(f"<i>Owner:</i> {asset['owner']} | <i>Host:</i> {asset['country']}", normal_style))

@@ -12,8 +12,8 @@ def test_map():
     print("Desktop view loaded successfully.")
     
     print("Toggling Mobile Fallback ON...")
-    # The toggle is the first toggle on the page (or sidebar)
-    at.sidebar.toggle[0].set_value(True)
+    # The toggle is the first toggle on the page
+    at.toggle[0].set_value(True)
     at.run(timeout=30)
     assert not at.exception, f"App crashed with exceptions: {at.exception}"
     print("Mobile 2D fallback view loaded successfully.")

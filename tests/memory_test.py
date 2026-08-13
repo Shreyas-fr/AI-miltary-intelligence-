@@ -25,14 +25,14 @@ def simulate_navigation():
     at_map.session_state["user_role"] = "Commander"
     at_map.run()
     
-    # Simulate loading Attack Prediction
-    at_pred = AppTest.from_file("pages/30_🤖_Attack_Prediction.py", default_timeout=30)
+    # Simulate loading Mission Planning (formerly Attack Prediction)
+    at_pred = AppTest.from_file("pages/42_🎖️_Mission_Planning.py", default_timeout=30)
     at_pred.session_state["authentication_status"] = True
     at_pred.session_state["user_role"] = "Commander"
     at_pred.run()
 
-    # Simulate loading Data Explorer
-    at_explore = AppTest.from_file("pages/51_📊_Data_Explorer.py", default_timeout=30)
+    # Simulate loading Intelligence Database (formerly Data Explorer)
+    at_explore = AppTest.from_file("pages/50_🗄️_Intelligence_Database.py", default_timeout=30)
     at_explore.session_state["authentication_status"] = True
     at_explore.session_state["user_role"] = "Commander"
     at_explore.run()

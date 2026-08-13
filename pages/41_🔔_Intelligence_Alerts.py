@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 import streamlit as st
-import textwrap
+
 
 # --- Authentication & Role Check ---
 from utils.auth import require_auth
@@ -173,50 +173,37 @@ if not alerts:
     st.success("✅ No active intelligence alerts triggered based on current threshold settings.")
 else:
     for alert in alerts:
-        card_html = textwrap.dedent(f"""
-        <div style="
-            background: rgba(18, 26, 42, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-left: 5px solid {alert['border_color']};
-            border-radius: 12px;
-            padding: 1.25rem 1.5rem;
-            margin-bottom: 1rem;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-        ">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-                <div style="display: flex; align-items: center; gap: 0.75rem;">
-                    <span style="color: #F8FAFC; font-size: 1.25rem; font-weight: 700;">
-                        {alert['country']}
-                    </span>
-                    <span style="background: rgba(255, 255, 255, 0.08); color: #94A3B8; padding: 3px 10px; border-radius: 6px; font-size: 0.82rem; font-weight: 600;">
-                        {alert['alert_type']}
-                    </span>
-                </div>
-                <span class="{alert['badge_class']}">{alert['severity'].upper()}</span>
-            </div>
-            
-            <div style="display: flex; flex-wrap: wrap; gap: 2.5rem; margin: 0.75rem 0; background: rgba(0, 0, 0, 0.25); padding: 0.85rem 1.25rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.04);">
-                <div>
-                    <div style="color: #94A3B8; font-size: 0.75rem; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px;">Alert Type</div>
-                    <div style="color: #F8FAFC; font-weight: 700; font-size: 1rem; margin-top: 2px;">{alert['title']}</div>
-                </div>
-                <div>
-                    <div style="color: #94A3B8; font-size: 0.75rem; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px;">Current Value</div>
-                    <div style="color: #00E5FF; font-weight: 700; font-size: 1.05rem; margin-top: 2px;">{alert['current']}</div>
-                </div>
-                <div>
-                    <div style="color: #94A3B8; font-size: 0.75rem; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px;">Threshold Limit</div>
-                    <div style="color: #CBD5E1; font-weight: 600; font-size: 1.05rem; margin-top: 2px;">{alert['threshold']}</div>
-                </div>
-            </div>
-            
-            <div style="font-size: 0.9rem; color: #CBD5E1; line-height: 1.4;">
-                {alert['detail']}
-            </div>
-        </div>
-        """)
+        card_html = (
+            f'<div style="background:rgba(18,26,42,0.7);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);'
+            f'border:1px solid rgba(255,255,255,0.08);border-left:5px solid {alert["border_color"]};border-radius:12px;'
+            f'padding:1.25rem 1.5rem;margin-bottom:1rem;box-shadow:0 6px 20px rgba(0,0,0,0.3);">'
+            # Header row: country name + alert type badge + severity badge
+            f'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">'
+            f'<div style="display:flex;align-items:center;gap:0.75rem;">'
+            f'<span style="color:#F8FAFC;font-size:1.25rem;font-weight:700;">{alert["country"]}</span>'
+            f'<span style="background:rgba(255,255,255,0.08);color:#94A3B8;padding:3px 10px;border-radius:6px;font-size:0.82rem;font-weight:600;">{alert["alert_type"]}</span>'
+            f'</div>'
+            f'<span class="{alert["badge_class"]}">{alert["severity"].upper()}</span>'
+            f'</div>'
+            # Metrics row: alert type, current value, threshold
+            f'<div style="display:flex;flex-wrap:wrap;gap:2.5rem;margin:0.75rem 0;background:rgba(0,0,0,0.25);padding:0.85rem 1.25rem;border-radius:8px;border:1px solid rgba(255,255,255,0.04);">'
+            f'<div>'
+            f'<div style="color:#94A3B8;font-size:0.75rem;text-transform:uppercase;font-weight:600;letter-spacing:0.5px;">Alert Type</div>'
+            f'<div style="color:#F8FAFC;font-weight:700;font-size:1rem;margin-top:2px;">{alert["title"]}</div>'
+            f'</div>'
+            f'<div>'
+            f'<div style="color:#94A3B8;font-size:0.75rem;text-transform:uppercase;font-weight:600;letter-spacing:0.5px;">Current Value</div>'
+            f'<div style="color:#00E5FF;font-weight:700;font-size:1.05rem;margin-top:2px;">{alert["current"]}</div>'
+            f'</div>'
+            f'<div>'
+            f'<div style="color:#94A3B8;font-size:0.75rem;text-transform:uppercase;font-weight:600;letter-spacing:0.5px;">Threshold Limit</div>'
+            f'<div style="color:#CBD5E1;font-weight:600;font-size:1.05rem;margin-top:2px;">{alert["threshold"]}</div>'
+            f'</div>'
+            f'</div>'
+            # Detail text
+            f'<div style="font-size:0.9rem;color:#CBD5E1;line-height:1.4;">{alert["detail"]}</div>'
+            f'</div>'
+        )
         st.markdown(card_html, unsafe_allow_html=True)
 
 # 8d & 9. Monitored countries summary table with width='stretch'

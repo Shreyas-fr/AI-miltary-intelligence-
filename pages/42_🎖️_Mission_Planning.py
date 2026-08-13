@@ -179,8 +179,8 @@ if not assets_df.empty and "lat" in assets_df.columns and "lon" in assets_df.col
     nearby_assets_df["eta"] = nearby_assets_df.apply(get_eta, axis=1)
 
     nearby_assets_df["tooltip_title"] = nearby_assets_df["name"] + " (Allied Asset)"
-    nearby_assets_df["tooltip_loc"] = "Host: " + nearby_assets_df["country"] + " | ETA: " + nearby_assets_df["eta"]
-    nearby_assets_df["tooltip_det"] = "Owner: " + nearby_assets_df["owner"]
+    nearby_assets_df["tooltip_loc"] = "Host: " + nearby_assets_df["country"].fillna("Unknown").astype(str) + " | ETA: " + nearby_assets_df["eta"].astype(str)
+    nearby_assets_df["tooltip_det"] = "Owner: " + nearby_assets_df["owner"].fillna("Unknown").astype(str)
 
     nearest_asset = assets_df.sort_values("distance_km").iloc[0].to_dict() if not assets_df.empty else None
     if nearest_asset:

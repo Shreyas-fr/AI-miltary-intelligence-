@@ -143,8 +143,12 @@ if not country_incidents.empty:
     country_incidents["distance_km"] = distances
     nearby_df = country_incidents[country_incidents["distance_km"] <= radius_km].sort_values("distance_km").reset_index(drop=True)
     nearby_df["tooltip_title"] = nearby_df["country_txt"] + " Incident"
-    nearby_df["tooltip_loc"] = "City: " + nearby_df["city"].fillna("Unknown")
-    nearby_df["tooltip_det"] = "Target: " + nearby_df["target1"].fillna("Unknown") + "<br/>Fatalities: " + nearby_df["nkill"].fillna(0).astype(str)
+    city_col = nearby_df["city"].fillna("Unknown") if "city" in nearby_df.columns else "Unknown"
+    target_col = nearby_df["target1"].fillna("Unknown") if "target1" in nearby_df.columns else "Unknown"
+    nkill_col = nearby_df["nkill"].fillna(0).astype(str) if "nkill" in nearby_df.columns else "0"
+    
+    nearby_df["tooltip_loc"] = "City: " + city_col
+    nearby_df["tooltip_det"] = "Target: " + target_col + "<br/>Fatalities: " + nkill_col
 else:
     country_incidents["distance_km"] = pd.Series(dtype=float)
     nearby_df = country_incidents.copy()

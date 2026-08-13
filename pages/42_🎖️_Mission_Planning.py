@@ -1,4 +1,5 @@
 import os
+import json
 import numpy as np
 import pandas as pd
 import plotly.express as px
@@ -125,15 +126,64 @@ country_incidents = query_data(
     f"SELECT * FROM 'data/globalterrorism.csv' WHERE latitude IS NOT NULL AND longitude IS NOT NULL AND country_txt = '{safe_country}'"
 )
 
+@st.cache_data(show_spinner=False)
+def load_military_assets(filepath: str = "data/military_assets.json") -> pd.DataFrame:
+    if not os.path.exists(filepath):
+        return pd.DataFrame()
+    with open(filepath, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    return pd.DataFrame(data)
+
+assets_df = load_military_assets()
+
 if not country_incidents.empty:
     distances = haversine_km(
         lat, lon, country_incidents["latitude"].values, country_incidents["longitude"].values
     )
     country_incidents["distance_km"] = distances
     nearby_df = country_incidents[country_incidents["distance_km"] <= radius_km].sort_values("distance_km").reset_index(drop=True)
+    nearby_df["tooltip_title"] = nearby_df["country_txt"] + " Incident"
+    nearby_df["tooltip_loc"] = "City: " + nearby_df["city"].fillna("Unknown")
+    nearby_df["tooltip_det"] = "Target: " + nearby_df["target1"].fillna("Unknown") + "<br/>Fatalities: " + nearby_df["nkill"].fillna(0).astype(str)
 else:
     country_incidents["distance_km"] = pd.Series(dtype=float)
     nearby_df = country_incidents.copy()
+
+if not assets_df.empty and "lat" in assets_df.columns and "lon" in assets_df.columns:
+    asset_dists = haversine_km(lat, lon, assets_df["lat"].values, assets_df["lon"].values)
+    assets_df["distance_km"] = asset_dists
+    nearby_assets_df = assets_df[assets_df["distance_km"] <= radius_km].sort_values("distance_km").reset_index(drop=True)
+    
+    nearby_assets_df["color"] = nearby_assets_df["type"].apply(
+        lambda t: [52, 199, 89, 220] if t == "Airbase" 
+        else ([10, 132, 255, 220] if t in ["Naval Base", "Port"] 
+        else ([255, 159, 10, 220] if t == "Army Base" 
+        else [191, 90, 242, 220]))
+    )
+    
+    def get_eta(row):
+        t = row["type"]
+        d = row["distance_km"]
+        if t == "Airbase": s = 800
+        elif t in ["Naval Base", "Port"]: s = 60
+        elif t == "Army Base": s = 80
+        else: return "N/A"
+        hrs = d / s
+        if hrs < 1: return f"{int(hrs*60)} min"
+        return f"{hrs:.1f} hrs"
+        
+    nearby_assets_df["eta"] = nearby_assets_df.apply(get_eta, axis=1)
+
+    nearby_assets_df["tooltip_title"] = nearby_assets_df["name"] + " (Allied Asset)"
+    nearby_assets_df["tooltip_loc"] = "Host: " + nearby_assets_df["country"] + " | ETA: " + nearby_assets_df["eta"]
+    nearby_assets_df["tooltip_det"] = "Owner: " + nearby_assets_df["owner"]
+
+    nearest_asset = assets_df.sort_values("distance_km").iloc[0].to_dict() if not assets_df.empty else None
+    if nearest_asset:
+        nearest_asset["eta"] = get_eta(nearest_asset)
+else:
+    nearby_assets_df = pd.DataFrame()
+    nearest_asset = None
 
 # Country risk computation
 historical_df = load_data()
@@ -144,10 +194,11 @@ threat_level, threat_color = tsi_label(threat_score)
 # -----------------------------------------------
 # 7a. KPI Row
 # -----------------------------------------------
-kpi1, kpi2, kpi3 = st.columns(3)
+kpi1, kpi2, kpi3, kpi4 = st.columns(4)
 with kpi1: st_custom_kpi_card("Country Risk Score", f"{risk_breakdown.score} / 100", f"{risk_breakdown.level}", "🛡️")
 with kpi2: st_custom_kpi_card("Nearby Incidents (within radius)", f"{len(nearby_df):,}", "Clustered events", "📍")
 with kpi3: st_custom_kpi_card("Estimated Threat Level", threat_level, "Local vicinity", "🚨")
+with kpi4: st_custom_kpi_card("Assets in Range", f"{len(nearby_assets_df):,}", "Allied military", "🏗️")
 
 st.markdown('<div style="margin-top:1.5rem"></div>', unsafe_allow_html=True)
 
@@ -210,6 +261,22 @@ if not nearby_df.empty:
     )
     map_layers.append(incidents_layer)
 
+if not nearby_assets_df.empty:
+    assets_layer = pdk.Layer(
+        "ScatterplotLayer",
+        data=nearby_assets_df,
+        get_position=["lon", "lat"],
+        get_fill_color="color",
+        get_line_color=[255, 255, 255, 255],
+        get_radius=2000,
+        radius_min_pixels=6,
+        radius_max_pixels=12,
+        stroked=True,
+        line_width_min_pixels=2,
+        pickable=True,
+    )
+    map_layers.append(assets_layer)
+
 map_layers.append(center_marker_layer)
 
 view_state = pdk.ViewState(
@@ -224,7 +291,7 @@ deck = pdk.Deck(
     layers=map_layers,
     initial_view_state=view_state,
     tooltip={
-        "html": "<b>{country_txt} Incident</b><br/>City: {city}<br/>Target: {target1}<br/>Fatalities: {nkill}",
+        "html": "<b>{tooltip_title}</b><br/>{tooltip_loc}<br/>{tooltip_det}",
         "style": {"background": "#0f3460", "color": "white", "font-family": "Outfit, sans-serif"},
     },
 )
@@ -313,12 +380,47 @@ else:
 st.markdown('<div style="margin-top:1.5rem"></div>', unsafe_allow_html=True)
 
 # -----------------------------------------------
+# Allied Military Assets Table
+# -----------------------------------------------
+st.subheader("🏗️ Allied Military Assets")
+if not nearby_assets_df.empty:
+    assets_display = nearby_assets_df[["name", "type", "eta", "distance_km", "owner", "country"]].copy()
+    assets_display["distance_km"] = assets_display["distance_km"].round(1)
+    st.dataframe(
+        assets_display,
+        column_config={
+            "name": st.column_config.TextColumn("Asset Name", width="large"),
+            "type": st.column_config.TextColumn("Facility Type", width="medium"),
+            "eta": st.column_config.TextColumn("ETA (Deploy)", width="small"),
+            "distance_km": st.column_config.NumberColumn("Distance (km)", format="%.1f"),
+            "owner": st.column_config.TextColumn("Operating Nation", width="medium"),
+            "country": st.column_config.TextColumn("Host Country", width="medium"),
+        },
+        use_container_width=True,
+        hide_index=True
+    )
+    st.caption("⚠️ **Data Disclaimer:** This is a simulated demonstration layer. Actual military installation coordinates are classified. The 'Operating Nation' (Ownership) assignments are illustrative estimates based on general public knowledge for UI demonstration purposes and do not represent verified or official defense intelligence.")
+else:
+    if nearest_asset:
+        st.info(f"No allied assets within {radius_km}km. The nearest asset is **{nearest_asset['name']}** ({nearest_asset['type']}), located **{nearest_asset['distance_km']:.1f}km** away in {nearest_asset['country']} (ETA: {nearest_asset.get('eta', 'N/A')}).")
+    else:
+        st.info("No allied assets available in the database.")
+
+st.markdown('<div style="margin-top:1.5rem"></div>', unsafe_allow_html=True)
+
+# -----------------------------------------------
 # 7d. Risk Assessment Summary with Severity Badge
 # -----------------------------------------------
 st.subheader("🛡️ Mission Risk Assessment")
 
 badge_color = threat_color
 badge_label = threat_level
+
+asset_balance_text = ""
+if len(nearby_assets_df) == 0:
+    asset_balance_text = "0 assets in range — recommend remote air support or immediate redeployment."
+else:
+    asset_balance_text = f"{len(nearby_assets_df)} allied assets in range."
 
 summary_card_html = f"""
 <div class="module-card">
@@ -332,7 +434,8 @@ summary_card_html = f"""
         Target Location: <strong>({lat:.4f}, {lon:.4f})</strong> | Country Risk Score: <strong>{risk_breakdown.score}/100</strong> ({risk_breakdown.level} risk category).
     </p>
     <p style="color: #CBD5E1; font-size: 0.95rem; line-height: 1.6; margin-bottom: 0;">
-        Within a radius of <strong>{radius_km} km</strong>, <strong>{len(nearby_df)}</strong> historical conflict incidents were identified. Threat conditions require continuous vigilance and adherence to operational protocols specified below.
+        Within a radius of <strong>{radius_km} km</strong>, <strong>{len(nearby_df)}</strong> historical conflict incidents were identified. 
+        <strong>{threat_level.capitalize()} threat zone, {asset_balance_text}</strong> Threat conditions require continuous vigilance and adherence to operational protocols specified below.
     </p>
 </div>
 """
@@ -397,7 +500,8 @@ with st.spinner("Preparing PDF export..."):
         threat_level=threat_level,
         incident_count=len(nearby_df),
         dominant_attack=dominant_attack_type,
-        recommendations=recs
+        recommendations=recs,
+        nearby_assets=nearby_assets_df.to_dict('records') if not nearby_assets_df.empty else ({"nearest": nearest_asset} if nearest_asset else None)
     )
 
 st.download_button(

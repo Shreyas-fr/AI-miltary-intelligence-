@@ -4,7 +4,7 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, HRFlowable
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib import colors
 
-def generate_mission_brief_pdf(country, lat, lon, radius, threat_score, threat_level, incident_count, dominant_attack, recommendations):
+def generate_mission_brief_pdf(country, lat, lon, radius, threat_score, threat_level, incident_count, dominant_attack, recommendations, nearby_assets=None):
     """
     Generates a Mission Brief PDF and returns it as a bytes buffer.
     """
@@ -79,6 +79,22 @@ def generate_mission_brief_pdf(country, lat, lon, radius, threat_score, threat_l
             story.append(Spacer(1, 10))
     else:
         story.append(Paragraph("No specific resource recommendations generated for this threat level.", normal_style))
+    
+    story.append(Spacer(1, 15))
+
+    # Allied Military Assets
+    story.append(Paragraph("Allied Military Assets in Range", h2_style))
+    if nearby_assets and len(nearby_assets) > 0:
+        for asset in nearby_assets:
+            story.append(Paragraph(f"<b>{asset['name']}</b> ({asset['type']}) — {asset['distance_km']:.1f} km", bold_style))
+            story.append(Paragraph(f"<i>Owner:</i> {asset['owner']} | <i>Host:</i> {asset['country']}", normal_style))
+            story.append(Spacer(1, 5))
+    else:
+        story.append(Paragraph("No allied military assets found within the operational radius.", normal_style))
+        if nearby_assets is not None and isinstance(nearby_assets, dict) and "nearest" in nearby_assets:
+            nearest = nearby_assets["nearest"]
+            story.append(Spacer(1, 5))
+            story.append(Paragraph(f"<b>Nearest Asset Outside Radius:</b> {nearest['name']} ({nearest['distance_km']:.1f} km away)", normal_style))
     
     # Build PDF
     doc.build(story)

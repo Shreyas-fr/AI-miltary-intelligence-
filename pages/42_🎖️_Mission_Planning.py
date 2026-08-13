@@ -200,16 +200,47 @@ lat = st.sidebar.number_input("Latitude", key="mission_lat", format="%.4f", help
 lon = st.sidebar.number_input("Longitude", key="mission_lon", format="%.4f", help="Operation center longitude.")
 radius_km = st.sidebar.slider("Mission Radius (km)", min_value=50, max_value=500, value=200, step=10, key="mission_radius_slider", help="Operational radius around the center coordinates.")
 
-st.sidebar.markdown("---")
-st.sidebar.header("ML Incident Parameters")
-region   = st.sidebar.selectbox("Region", get_original_labels("region_txt"), key="ml_region", help="Filter the incident history by region.")
-attack   = st.sidebar.selectbox("Attack Type", get_original_labels("attacktype1_txt"), key="ml_attack", help="Specify the type of attack to simulate.")
-weapon   = st.sidebar.selectbox("Weapon Type", get_original_labels("weaptype1_txt"), key="ml_weapon", help="Specify the weapon used in the simulated attack.")
-target_t = st.sidebar.selectbox("Target Type", get_original_labels("targtype1_txt"), key="ml_target", help="Identify the target of the simulated attack.")
-nkill    = st.sidebar.number_input("Estimated Killed", min_value=0, max_value=5000, value=2, key="ml_nkill", help="Number of fatalities.")
-nwound   = st.sidebar.number_input("Estimated Wounded", min_value=0, max_value=5000, value=5, key="ml_nwound", help="Number of non-fatal injuries.")
-success  = st.sidebar.selectbox("Attack Successful?", ["Yes", "No"], key="ml_success", help="Whether the attack achieved its goal.")
-claimed  = st.sidebar.selectbox("Responsibility Claimed?", ["Yes", "No"], key="ml_claimed", help="Whether a group claimed responsibility.")
+# -----------------------------------------------
+# DERIVE ML PARAMETERS FROM COUNTRY HISTORY
+# -----------------------------------------------
+safe_country = selected_country.replace("'", "''")
+country_incidents = query_data(
+    f"SELECT * FROM 'data/globalterrorism.csv' WHERE latitude IS NOT NULL AND longitude IS NOT NULL AND country_txt = '{safe_country}'"
+)
+
+def get_mode(series, default):
+    s = series.dropna()
+    return s.mode().iloc[0] if not s.empty else default
+
+def get_median(series, default):
+    s = series.dropna()
+    return int(s.median()) if not s.empty else default
+
+if not country_incidents.empty:
+    region = get_mode(country_incidents["region_txt"], "Unknown")
+    attack = get_mode(country_incidents["attacktype1_txt"], "Bombing/Explosion")
+    weapon = get_mode(country_incidents["weaptype1_txt"], "Explosives")
+    target_t = get_mode(country_incidents["targtype1_txt"], "Private Citizens & Property")
+    nkill = get_median(country_incidents["nkill"], 0)
+    nwound = get_median(country_incidents["nwound"], 0)
+    success_val = get_mode(country_incidents["success"], 1)
+    success = "Yes" if success_val == 1 else "No"
+    claimed_val = get_mode(country_incidents["claimed"], 0)
+    claimed = "Yes" if claimed_val == 1 else "No"
+    group_ap = get_mode(country_incidents["gname"], "Unknown")
+    suicide_ap = get_mode(country_incidents["suicide"], 0)
+else:
+    region = "Unknown"
+    attack = "Bombing/Explosion"
+    weapon = "Explosives"
+    target_t = "Private Citizens & Property"
+    nkill = 0
+    nwound = 0
+    success = "Yes"
+    claimed = "No"
+    group_ap = "Unknown"
+    suicide_ap = 0
+
 
 st.sidebar.markdown("---")
 st.sidebar.header("AI Narrative Settings")
@@ -228,11 +259,6 @@ tab_mission, tab_threat, tab_attack, tab_ai = st.tabs(['🎯 Mission Planning', 
 # TAB 1: Mission Planning
 # -----------------------------------------------
 with tab_mission:
-    safe_country = selected_country.replace("'", "''")
-    country_incidents = query_data(
-        f"SELECT * FROM 'data/globalterrorism.csv' WHERE latitude IS NOT NULL AND longitude IS NOT NULL AND country_txt = '{safe_country}'"
-    )
-
     assets_df = load_military_assets()
 
     if not country_incidents.empty:
@@ -774,38 +800,27 @@ with tab_attack:
         st.plotly_chart(fig_imp, use_container_width=True)
         st.caption("Random Forest global feature importance confirms Weapon Type strongly dictates the predicted attack classification.")
     
-    with st.form("prediction_form"):
-        col_ap1, col_ap2 = st.columns(2)
-
-        with col_ap1:
-            country_ap = st.selectbox("🌍 Country", sorted(df_cats["country_txt"].dropna().unique()), key="ap_country")
-            weapon_ap = st.selectbox("🔫 Weapon Type", sorted(df_cats["weaptype1_txt"].dropna().unique()), key="ap_weapon")
-            target_ap = st.selectbox("🎯 Target Type", sorted(df_cats["targtype1_txt"].dropna().unique()), key="ap_target")
-
-        with col_ap2:
-            group_ap = st.selectbox("👥 Terrorist Group", sorted(df_cats["gname"].dropna().unique()), key="ap_group")
-            success_ap = st.selectbox("✅ Attack Successful?", [0, 1], format_func=lambda x: "Yes" if x == 1 else "No", key="ap_success")
-            suicide_ap = st.selectbox("💣 Suicide Attack?", [0, 1], format_func=lambda x: "Yes" if x == 1 else "No", key="ap_suicide")
-            nkill_ap = st.number_input("☠ Number of Fatalities", min_value=0, value=0, step=1, key="ap_nkill")
-            nwound_ap = st.number_input("🏥 Number of Injured", min_value=0, value=0, step=1, key="ap_nwound")
-
-        submitted_ap = st.form_submit_button("🚀 Predict Attack Type")
+    st.info(f"Using historically derived parameters for **{selected_country}**: Weapon: **{weapon}**, Target: **{target_t}**, Group: **{group_ap}**")
+    submitted_ap = st.button("🚀 Predict Attack Type", key="btn_ap_predict")
 
     if submitted_ap:
         try:
-            derived_region = country_to_region.get(country_ap, "Unknown")
+            try:
+                derived_region = country_to_region.get(selected_country, "Unknown")
+            except Exception:
+                derived_region = "Unknown"
             
             input_data = pd.DataFrame({
-                "country_txt": [country_ap],
+                "country_txt": [selected_country],
                 "region_txt": [derived_region],
-                "weaptype1_txt": [weapon_ap],
-                "targtype1_txt": [target_ap],
+                "weaptype1_txt": [weapon],
+                "targtype1_txt": [target_t],
                 "gname": [group_ap],
                 "iyear": [2017],
-                "success": [success_ap],
+                "success": [1 if success == "Yes" else 0],
                 "suicide": [suicide_ap],
-                "nkill": [nkill_ap],
-                "nwound": [nwound_ap]
+                "nkill": [nkill],
+                "nwound": [nwound]
             })
 
             input_data[cat_cols] = cat_imputer_ap.transform(input_data[cat_cols])

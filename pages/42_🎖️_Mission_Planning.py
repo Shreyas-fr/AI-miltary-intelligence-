@@ -209,26 +209,28 @@ country_incidents = query_data(
 )
 
 def get_mode(series, default):
+    if series is None: return default
     s = series.dropna()
     return s.mode().iloc[0] if not s.empty else default
 
 def get_median(series, default):
+    if series is None: return default
     s = series.dropna()
     return int(s.median()) if not s.empty else default
 
 if not country_incidents.empty:
-    region = get_mode(country_incidents["region_txt"], "Unknown")
-    attack = get_mode(country_incidents["attacktype1_txt"], "Bombing/Explosion")
-    weapon = get_mode(country_incidents["weaptype1_txt"], "Explosives")
-    target_t = get_mode(country_incidents["targtype1_txt"], "Private Citizens & Property")
-    nkill = get_median(country_incidents["nkill"], 0)
-    nwound = get_median(country_incidents["nwound"], 0)
-    success_val = get_mode(country_incidents["success"], 1)
+    region = get_mode(country_incidents.get("region_txt"), "Unknown")
+    attack = get_mode(country_incidents.get("attacktype1_txt"), "Bombing/Explosion")
+    weapon = get_mode(country_incidents.get("weaptype1_txt"), "Explosives")
+    target_t = get_mode(country_incidents.get("targtype1_txt"), "Private Citizens & Property")
+    nkill = get_median(country_incidents.get("nkill"), 0)
+    nwound = get_median(country_incidents.get("nwound"), 0)
+    success_val = get_mode(country_incidents.get("success"), 1)
     success = "Yes" if success_val == 1 else "No"
-    claimed_val = get_mode(country_incidents["claimed"], 0)
+    claimed_val = get_mode(country_incidents.get("claimed"), 0)
     claimed = "Yes" if claimed_val == 1 else "No"
-    group_ap = get_mode(country_incidents["gname"], "Unknown")
-    suicide_ap = get_mode(country_incidents["suicide"], 0)
+    group_ap = get_mode(country_incidents.get("gname"), "Unknown")
+    suicide_ap = get_mode(country_incidents.get("suicide"), 0)
 else:
     region = "Unknown"
     attack = "Bombing/Explosion"

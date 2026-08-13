@@ -216,14 +216,7 @@ div[data-testid="stForm"] {
 .badge-medium { background: rgba(255, 204, 0, 0.15); color: #FFCC00; border: 1px solid #FFCC00; padding: 4px 12px; border-radius: 20px; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px;}
 .badge-low { background: rgba(52, 199, 89, 0.15); color: #34C759; border: 1px solid #34C759; padding: 4px 12px; border-radius: 20px; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px;}
 
-/* ==========================================
-   1. HIDE STREAMLIT CHROME
-   ========================================== */
-#MainMenu {visibility: hidden !important;}
-[data-testid="stHeader"] {background: transparent !important; box-shadow: none !important;}
-[data-testid="stToolbar"] {visibility: hidden !important;}
-footer {visibility: hidden !important;}
-.stAppDeployButton {display: none !important;}
+
 
 /* ==========================================
    2. CUSTOM TYPOGRAPHY OVERRIDES

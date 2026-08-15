@@ -1,0 +1,386 @@
+[
+  {
+    "Category": "Anti-Malware",
+    "Name": "IPWhois.net Blacklist",
+    "Desc": "Community IP blacklist to check and report abusive IP addresses",
+    "URL": "https://ipwhois.net/blacklist/docs"
+  },
+  {
+    "Category": "Anti-Malware",
+    "Name": "URLhaus",
+    "Desc": "Bulk queries and Download Malware Samples",
+    "URL": "https://urlhaus-api.abuse.ch/"
+  },
+  {
+    "Category": "Data Validation",
+    "Name": "Postman Echo",
+    "Desc": "Test api server to receive and return value from HTTP method",
+    "URL": "https://www.postman-echo.com"
+  },
+  {
+    "Category": "Development",
+    "Name": "24 Pull Requests",
+    "Desc": "Project to promote open source collaboration during December",
+    "URL": "https://24pullrequests.com/api"
+  },
+  {
+    "Category": "Development",
+    "Name": "Agify.io",
+    "Desc": "Estimates the age from a first name",
+    "URL": "https://agify.io"
+  },
+  {
+    "Category": "Development",
+    "Name": "ApicAgent",
+    "Desc": "Extract device details from user-agent string",
+    "URL": "https://www.apicagent.com"
+  },
+  {
+    "Category": "Development",
+    "Name": "Beeceptor",
+    "Desc": "Build a mock Rest API endpoint in seconds",
+    "URL": "https://beeceptor.com/"
+  },
+  {
+    "Category": "Development",
+    "Name": "Bored",
+    "Desc": "Find random activities to fight boredom",
+    "URL": "https://www.boredapi.com/"
+  },
+  {
+    "Category": "Development",
+    "Name": "BrewPage",
+    "Desc": "Free hosting for HTML, JSON, key-value, files, multi-file sites with short URLs and TTL retention",
+    "URL": "https://brewpage.app"
+  },
+  {
+    "Category": "Development",
+    "Name": "CDNJS",
+    "Desc": "Library info on CDNJS",
+    "URL": "https://api.cdnjs.com/libraries/jquery"
+  },
+  {
+    "Category": "Development",
+    "Name": "Changelogs.md",
+    "Desc": "Structured changelog metadata from open source projects",
+    "URL": "https://changelogs.md"
+  },
+  {
+    "Category": "Development",
+    "Name": "Ciprand",
+    "Desc": "Secure random string generator",
+    "URL": "https://github.com/polarspetroll/ciprand"
+  },
+  {
+    "Category": "Development",
+    "Name": "Cloudflare Trace",
+    "Desc": "Get IP Address, Timestamp, User Agent, Country Code, IATA, HTTP Version, TLS/SSL Version & More",
+    "URL": "https://github.com/fawazahmed0/cloudflare-trace-api"
+  },
+  {
+    "Category": "Development",
+    "Name": "Codex",
+    "Desc": "Online Compiler for Various Languages",
+    "URL": "https://github.com/Jaagrav/CodeX"
+  },
+  {
+    "Category": "Development",
+    "Name": "CORS Proxy",
+    "Desc": "Get around the dreaded CORS error by using this proxy as a middle man",
+    "URL": "https://github.com/burhanuday/cors-proxy"
+  },
+  {
+    "Category": "Development",
+    "Name": "DigitalOcean Status",
+    "Desc": "Status of all DigitalOcean services",
+    "URL": "https://status.digitalocean.com/api"
+  },
+  {
+    "Category": "Development",
+    "Name": "DigMyName",
+    "Desc": "Domain availability and registrar pricing across 52 TLDs",
+    "URL": "https://digmyname.com/api"
+  },
+  {
+    "Category": "Development",
+    "Name": "DomainDb Info",
+    "Desc": "Domain name search to find all domains containing particular words/phrases/etc",
+    "URL": "https://api.domainsdb.info/"
+  },
+  {
+    "Category": "Development",
+    "Name": "dotsweep",
+    "Desc": "Domain availability across 1200+ TLDs with registration and renewal prices",
+    "URL": "https://dotsweep.com/docs"
+  },
+  {
+    "Category": "Development",
+    "Name": "DownStatus",
+    "Desc": "Real-time status for GitHub, AWS, Discord and 90+ services",
+    "URL": "https://isitdownstatus.com"
+  },
+  {
+    "Category": "Development",
+    "Name": "ExtendsClass JSON Storage",
+    "Desc": "A simple JSON store API",
+    "URL": "https://extendsclass.com/json-storage.html"
+  },
+  {
+    "Category": "Development",
+    "Name": "Genderize.io",
+    "Desc": "Estimates a gender from a first name",
+    "URL": "https://genderize.io"
+  },
+  {
+    "Category": "Development",
+    "Name": "host-t.com",
+    "Desc": "Basic DNS query via HTTP GET request",
+    "URL": "https://host-t.com"
+  },
+  {
+    "Category": "Development",
+    "Name": "HTTP2.Pro",
+    "Desc": "Test endpoints for client and server HTTP/2 protocol support",
+    "URL": "https://http2.pro/doc/api"
+  },
+  {
+    "Category": "Development",
+    "Name": "Httpbin",
+    "Desc": "A Simple HTTP Request & Response Service",
+    "URL": "https://httpbin.org/"
+  },
+  {
+    "Category": "Development",
+    "Name": "Httpbin Cloudflare",
+    "Desc": "A Simple HTTP Request & Response Service with HTTP/3 Support by Cloudflare",
+    "URL": "https://cloudflare-quic.com/b/"
+  },
+  {
+    "Category": "Development",
+    "Name": "Hipsum",
+    "Desc": "Hipster-themed lorem ipsum generator for placeholder text",
+    "URL": "https://hipsum.co"
+  },
+  {
+    "Category": "Development",
+    "Name": "Icanhazepoch",
+    "Desc": "Get Epoch time",
+    "URL": "https://icanhazepoch.com"
+  },
+  {
+    "Category": "Development",
+    "Name": "Icanhazip",
+    "Desc": "IP Address API",
+    "URL": "https://major.io/icanhazip-com-faq/"
+  },
+  {
+    "Category": "Development",
+    "Name": "IFTTT",
+    "Desc": "IFTTT Connect API",
+    "URL": "https://platform.ifttt.com/docs/connect_api"
+  },
+  {
+    "Category": "Development",
+    "Name": "Image-Charts",
+    "Desc": "Generate charts, QR codes and graph images",
+    "URL": "https://documentation.image-charts.com/"
+  },
+  {
+    "Category": "Development",
+    "Name": "ip-fast.com",
+    "Desc": "IP address, country and city",
+    "URL": "https://ip-fast.com/docs/"
+  },
+  {
+    "Category": "Development",
+    "Name": "IPify",
+    "Desc": "A simple IP Address API",
+    "URL": "https://www.ipify.org/"
+  },
+  {
+    "Category": "Development",
+    "Name": "IPinfo",
+    "Desc": "Another simple IP Address API",
+    "URL": "https://ipinfo.io/developers"
+  },
+  {
+    "Category": "Development",
+    "Name": "isitdownstatus",
+    "Desc": "Check if websites and online services are currently down",
+    "URL": "https://isitdownstatus.com"
+  },
+  {
+    "Category": "Development",
+    "Name": "jsDelivr",
+    "Desc": "Package info and download stats on jsDelivr CDN",
+    "URL": "https://github.com/jsdelivr/data.jsdelivr.com"
+  },
+  {
+    "Category": "Development",
+    "Name": "JSON 2 JSONP",
+    "Desc": "Convert JSON to JSONP (on-the-fly) for easy cross-domain data requests using client-side JavaScript",
+    "URL": "https://json2jsonp.com/"
+  },
+  {
+    "Category": "Development",
+    "Name": "JSONPlaceholder",
+    "Desc": "Fake REST API for testing and prototyping",
+    "URL": "https://jsonplaceholder.typicode.com"
+  },
+  {
+    "Category": "Development",
+    "Name": "Keyvalue",
+    "Desc": "Simple key-value storage REST API for quick prototyping",
+    "URL": "https://keyvalue.immanuel.co/"
+  },
+  {
+    "Category": "Development",
+    "Name": "Kroki",
+    "Desc": "Creates diagrams from textual descriptions",
+    "URL": "https://kroki.io"
+  },
+  {
+    "Category": "Development",
+    "Name": "Lua Decompiler",
+    "Desc": "Online Lua 5.1 Decompiler",
+    "URL": "https://lua-decompiler.ferib.dev/"
+  },
+  {
+    "Category": "Development",
+    "Name": "MicroENV",
+    "Desc": "Fake Rest API for developers",
+    "URL": "https://microenv.com/"
+  },
+  {
+    "Category": "Development",
+    "Name": "Mocky",
+    "Desc": "Mock user defined test JSON for REST API endpoints",
+    "URL": "https://designer.mocky.io/"
+  },
+  {
+    "Category": "Development",
+    "Name": "MY IP",
+    "Desc": "Get IP address information",
+    "URL": "https://www.myip.com/api-docs/"
+  },
+  {
+    "Category": "Development",
+    "Name": "MyIPRightNow",
+    "Desc": "Public IP address with network, location, and connection details",
+    "URL": "https://myiprightnow.com"
+  },
+  {
+    "Category": "Development",
+    "Name": "Nationalize.io",
+    "Desc": "Estimate the nationality of a first name",
+    "URL": "https://nationalize.io"
+  },
+  {
+    "Category": "Development",
+    "Name": "NetworkCalc",
+    "Desc": "Network calculators, including subnets, DNS, binary, and security tools",
+    "URL": "https://networkcalc.com/api/docs"
+  },
+  {
+    "Category": "Development",
+    "Name": "OutageDeck",
+    "Desc": "Live status and incidents for 170+ cloud and SaaS providers from official feeds",
+    "URL": "https://outagedeck.com/developers/api"
+  },
+  {
+    "Category": "Development",
+    "Name": "oyyi",
+    "Desc": "API for Fake Data, image/video conversion, optimization, pdf optimization and thumbnail generation",
+    "URL": "https://oyyi.xyz/docs/1.0"
+  },
+  {
+    "Category": "Development",
+    "Name": "Phone Specs",
+    "Desc": "Real-time smartphone specifications database for 263 devices",
+    "URL": "https://phone-specs-api-production.up.railway.app/docs"
+  },
+  {
+    "Category": "Development",
+    "Name": "ProxyForge",
+    "Desc": "Free auto-updating list of live-tested proxies (HTTP/HTTPS/SOCKS4/SOCKS5), refreshed every 6 h",
+    "URL": "https://proxyforge.dev"
+  },
+  {
+    "Category": "Development",
+    "Name": "QR & Barcode",
+    "Desc": "QR codes and barcodes (Code 128, EAN-13, Data Matrix, PDF417 + more). SVG or PNG output",
+    "URL": "https://solsigs.com/qrapi/"
+  },
+  {
+    "Category": "Development",
+    "Name": "QR code",
+    "Desc": "Create an easy to read QR code and URL shortener",
+    "URL": "https://www.qrtag.net/api/"
+  },
+  {
+    "Category": "Development",
+    "Name": "QR code",
+    "Desc": "Generate and decode / read QR code graphics",
+    "URL": "http://goqr.me/api/"
+  },
+  {
+    "Category": "Development",
+    "Name": "QR Code Crafter",
+    "Desc": "Generate static QR codes in SVG, PNG, JPG, WebP, PDF, or EPS",
+    "URL": "https://qrcodecrafter.com/qr-code-api"
+  },
+  {
+    "Category": "Development",
+    "Name": "Qrcode Monkey",
+    "Desc": "Integrate custom and unique looking QR codes into your system or workflow",
+    "URL": "https://www.qrcode-monkey.com/qr-code-api-with-logo/"
+  },
+  {
+    "Category": "Development",
+    "Name": "QuickChart",
+    "Desc": "Generate chart and graph images",
+    "URL": "https://quickchart.io/"
+  },
+  {
+    "Category": "Development",
+    "Name": "ReqRes",
+    "Desc": "A hosted REST-API ready to respond to your AJAX requests",
+    "URL": "https://reqres.in/ "
+  },
+  {
+    "Category": "Development",
+    "Name": "RSS feed to JSON",
+    "Desc": "Returns RSS feed in JSON format using feed URL",
+    "URL": "https://rss-to-json-serverless-api.vercel.app"
+  },
+  {
+    "Category": "Development",
+    "Name": "Serialif Color",
+    "Desc": "Color conversion, complementary, grayscale and contrasted text",
+    "URL": "https://color.serialif.com/"
+  },
+  {
+    "Category": "Development",
+    "Name": "Sonar",
+    "Desc": "Project Sonar DNS Enumeration API",
+    "URL": "https://github.com/Cgboal/SonarSearch"
+  },
+  {
+    "Category": "Development",
+    "Name": "Statically",
+    "Desc": "A free CDN for developers",
+    "URL": "https://statically.io/"
+  },
+  {
+    "Category": "Development",
+    "Name": "Thunder Client",
+    "Desc": "API testing tool",
+    "URL": "https://www.thunderclient.com/"
+  },
+  {
+    "Category": "Development",
+    "Name": "TinyMind Agent Tools",
+    "Desc": "Free APIs by an AI agent on a VPS: actor lookup, word-of-the-day, poems, jokes, ping",
+    "URL": "https://tinymind.eu/api/"
+  }
+]

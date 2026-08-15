@@ -1,0 +1,139 @@
+{
+  "attack_prediction": {
+    "train_accuracy": 0.8243616077397086,
+    "test_accuracy": 0.7981526494895479,
+    "overfit_gap": 0.026208958250160674,
+    "weighted_f1": 0.8063355578279521,
+    "cv_mean": 0.7893856047277985,
+    "cv_std": 0.0654457457715849,
+    "majority_class": "Bombing/Explosion",
+    "baseline_accuracy": 2.1950899368011667,
+    "per_class_report": "                                precision    recall  f1-score   support\n\n                 Armed Assault      0.794     0.587     0.675      4789\n                 Assassination      0.464     0.703     0.559      1585\n             Bombing/Explosion      0.941     0.964     0.952     10657\nFacility/Infrastructure Attack      0.817     0.783     0.800      1294\n                     Hijacking      0.063     0.323     0.106        99\n   Hostage Taking (Kidnapping)      0.717     0.540     0.616      1985\n               Unarmed Assault      0.227     0.671     0.340       161\n\n                      accuracy                          0.798     20570\n                     macro avg      0.575     0.653     0.578     20570\n                  weighted avg      0.831     0.798     0.806     20570\n",
+    "confusion_matrix": [
+      [
+        2811,
+        855,
+        415,
+        108,
+        228,
+        155,
+        217
+      ],
+      [
+        244,
+        1114,
+        158,
+        14,
+        2,
+        46,
+        7
+      ],
+      [
+        0,
+        353,
+        10269,
+        0,
+        2,
+        0,
+        33
+      ],
+      [
+        4,
+        6,
+        0,
+        1013,
+        81,
+        174,
+        16
+      ],
+      [
+        15,
+        5,
+        5,
+        4,
+        32,
+        36,
+        2
+      ],
+      [
+        466,
+        66,
+        69,
+        61,
+        160,
+        1071,
+        92
+      ],
+      [
+        0,
+        1,
+        0,
+        40,
+        0,
+        12,
+        108
+      ]
+    ],
+    "feature_importance": [
+      {
+        "feature": "weaptype1_txt",
+        "importance": 0.479708868944409
+      },
+      {
+        "feature": "nkill",
+        "importance": 0.11193332883377673
+      },
+      {
+        "feature": "nwound",
+        "importance": 0.10494114399918016
+      },
+      {
+        "feature": "targtype1_txt",
+        "importance": 0.08550298656989729
+      },
+      {
+        "feature": "success",
+        "importance": 0.07556263856443074
+      },
+      {
+        "feature": "region_txt",
+        "importance": 0.0385803848987977
+      },
+      {
+        "feature": "country_txt",
+        "importance": 0.038046177290741154
+      },
+      {
+        "feature": "gname",
+        "importance": 0.029592091385620852
+      },
+      {
+        "feature": "iyear",
+        "importance": 0.02309637359753256
+      },
+      {
+        "feature": "suicide",
+        "importance": 0.007833626276076026
+      },
+      {
+        "feature": "claimed",
+        "importance": 0.005202379639537896
+      }
+    ],
+    "train_years": [
+      2000,
+      2016
+    ],
+    "test_years": [
+      2016,
+      2017
+    ],
+    "train_rows": 82277,
+    "test_rows": 20570,
+    "data_warning": false
+  },
+  "threat_prediction": {
+    "test_accuracy": 0.9988818667963053,
+    "weighted_f1": 0.9988820815283922
+  }
+}

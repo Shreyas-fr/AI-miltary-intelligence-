@@ -1,0 +1,14 @@
+.:1053 {
+    # threatfilter plugin — calls FastAPI before resolving
+    # NOTE: This requires a CoreDNS binary compiled with the threatfilter plugin.
+    # See coredns-plugin/setup.go for build instructions.
+    threatfilter http://localhost:8000
+
+    # Forward all non-blocked queries to Google DNS
+    forward . 8.8.8.8 8.8.4.4
+
+    # Standard middleware
+    errors
+    log
+    cache 30
+}

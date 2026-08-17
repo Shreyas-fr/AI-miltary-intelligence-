@@ -1,0 +1,14 @@
+tls://.:8530 {
+    tls cert.pem key.pem
+    
+    # threatfilter plugin — calls FastAPI before resolving
+    threatfilter http://localhost:8000
+
+    # Forward all non-blocked queries to Google DNS
+    forward . 8.8.8.8 8.8.4.4
+
+    # Standard middleware
+    errors
+    log
+    cache 30
+}

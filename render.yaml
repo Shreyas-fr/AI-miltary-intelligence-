@@ -10,3 +10,13 @@ services:
         value: 3.10.12
       - key: ARROW_DEFAULT_MEMORY_POOL
         value: system
+
+  - type: web
+    name: dns-threat-filter
+    env: python
+    rootDir: dns-threat-filter
+    buildCommand: pip install -r api/requirements.txt -r dashboard/requirements.txt
+    startCommand: ./start.sh
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10.12

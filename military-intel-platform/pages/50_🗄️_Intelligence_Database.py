@@ -122,12 +122,17 @@ with tab_db:
                 }
             )
             st.dataframe(display_df, use_container_width=True, hide_index=True)
-            st.download_button(
-                "Download Live Events CSV",
-                data=live_df.to_csv(index=False),
-                file_name="live_events_db.csv",
-                mime="text/csv",
-            )
+            # Download only for Analyst and Commander roles
+            _dl_role = (st.session_state.get("roles") or ["Viewer"])[0]
+            if _dl_role in ("Analyst", "Commander"):
+                st.download_button(
+                    "Download Live Events CSV",
+                    data=live_df.to_csv(index=False),
+                    file_name="live_events_db.csv",
+                    mime="text/csv",
+                )
+            else:
+                st.caption("🔒 Downloads restricted to Analyst and Commander roles.")
 
     # Section 4 - Ingestion History
     with st.expander("Ingestion History", expanded=True):
@@ -157,12 +162,16 @@ with tab_db:
                 with st.spinner("Generating combined dataset export..."):
                     comb_df = load_combined()
                     csv_comb = comb_df.to_csv(index=False)
-                    st.download_button(
-                        label="📥 Download Combined CSV",
-                        data=csv_comb,
-                        file_name="combined_intelligence_dataset.csv",
-                        mime="text/csv",
-                    )
+                    _dl_role2 = (st.session_state.get("roles") or ["Viewer"])[0]
+                    if _dl_role2 in ("Analyst", "Commander"):
+                        st.download_button(
+                            label="📥 Download Combined CSV",
+                            data=csv_comb,
+                            file_name="combined_intelligence_dataset.csv",
+                            mime="text/csv",
+                        )
+                    else:
+                        st.caption("🔒 Downloads restricted to Analyst and Commander roles.")
         with col_exp2:
             if st.button("🔁 Retrain Models on Combined Data"):
                 st.warning(
@@ -264,10 +273,16 @@ with tab_explore:
     if selected_group:   filtered_df = filtered_df[filtered_df["gname"].isin(selected_group)]
 
     if search:
-        filtered_df = filtered_df[
-            filtered_df["city"].fillna("").str.contains(search, case=False)
-            | filtered_df["country_txt"].fillna("").str.contains(search, case=False)
-        ]
+        import re
+        # Sanitise: strip HTML tags and script-like patterns before use in pandas filter
+        search_clean = re.sub(r"<[^>]*>", "", search)  # strip HTML tags
+        search_clean = re.sub(r"[;\"'\\]", "", search_clean)  # strip quote/escape chars
+        search_clean = search_clean.strip()[:100]  # limit length
+        if search_clean:
+            filtered_df = filtered_df[
+                filtered_df["city"].fillna("").str.contains(search_clean, case=False, regex=False)
+                | filtered_df["country_txt"].fillna("").str.contains(search_clean, case=False, regex=False)
+            ]
 
     # -----------------------------------------------
     # KPI Metrics
@@ -335,8 +350,12 @@ with tab_explore:
         st.caption(f"Showing {len(filtered_df):,} records")
         st.dataframe(filtered_df, height=450, use_container_width=True, hide_index=True)
 
-        csv = filtered_df.to_csv(index=False)
-        st.download_button("📥 Download Filtered Data", csv, file_name="Filtered_GTD_Data.csv", mime="text/csv")
+        _dl_role3 = (st.session_state.get("roles") or ["Viewer"])[0]
+        if _dl_role3 in ("Analyst", "Commander"):
+            csv = filtered_df.to_csv(index=False)
+            st.download_button("📥 Download Filtered Data", csv, file_name="Filtered_GTD_Data.csv", mime="text/csv")
+        else:
+            st.caption("🔒 Downloads restricted to Analyst and Commander roles.")
 
         st.divider()
 

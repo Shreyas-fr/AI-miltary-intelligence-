@@ -19,3 +19,7 @@ shap==0.46.0
 networkx
 streamlit-authenticator==0.4.2
 PyYAML==6.0.3
+dnspython>=2.0.0
+pyotp>=2.9.0
+qrcode>=7.4.2
+rsa>=4.9

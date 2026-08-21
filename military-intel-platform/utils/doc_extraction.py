@@ -5,11 +5,7 @@ import requests
 from pydantic import BaseModel, Field
 from typing import List
 
-try:
-    from google import genai
-    from google.genai import types
-except ImportError:
-    genai = None
+
 
 class CountryExtraction(BaseModel):
     country_name: str = Field(description="The name of the country being reported on")
@@ -53,7 +49,7 @@ def extract_intelligence_ollama(text: str, source_name: str, model: str = "phi4"
         }
         
         try:
-            response = requests.post("http://localhost:11434/api/generate", json=payload, timeout=60)
+            response = requests.post("http://localhost:11434/api/generate", json=payload, timeout=300)
             response.raise_for_status()
         except requests.exceptions.ConnectionError:
             raise ConnectionError("Ollama service is not running or unreachable on port 11434.")
@@ -85,42 +81,9 @@ def extract_intelligence_ollama(text: str, source_name: str, model: str = "phi4"
             
     raise RuntimeError("Ollama extraction failed validation after 3 attempts.")
 
-def extract_intelligence_from_text(text: str, source_name: str, backend: str = "Gemini", api_key: str = None) -> tuple[list[dict], str]:
-    """Extracts intelligence using the specified backend (Gemini or Ollama). Returns (results, backend_name)."""
-    
-    if backend == "Ollama":
-        return extract_intelligence_ollama(text, source_name), "Ollama / Phi-4 (Local)"
-        
-    if genai is None:
-        raise ImportError("google-genai library is required for Gemini extraction.")
-        
-    key = api_key or os.environ.get("GEMINI_API_KEY")
-    if not key:
-        raise ValueError("GEMINI_API_KEY is not set.")
-        
-    client = genai.Client(api_key=key)
-    
-    prompt = f"{PROMPT_CONSTRAINT}\n\nDOCUMENT TEXT:\n{text}"
-    
-    response = client.models.generate_content(
-        model='gemini-2.5-flash',
-        contents=prompt,
-        config=types.GenerateContentConfig(
-            response_mime_type="application/json",
-            response_schema=DocumentExtraction,
-            temperature=0.0,
-        ),
-    )
-    
-    try:
-        data = json.loads(response.text)
-        results = []
-        for c in data.get("countries", []):
-            c["source_document"] = source_name
-            results.append(c)
-        return results, "Gemini (Cloud)"
-    except Exception as e:
-        raise RuntimeError(f"Failed to parse structured output: {e}")
+def extract_intelligence_from_text(text: str, source_name: str) -> tuple[list[dict], str]:
+    """Extracts intelligence using the local Ollama backend (Phi-4). Returns (results, backend_name)."""
+    return extract_intelligence_ollama(text, source_name), "Ollama / Phi-4 (Local)"
 
 def merge_extractions(all_results: list[dict]) -> pd.DataFrame:
     """Merges multiple extractions into a single DataFrame with conflict resolution."""

@@ -10,8 +10,11 @@ require_auth(['Analyst', 'Commander'])
 
 import importlib
 import utils.doc_extraction
+import utils.text_parsers
 importlib.reload(utils.doc_extraction)
+importlib.reload(utils.text_parsers)
 from utils.doc_extraction import extract_intelligence_from_text, merge_extractions
+from utils.text_parsers import parse_file
 
 st.set_page_config(page_title="Document Intelligence", page_icon="📄", layout="wide")
 
@@ -28,27 +31,12 @@ st.markdown(
     "Features strict adherence to explicit facts only, rejecting hallucinated values."
 )
 
-is_render = os.environ.get("RENDER") == "true"
-
 st.divider()
 
-st.subheader("1. Extraction Backend")
-if is_render:
-    st.info("Running in cloud (Render) — Gemini backend is active.")
-    backend = "Gemini"
-else:
-    backend = st.radio(
-        "Select Extraction Backend:",
-        ["Gemini", "Ollama"],
-        index=0,
-        help="Gemini is the cloud default. Ollama uses local models (e.g. Phi-4) via port 11434.",
-        horizontal=True
-    )
+st.info("⚠️ **Local-Only Feature:** This extraction pipeline runs entirely offline using Ollama and local text parsers. It will not execute in cloud deployments (e.g. Render).")
 
-st.divider()
-
-st.subheader("2. Upload Documents")
-uploaded_files = st.file_uploader("Upload intelligence reports (.txt)", type=["txt"], accept_multiple_files=True)
+st.subheader("1. Upload Documents")
+uploaded_files = st.file_uploader("Upload intelligence reports", type=["txt", "md", "pdf", "docx", "xlsx"], accept_multiple_files=True)
 
 if "extracted_data" not in st.session_state:
     st.session_state["extracted_data"] = []
@@ -58,13 +46,15 @@ if st.button("Extract Intelligence", type="primary", disabled=not uploaded_files
     used_backends = set()
     error_occurred = False
     
-    with st.spinner(f"Parsing documents with {backend}..."):
+    with st.spinner("Parsing documents with Ollama (Local)..."):
         for file in uploaded_files:
-            text = file.read().decode("utf-8", errors="ignore")
+            file_bytes = file.read()
             filename = file.name
             try:
+                # Parse text
+                text = parse_file(filename, file_bytes)
                 # Extract
-                results, actual_backend = extract_intelligence_from_text(text, filename, backend=backend)
+                results, actual_backend = extract_intelligence_from_text(text, filename)
                 all_results.extend(results)
                 used_backends.add(actual_backend)
             except ConnectionError as ce:
@@ -73,6 +63,7 @@ if st.button("Extract Intelligence", type="primary", disabled=not uploaded_files
             except Exception as e:
                 st.error(f"Failed to process {filename}: {e}")
                 error_occurred = True
+                st.stop()
                 
     if all_results:
         st.session_state["extracted_data"] = all_results

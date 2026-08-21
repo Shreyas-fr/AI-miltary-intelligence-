@@ -1,9 +1,16 @@
 version: '3.8'
 services:
   military_intel_platform:
-    build: .
+    build: 
+      context: ..
+      dockerfile: military-intel-platform/Dockerfile
     ports:
       - "8501:8501"
+      - "8502:8502"
+      - "8000:8000"
+      - "1053:1053/tcp"
+      - "1053:1053/udp"
     restart: unless-stopped
     environment:
       - ARROW_DEFAULT_MEMORY_POOL=system
+      - USE_THREAT_FILTER_DNS=1

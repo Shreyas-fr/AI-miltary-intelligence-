@@ -6,8 +6,9 @@ __pycache__/
 *.pyo
 
 # Data & DBs
-data/*.db
-data/intelligence.db
+*.db
+urlhaus_blocklist.txt
+audit.jsonl
 globalterrorismdb_0718dist.csv
 archive.zip
 

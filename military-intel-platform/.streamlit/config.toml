@@ -14,3 +14,6 @@ backgroundColor = "#0A0E17"
 secondaryBackgroundColor = "#141C2B"
 textColor = "#E0E6ED"
 font = "sans serif"
+
+[client]
+showErrorDetails = false

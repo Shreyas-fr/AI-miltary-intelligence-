@@ -23,14 +23,58 @@ from urllib.parse import urlparse
 import logging
 from datetime import datetime, timezone
 from pathlib import Path
+import threading
 
 from dga_classifier import classifier
 
 import httpx
 from fastapi import FastAPI
 from pydantic import BaseModel
+from cachetools import TTLCache
 
 from db import init_db, log_event
+
+# ---------------------------------------------------------------------------
+# Response cache: TTL = 60 seconds, max 2048 entries
+# Thread-safe with a lock since uvicorn uses multiple threads via lifespan
+# ---------------------------------------------------------------------------
+_response_cache: TTLCache = TTLCache(maxsize=2048, ttl=60)
+_cache_lock = threading.Lock()
+
+# ---------------------------------------------------------------------------
+# Typosquatting detector — known-safe apex domains to compare against
+# ---------------------------------------------------------------------------
+_KNOWN_SAFE_DOMAINS = {
+    "google.com", "github.com", "pypi.org", "microsoft.com", "apple.com",
+    "amazon.com", "cloudflare.com", "fastly.com", "akamai.com", "meta.com",
+    "twitter.com", "linkedin.com", "youtube.com", "reddit.com", "wikipedia.org",
+    "streamlit.io", "render.com", "openai.com", "huggingface.co", "anaconda.com",
+}
+
+def _levenshtein(a: str, b: str) -> int:
+    """Compute the Levenshtein edit distance between two strings."""
+    m, n = len(a), len(b)
+    dp = list(range(n + 1))
+    for i in range(1, m + 1):
+        prev, dp[0] = dp[0], i
+        for j in range(1, n + 1):
+            temp = dp[j]
+            dp[j] = prev if a[i-1] == b[j-1] else 1 + min(prev, dp[j], dp[j-1])
+            prev = temp
+    return dp[n]
+
+def _is_typosquat(domain: str) -> str | None:
+    """
+    Check if a domain is suspiciously close to a known-safe domain.
+    Returns the spoofed target domain if detected, else None.
+    Threshold: Levenshtein distance ≤ 2 but not an exact match.
+    """
+    apex = ".".join(domain.split(".")[-2:]) if domain.count(".") >= 1 else domain
+    for safe in _KNOWN_SAFE_DOMAINS:
+        dist = _levenshtein(apex, safe)
+        if 0 < dist <= 2:  # 0 = exact match (legitimate), 1-2 = suspicious
+            return safe
+    return None
 
 # ---------------------------------------------------------------------------
 # Configuration
@@ -193,25 +237,37 @@ class CheckResponse(BaseModel):
 async def check_domain(req: CheckRequest) -> CheckResponse:
     domain = req.domain.lower().rstrip(".")
 
+    # --- TTL Cache hit ---
+    with _cache_lock:
+        if domain in _response_cache:
+            return _response_cache[domain]
+
     # Lookup: check the exact queried hostname first, then the apex domain
-    # (e.g. a query for 'sub.evil.com' also checks 'evil.com').
-    # The feed stores full hostnames extracted from URLs.
     apex = ".".join(domain.split(".")[-2:]) if domain.count(".") >= 1 else domain
     in_blocklist = domain in _blocklist or apex in _blocklist
 
     dga_score = None
+    typosquat_of = None
+
     if in_blocklist:
         verdict = "BLOCKED"
         source = "urlhaus"
     else:
-        # Use DGA classifier
-        dga_score = classifier.predict(domain)
-        if dga_score >= 0.75:
+        # Typosquatting check (before DGA — lower computational cost)
+        typosquat_of = _is_typosquat(domain)
+        if typosquat_of:
             verdict = "BLOCKED"
-            source = "dga_classifier"
+            source = "typosquatting"
+            dga_score = None
         else:
-            verdict = "ALLOW"
-            source = "clean"
+            # DGA classifier — threshold raised to 0.80
+            dga_score = classifier.predict(domain)
+            if dga_score >= 0.80:
+                verdict = "BLOCKED"
+                source = "dga_classifier"
+            else:
+                verdict = "ALLOW"
+                source = "clean"
 
     resp = CheckResponse(
         domain=domain,
@@ -221,6 +277,10 @@ async def check_domain(req: CheckRequest) -> CheckResponse:
         urlhaus_status=_urlhaus_status,
         blocklist_size=len(_blocklist),
     )
+
+    # Cache the response
+    with _cache_lock:
+        _response_cache[domain] = resp
 
     log_event(
         domain=domain,

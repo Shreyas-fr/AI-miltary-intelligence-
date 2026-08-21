@@ -1,0 +1,5 @@
+# Local development/execution dependencies
+# These are NOT required for the cloud deployment on Render
+pdfplumber==0.11.4
+python-docx==1.1.2
+openpyxl==3.1.5

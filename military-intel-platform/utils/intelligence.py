@@ -60,15 +60,15 @@ def fetch_gdelt_events(
     query: str = DEFAULT_LIVE_QUERY,
     timespan: str = "1d",
     max_records: int = 50,
-    timeout: int = 3,
+    timeout: int = 5,
 ) -> pd.DataFrame:
     """Fetch recent conflict-related articles from GDELT's DOC 2.1 API.
     
-    Hard-capped to 50 records and 3s timeout to fit within Render 512MB RAM constraints.
+    Hard-capped to 50 records and 5s timeout to fit within Render 512MB RAM constraints.
     """
     # Enforce strict maximum limits on memory/connections
     safe_max_records = min(int(max_records or 50), 50)
-    safe_timeout = min(int(timeout or 3), 3)
+    safe_timeout = min(int(timeout or 5), 5)
 
     params = {
         "query": query,

@@ -85,8 +85,8 @@ def fetch_gdelt_events(
         with urlopen(request, timeout=safe_timeout) as response:
             payload = json.loads(response.read().decode("utf-8"))
     except Exception as e:
-        # Failover immediately without throwing a trace or leaking memory
-        return pd.DataFrame()
+        # Raise ConnectionError so calling pages detect the network issue and trigger their failover banners
+        raise ConnectionError(f"GDELT API request failed or timed out: {e}")
 
     articles = payload.get("articles", [])
     if not articles:

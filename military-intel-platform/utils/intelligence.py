@@ -53,29 +53,40 @@ class RiskBreakdown:
     components: dict[str, float]
 
 
+import streamlit as st
+
+@st.cache_data(ttl=300, max_entries=1, show_spinner="Fetching GDELT signals...")
 def fetch_gdelt_events(
     query: str = DEFAULT_LIVE_QUERY,
     timespan: str = "1d",
-    max_records: int = 100,
-    timeout: int = 5,
+    max_records: int = 50,
+    timeout: int = 3,
 ) -> pd.DataFrame:
-    """Fetch recent conflict-related articles from GDELT's DOC 2.1 API."""
+    """Fetch recent conflict-related articles from GDELT's DOC 2.1 API.
+    
+    Hard-capped to 50 records and 3s timeout to fit within Render 512MB RAM constraints.
+    """
+    # Enforce strict maximum limits on memory/connections
+    safe_max_records = min(int(max_records or 50), 50)
+    safe_timeout = min(int(timeout or 3), 3)
+
     params = {
         "query": query,
         "mode": "ArtList",
         "format": "json",
         "sort": "DateDesc",
         "timespan": timespan,
-        "maxrecords": max(1, min(int(max_records), 250)),
+        "maxrecords": safe_max_records,
     }
     url = f"{GDELT_DOC_API}?{urlencode(params)}"
     request = Request(url, headers={"User-Agent": "ai-intelligence-dashboard/1.0"})
 
     try:
-        with urlopen(request, timeout=timeout) as response:
+        with urlopen(request, timeout=safe_timeout) as response:
             payload = json.loads(response.read().decode("utf-8"))
     except Exception as e:
-        raise ConnectionError(f"GDELT API request failed or timed out: {e}")
+        # Failover immediately without throwing a trace or leaking memory
+        return pd.DataFrame()
 
     articles = payload.get("articles", [])
     if not articles:
@@ -83,8 +94,12 @@ def fetch_gdelt_events(
 
     rows = []
     for article in articles:
-        title = article.get("title") or "Untitled event"
-        source_country = article.get("sourceCountry") or article.get("sourcecountry") or "Unknown"
+        # Truncate strings to prevent massive memory footprint or WebSocket buffer exhaustion
+        title = (article.get("title") or "Untitled event").strip()[:100]
+        source_country = (article.get("sourceCountry") or article.get("sourcecountry") or "Unknown").strip()[:50]
+        domain = (article.get("domain") or article.get("sourceCollection") or "GDELT").strip()[:100]
+        url_str = (article.get("url") or "").strip()[:250]
+
         rows.append(
             {
                 "country": source_country,
@@ -92,14 +107,21 @@ def fetch_gdelt_events(
                 "event": classify_event(title),
                 "title": title,
                 "date": parse_gdelt_date(article.get("seendate")),
-                "source": article.get("domain") or article.get("sourceCollection") or "GDELT",
-                "url": article.get("url"),
+                "source": domain,
+                "url": url_str,
                 "severity": classify_severity(title),
-                "language": article.get("language", "unknown"),
+                "language": (article.get("language", "unknown")).strip()[:30],
             }
         )
 
-    return pd.DataFrame(rows).drop_duplicates(subset=["title", "url"]).reset_index(drop=True)
+    df = pd.DataFrame(rows).drop_duplicates(subset=["title", "url"]).reset_index(drop=True)
+    
+    # Downcast objects to category to minimize RAM footprint
+    for col in ["country", "location", "event", "source", "severity", "language"]:
+        if col in df.columns:
+            df[col] = df[col].astype("category")
+
+    return df
 
 
 def enrich_live_events_with_country_centroids(

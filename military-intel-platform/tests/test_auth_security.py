@@ -19,6 +19,9 @@ def _get_real_login_state(username, password):
     for key in keys:
         if key in at.session_state:
             real_state[key] = at.session_state[key]
+    
+    # Mock MFA verification to bypass the global MFA gate for RBAC testing
+    real_state["mfa_verified"] = True
         
     return real_state
 

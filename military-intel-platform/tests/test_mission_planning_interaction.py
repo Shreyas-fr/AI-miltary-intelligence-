@@ -7,6 +7,7 @@ def test_mission_planning_auto_fill_and_override():
     
     # Mock session state to bypass auth
     at.session_state["authentication_status"] = True
+    at.session_state["mfa_verified"] = True
     at.session_state["roles"] = ["Commander"]
     at.session_state["name"] = "Commander Test"
     at.session_state["email"] = "commander@test.mil"
@@ -60,6 +61,7 @@ def test_mission_planning_asset_radius():
     # Test specific path when assets are actually in range
     at = AppTest.from_file("pages/42_🎖️_Mission_Planning.py")
     at.session_state["authentication_status"] = True
+    at.session_state["mfa_verified"] = True
     at.session_state["roles"] = ["Commander"]
     
     # Load and select Iraq (known to have incidents and nearby assets if radius is large)

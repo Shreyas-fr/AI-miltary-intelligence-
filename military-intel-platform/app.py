@@ -52,6 +52,20 @@ print(f"✅ Successfully loaded credentials from: {credentials_path}")
 try:
     with open(credentials_path) as file:
         config = yaml.load(file, Loader=SafeLoader)
+    
+    # If using read-only Render secrets, merge any locally saved MFA tokens from prior sessions
+    if credentials_path == render_secret_path and os.path.exists(local_path):
+        try:
+            with open(local_path) as local_file:
+                local_config = yaml.load(local_file, Loader=SafeLoader)
+                if local_config and "credentials" in local_config:
+                    local_users = local_config["credentials"].get("usernames", {})
+                    for u, data in local_users.items():
+                        if "mfa_secret" in data and u in config["credentials"]["usernames"]:
+                            config["credentials"]["usernames"][u]["mfa_secret"] = data["mfa_secret"]
+            print("✅ Merged local MFA configurations successfully.")
+        except Exception as _merge_err:
+            pass
 except Exception as e:
     st.error(f"🔒 **Failed to parse credentials file:** {str(e)}")
     st.stop()
@@ -133,8 +147,15 @@ if auth_status:
                 totp = pyotp.TOTP(secret)
                 if totp.verify(code):
                     user_cred["mfa_secret"] = secret
-                    with open(credentials_path, 'w') as file:
-                        yaml.dump(config, file, default_flow_style=False)
+                    
+                    # Direct to local writeable file if base path is in read-only /etc/secrets
+                    write_path = local_path if credentials_path.startswith('/etc/secrets/') else credentials_path
+                    try:
+                        with open(write_path, 'w') as file:
+                            yaml.dump(config, file, default_flow_style=False)
+                    except OSError as write_err:
+                        logging.warning(f"Could not persist credentials to disk: {write_err}")
+                        
                     st.session_state["mfa_verified"] = True
                     st.success("MFA Setup Complete!")
                     st.rerun()

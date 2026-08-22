@@ -86,7 +86,8 @@ with col2:
 
 # ----------------- Live Plotting & Connection -----------------
 if st.session_state.stream_active:
-    st.info("🔄 Connecting to `tcp://127.0.0.1:5555` ZMQ publisher...")
+    status_placeholder = st.empty()
+    status_placeholder.info("🔄 Connecting to `tcp://127.0.0.1:5555` ZMQ publisher...")
     
     # Init ZMQ subscriber
     context = zmq.Context()
@@ -98,14 +99,58 @@ if st.session_state.stream_active:
     metrics_placeholder = st.empty()
     
     try:
+        use_local_simulation = False
+        consecutive_agains = 0
+        
         # Loop for real-time updates inside Streamlit
         # We run a loop of 150 iterations (to prevent infinite loops freezing the tab permanently)
         for i in range(150):
-            try:
-                # Non-blocking read (CRITICAL to avoid freezing Streamlit UI)
-                message = socket.recv_string(flags=zmq.NOBLOCK)
-                payload = json.loads(message)
+            payload = None
+            
+            if not use_local_simulation:
+                try:
+                    # Non-blocking read (CRITICAL to avoid freezing Streamlit UI)
+                    message = socket.recv_string(flags=zmq.NOBLOCK)
+                    payload = json.loads(message)
+                    consecutive_agains = 0
+                except zmq.Again:
+                    consecutive_agains += 1
+                    # If we get 5 consecutive Agains (~0.5 seconds of no data), switch to local simulation
+                    if consecutive_agains >= 5:
+                        use_local_simulation = True
+                        status_placeholder.warning("📡 External SDR Receiver Stream offline (tcp://127.0.0.1:5555 unreachable). Failover: Local Tactical RF Simulation Active.")
+                    else:
+                        time.sleep(0.1)
+                        continue
+            
+            if use_local_simulation:
+                import numpy as np
+                # Generate simulated noise floor
+                num_bins = 256
+                # Gain raises the noise floor and signal slightly
+                base_noise = -90 + (rf_gain * 0.2)
+                fft_data = np.random.normal(loc=base_noise, scale=2.5, size=num_bins)
                 
+                # Create a signal peak (simulating the downconverted carrier)
+                center_bin = num_bins // 2
+                # Sine wander for the carrier peak to make it look active
+                peak_offset = int(np.sin(time.time() * 1.5) * 15)
+                peak_idx = center_bin + peak_offset
+                
+                if 0 <= peak_idx < num_bins:
+                    fft_data[peak_idx] = -35 + (rf_gain * 0.1) + np.random.normal(0, 1) # Signal peak
+                    # Smear the peak to adjacent bins for realism
+                    if peak_idx > 0: fft_data[peak_idx-1] = -48 + (rf_gain * 0.1) + np.random.normal(0, 1.5)
+                    if peak_idx < num_bins-1: fft_data[peak_idx+1] = -48 + (rf_gain * 0.1) + np.random.normal(0, 1.5)
+                
+                payload = {
+                    "data": fft_data.tolist(),
+                    "rf_frequency_mhz": rf_freq_mhz,
+                    "if_frequency_mhz": if_freq_mhz,
+                    "sample_rate_mhz": bandwidth_mhz
+                }
+                
+            if payload:
                 # Verify payload match
                 fft_data = payload.get("data", [])
                 freq_mhz = payload.get("rf_frequency_mhz", 15000.0)
@@ -144,10 +189,6 @@ if st.session_state.stream_active:
                 fig.update_traces(line_color="#00f0ff", line_width=1.5)
                 
                 plot_placeholder.plotly_chart(fig, use_container_width=True)
-                
-            except zmq.Again:
-                # No data ready on this loop tick, continue
-                pass
             
             # Short sleep to pace updates
             time.sleep(0.1)
@@ -158,6 +199,6 @@ if st.session_state.stream_active:
         socket.close()
         context.destroy()
         
-    st.success("Signal stream disconnected cleanly.")
+    status_placeholder.success("Signal stream disconnected cleanly.")
 else:
     st.write("Acquisition stream is offline. Click 'Start Signal Acquisition' to connect.")

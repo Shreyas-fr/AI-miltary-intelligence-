@@ -3,8 +3,23 @@ import { Activity, Power, Radio, Settings2, Terminal as TerminalIcon, FileImage 
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
 import './index.css';
 
-const API_URL = 'http://localhost:8001';
-const WS_URL = 'ws://localhost:8001/ws/fft';
+const getApiUrl = () => {
+  const val = import.meta.env.VITE_API_URL;
+  if (val) {
+    return val.startsWith('http') ? val : `https://${val}`;
+  }
+  return 'http://localhost:8001';
+};
+
+const getWsUrl = (apiUrl: string) => {
+  if (import.meta.env.VITE_WS_URL) return import.meta.env.VITE_WS_URL;
+  const url = new URL(apiUrl);
+  const protocol = url.protocol === 'https:' ? 'wss:' : 'ws:';
+  return `${protocol}//${url.host}/ws/fft`;
+};
+
+const API_URL = getApiUrl();
+const WS_URL = getWsUrl(API_URL);
 
 interface SDRState {
   center_freq_hz: number;
@@ -57,7 +72,7 @@ function App() {
           setTelemetryLogs(prev => [...prev, msg.message]);
           break;
         case 'image':
-          setDecodedImageUrl(msg.url);
+          setDecodedImageUrl(msg.url.startsWith('http') ? msg.url : `${API_URL}${msg.url}`);
           break;
         case 'clear':
           setFftData([]);

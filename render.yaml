@@ -20,3 +20,26 @@ services:
     envVars:
       - key: PYTHON_VERSION
         value: 3.10.12
+
+  - type: web
+    name: rf-converter-backend
+    env: python
+    rootDir: rf_converter_sih2026/backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10.12
+
+  - type: static
+    name: rf-converter-frontend
+    env: static
+    rootDir: rf_converter_sih2026/frontend
+    buildCommand: npm install && npm run build
+    publishPath: dist
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          name: rf-converter-backend
+          type: web
+          property: host

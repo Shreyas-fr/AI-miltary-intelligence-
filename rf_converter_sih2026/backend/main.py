@@ -201,7 +201,7 @@ async def fft_endpoint(websocket: WebSocket):
                 if running_duration > 15:
                     await websocket.send_text(json.dumps({
                         "type": "image",
-                        "url": f"http://localhost:8001/static/decoded_image.jpg"
+                        "url": "/static/decoded_image.jpg"
                     }))
                 
                 frame_counter += 1

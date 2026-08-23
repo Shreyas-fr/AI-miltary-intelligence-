@@ -13,7 +13,8 @@ def print_mem(step_name):
 # Initialize AppTest
 at = AppTest.from_file("app.py", default_timeout=30)
 at.session_state["authentication_status"] = True
-at.session_state["user_role"] = "Commander"
+at.session_state["mfa_verified"] = True
+at.session_state["roles"] = ["Commander"]
 print_mem("Startup - Before Run")
 at.run()
 print_mem("Startup - After Initial Run")
@@ -22,19 +23,22 @@ def simulate_navigation():
     # Simulate loading Global Threat Map
     at_map = AppTest.from_file("pages/20_🌍_Global_Threat_Map.py", default_timeout=30)
     at_map.session_state["authentication_status"] = True
-    at_map.session_state["user_role"] = "Commander"
+    at_map.session_state["mfa_verified"] = True
+    at_map.session_state["roles"] = ["Commander"]
     at_map.run()
     
     # Simulate loading Mission Planning (formerly Attack Prediction)
     at_pred = AppTest.from_file("pages/42_🎖️_Mission_Planning.py", default_timeout=30)
     at_pred.session_state["authentication_status"] = True
-    at_pred.session_state["user_role"] = "Commander"
+    at_pred.session_state["mfa_verified"] = True
+    at_pred.session_state["roles"] = ["Commander"]
     at_pred.run()
 
     # Simulate loading Intelligence Database (formerly Data Explorer)
     at_explore = AppTest.from_file("pages/50_🗄️_Intelligence_Database.py", default_timeout=30)
     at_explore.session_state["authentication_status"] = True
-    at_explore.session_state["user_role"] = "Commander"
+    at_explore.session_state["mfa_verified"] = True
+    at_explore.session_state["roles"] = ["Commander"]
     at_explore.run()
 
 simulate_navigation()

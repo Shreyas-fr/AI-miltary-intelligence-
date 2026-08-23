@@ -125,9 +125,23 @@ function App() {
   };
 
   return (
-    <div className="dashboard-container">
-      
-      {/* Sidebar Controls */}
+    <>
+      <div style={{
+        background: 'linear-gradient(90deg, #ff003c 0%, #7c001d 100%)',
+        color: '#fff',
+        padding: '10px 20px',
+        textAlign: 'center',
+        fontWeight: 'bold',
+        fontSize: '0.9rem',
+        borderBottom: '1px solid rgba(255, 0, 60, 0.3)',
+        boxShadow: '0 2px 10px rgba(0,0,0,0.5)',
+        letterSpacing: '0.5px'
+      }}>
+        ⚠️ SIMULATED SIGNAL — No SDR hardware detected. This demonstrates the software pipeline architecture with synthetic FFT data, not live RF capture.
+      </div>
+      <div className="dashboard-container">
+        
+        {/* Sidebar Controls */}
       <div className="panel" style={{ gridColumn: '1 / 2' }}>
         <h2 className="title-glow">
           <Settings2 size={22} color="var(--primary)" />
@@ -298,6 +312,7 @@ function App() {
       </div>
       
     </div>
+    </>
   );
 }
 

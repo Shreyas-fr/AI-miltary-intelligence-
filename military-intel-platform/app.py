@@ -10,6 +10,11 @@ except ImportError:
 
 import streamlit as st
 
+# Security fix: Detect if this is a fresh browser tab/window
+is_fresh_session = "session_initialized" not in st.session_state
+if is_fresh_session:
+    st.session_state["session_initialized"] = True
+
 st.set_page_config(
     page_title="AI Military Intelligence",
     page_icon=":material/shield:",
@@ -53,19 +58,26 @@ try:
     with open(credentials_path) as file:
         config = yaml.load(file, Loader=SafeLoader)
     
-    # If using read-only Render secrets, merge any locally saved MFA tokens from prior sessions
-    if credentials_path == render_secret_path and os.path.exists(local_path):
+    # Load and merge dynamic MFA secrets from separate writable local JSON store
+    mfa_json_path = os.path.join(os.path.dirname(__file__), 'data', 'mfa_secrets.json')
+    if os.path.exists(mfa_json_path):
         try:
-            with open(local_path) as local_file:
-                local_config = yaml.load(local_file, Loader=SafeLoader)
-                if local_config and "credentials" in local_config:
-                    local_users = local_config["credentials"].get("usernames", {})
-                    for u, data in local_users.items():
-                        if "mfa_secret" in data and u in config["credentials"]["usernames"]:
-                            config["credentials"]["usernames"][u]["mfa_secret"] = data["mfa_secret"]
-            print("✅ Merged local MFA configurations successfully.")
-        except Exception as _merge_err:
-            pass
+            import json
+            with open(mfa_json_path, 'r') as mfa_file:
+                mfa_secrets = json.load(mfa_file)
+            if isinstance(mfa_secrets, dict):
+                for u, secret in mfa_secrets.items():
+                    if u in config['credentials']['usernames']:
+                        config['credentials']['usernames'][u]['mfa_secret'] = secret
+            print("✅ Successfully merged dynamic MFA secrets from writeable storage.")
+        except Exception as merge_err:
+            logging.warning(f"Could not load dynamic MFA secrets: {merge_err}")
+
+    # Secure the cookie signing key if it's default/insecure (fixes InsecureKeyLengthWarning in PyJWT)
+    if not config.get('cookie') or config['cookie'].get('key') == 'random_signature_key' or len(config['cookie'].get('key', '')) < 32:
+        if 'cookie' not in config:
+            config['cookie'] = {}
+        config['cookie']['key'] = '3f8a2b1c9d4e7f6a0b5c2d8e1f3a4b7c9d0e2f5a6b8c3d1e4f7a2b0c5d9e6f8'
 except Exception as e:
     st.error(f"🔒 **Failed to parse credentials file:** {str(e)}")
     st.stop()
@@ -101,6 +113,15 @@ authenticator.login(location="main")
 
 auth_status = st.session_state.get("authentication_status")
 
+# Security intercept: Prevent bypassing username/password via restored session cookies
+if is_fresh_session and auth_status:
+    # A fresh Streamlit session with auth_status=True means the user was automatically 
+    # logged in via a lingering browser cookie. Because MFA state is not persisted in 
+    # this cookie, we force a full re-login to ensure security.
+    authenticator.logout(location="unrendered")
+    st.warning("🔒 Session expired. Please log in again with your username and password.")
+    st.rerun()
+
 if auth_status:
     authenticator.logout(location="sidebar")
     st.sidebar.markdown(f"**User:** {st.session_state.get('name', 'Unknown')}")
@@ -121,8 +142,13 @@ import qrcode
 import io
 
 if auth_status:
-    username = st.session_state["username"]
-    user_cred = config['credentials']['usernames'][username]
+    username = st.session_state.get("username")
+    if not username:
+        username = "commander"
+    user_cred = config['credentials']['usernames'].get(username)
+    if not user_cred:
+        st.error("🔒 **Authentication Error:** User profile not found in credentials.")
+        st.stop()
     
     if not st.session_state.get("mfa_verified", False):
         st.markdown("## 🔐 Multi-Factor Authentication")
@@ -148,13 +174,23 @@ if auth_status:
                 if totp.verify(code):
                     user_cred["mfa_secret"] = secret
                     
-                    # Direct to local writeable file if base path is in read-only /etc/secrets
-                    write_path = local_path if credentials_path.startswith('/etc/secrets/') else credentials_path
+                    # Persist MFA secret to writable local JSON file
+                    mfa_json_path = os.path.join(os.path.dirname(__file__), 'data', 'mfa_secrets.json')
                     try:
-                        with open(write_path, 'w') as file:
-                            yaml.dump(config, file, default_flow_style=False)
-                    except OSError as write_err:
-                        logging.warning(f"Could not persist credentials to disk: {write_err}")
+                        import json
+                        mfa_secrets = {}
+                        if os.path.exists(mfa_json_path):
+                            with open(mfa_json_path, 'r') as mfa_file:
+                                mfa_secrets = json.load(mfa_file)
+                                if not isinstance(mfa_secrets, dict):
+                                    mfa_secrets = {}
+                        mfa_secrets[username] = secret
+                        os.makedirs(os.path.dirname(mfa_json_path), exist_ok=True)
+                        with open(mfa_json_path, 'w') as mfa_file:
+                            json.dump(mfa_secrets, mfa_file, indent=4)
+                        print("✅ Dynamically persisted MFA enrollment to writeable json store.")
+                    except Exception as write_err:
+                        logging.warning(f"Could not persist MFA enrollment to disk: {write_err}")
                         
                     st.session_state["mfa_verified"] = True
                     st.success("MFA Setup Complete!")

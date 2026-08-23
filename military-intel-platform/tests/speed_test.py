@@ -10,7 +10,8 @@ def time_page(name, path):
     print(f"\n--- Testing {name} ---")
     at = AppTest.from_file(path, default_timeout=60)
     at.session_state["authentication_status"] = True
-    at.session_state["user_role"] = "Commander"
+    at.session_state["mfa_verified"] = True
+    at.session_state["roles"] = ["Commander"]
     
     start = time.time()
     at.run()

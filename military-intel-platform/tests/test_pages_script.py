@@ -34,4 +34,4 @@ def test_pages():
         print(f"{page}: {result}")
 
 if __name__ == "__main__":
-    test_pages()zz
+    test_pages()

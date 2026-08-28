@@ -44,6 +44,7 @@ RUN pip install --no-cache-dir -r military-reqs.txt \
 # Copy source code
 COPY military-intel-platform/ /app/military-intel-platform/
 COPY dns-threat-filter/ /app/dns-threat-filter/
+COPY utils/ /app/utils/
 
 # Copy compiled CoreDNS binary from builder
 COPY --from=builder /build/coredns /app/dns-threat-filter/coredns-plugin/coredns

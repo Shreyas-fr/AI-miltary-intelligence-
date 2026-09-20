@@ -60,14 +60,6 @@ textColor="#E0E6ED"
 
 st.divider()
 
-# -----------------------------------------------
-# Gemini API Key
-# -----------------------------------------------
-st.subheader("🔑 Gemini API Key")
-st.markdown("The **AI Intelligence Report** page requires a Google Gemini API Key. You can provide it inline on the page, or set it as an environment variable for persistence:")
-st.code("export GEMINI_API_KEY=your_key_here", language="bash")
-
-st.divider()
 
 # -----------------------------------------------
 # About

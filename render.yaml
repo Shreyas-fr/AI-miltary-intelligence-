@@ -43,3 +43,10 @@ services:
           name: rf-converter-backend
           type: web
           property: host
+
+  - type: static
+    name: gods-eye-view
+    env: static
+    rootDir: gods-eye-view
+    buildCommand: npm ci && npm run build
+    publishPath: dist

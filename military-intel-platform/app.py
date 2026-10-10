@@ -52,7 +52,7 @@ if not credentials_path:
     st.warning("Ensure credentials are provided via Render Secret Files or local file.")
     st.stop()
 
-print(f"✅ Successfully loaded credentials from: {credentials_path}")
+logging.info(f"✅ Successfully loaded credentials from: {credentials_path}")
 
 try:
     with open(credentials_path) as file:
@@ -69,7 +69,7 @@ try:
                 for u, secret in mfa_secrets.items():
                     if u in config['credentials']['usernames']:
                         config['credentials']['usernames'][u]['mfa_secret'] = secret
-            print("✅ Successfully merged dynamic MFA secrets from writeable storage.")
+            logging.info("✅ Successfully merged dynamic MFA secrets from writeable storage.")
         except Exception as merge_err:
             logging.warning(f"Could not load dynamic MFA secrets: {merge_err}")
 
@@ -188,7 +188,7 @@ if auth_status:
                         os.makedirs(os.path.dirname(mfa_json_path), exist_ok=True)
                         with open(mfa_json_path, 'w') as mfa_file:
                             json.dump(mfa_secrets, mfa_file, indent=4)
-                        print("✅ Dynamically persisted MFA enrollment to writeable json store.")
+                        logging.info("✅ Dynamically persisted MFA enrollment to writeable json store.")
                     except Exception as write_err:
                         logging.warning(f"Could not persist MFA enrollment to disk: {write_err}")
                         
@@ -225,64 +225,75 @@ if auth_status:
     _role_display = _roles[0] if _roles and isinstance(_roles, list) else "Viewer"
     _wm_text = f"{_username} \u2022 {_role_display} \u2022 CLASSIFIED"
 
-    components.html(f"""
-    <script>
-    (function() {{
-      // --- Watermark overlay ---
-      var existing = document.getElementById('mil-watermark');
-      if (!existing) {{
-        var wm = document.createElement('div');
-        wm.id = 'mil-watermark';
-        wm.setAttribute('style', [
-          'position:fixed', 'top:0', 'left:0', 'width:100vw', 'height:100vh',
-          'pointer-events:none', 'z-index:99999', 'overflow:hidden',
-          'opacity:0.07', 'font-size:18px', 'color:#00E5FF',
-          'font-family:monospace', 'font-weight:600', 'white-space:nowrap',
-          'display:flex', 'flex-wrap:wrap', 'align-items:flex-start',
-          'transform:rotate(-25deg) scale(1.6)', 'transform-origin:center center',
-        ].join(';'));
-        var count = 80;
-        for (var i = 0; i < count; i++) {{
-          var span = document.createElement('span');
-          span.textContent = '{_wm_text}   ';
-          span.style.marginRight = '4rem';
-          wm.appendChild(span);
-          if (i % 5 === 4) {{ var br = document.createElement('br'); wm.appendChild(br); }}
-        }}
-        document.body.appendChild(wm);
-      }}
+    security_overlay = st.components.v2.component(
+        "security_overlay",
+        js="""
+export default function(component) {
+  const { data } = component;
+  const wm_text = data?.wm_text || "CLASSIFIED";
 
-      // --- Blur on window focus loss ---
-      var appEl = window.parent.document.querySelector('[data-testid="stAppViewContainer"]');
-      function applyBlur() {{
-        if (appEl) appEl.style.filter = 'blur(12px)';
-      }}
-      function removeBlur() {{
-        if (appEl) appEl.style.filter = '';
-      }}
-      window.parent.addEventListener('blur', applyBlur);
-      window.parent.document.addEventListener('visibilitychange', function() {{
-        if (window.parent.document.hidden) applyBlur(); else removeBlur();
-      }});
+  // --- Watermark overlay ---
+  var existing = document.getElementById('mil-watermark');
+  if (!existing) {
+    var wm = document.createElement('div');
+    wm.id = 'mil-watermark';
+    wm.setAttribute('style', [
+      'position:fixed', 'top:0', 'left:0', 'width:100vw', 'height:100vh',
+      'pointer-events:none', 'z-index:99999', 'overflow:hidden',
+      'opacity:0.07', 'font-size:18px', 'color:#00E5FF',
+      'font-family:monospace', 'font-weight:600', 'white-space:nowrap',
+      'display:flex', 'flex-wrap:wrap', 'align-items:flex-start',
+      'transform:rotate(-25deg) scale(1.6)', 'transform-origin:center center',
+    ].join(';'));
+    var count = 80;
+    for (var i = 0; i < count; i++) {
+      var span = document.createElement('span');
+      span.textContent = wm_text + '   ';
+      span.style.marginRight = '4rem';
+      wm.appendChild(span);
+      if (i % 5 === 4) { var br = document.createElement('br'); wm.appendChild(br); }
+    }
+    document.body.appendChild(wm);
+  }
 
-      // --- Disable right-click ---
-      window.parent.document.addEventListener('contextmenu', function(e) {{
+  // --- Security event listeners ---
+  if (!window._mil_security_attached) {
+    // Blur on window focus loss
+    var appEl = document.querySelector('[data-testid="stAppViewContainer"]');
+    function applyBlur() {
+      if (appEl) appEl.style.filter = 'blur(12px)';
+    }
+    function removeBlur() {
+      if (appEl) appEl.style.filter = '';
+    }
+    window.addEventListener('blur', applyBlur);
+    window.addEventListener('focus', removeBlur);
+    document.addEventListener('visibilitychange', function() {
+      if (document.hidden) applyBlur(); else removeBlur();
+    });
+
+    // Disable right-click
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+    }, true);
+
+    // Disable print and save shortcuts
+    document.addEventListener('keydown', function(e) {
+      var key = e.key.toLowerCase();
+      if ((e.ctrlKey || e.metaKey) && (key === 'p' || key === 's')) {
         e.preventDefault();
-      }}, true);
-
-      // --- Disable print and save shortcuts ---
-      window.parent.document.addEventListener('keydown', function(e) {{
-        var key = e.key.toLowerCase();
-        if ((e.ctrlKey || e.metaKey) && (key === 'p' || key === 's')) {{
-          e.preventDefault();
-        }}
-        if (key === 'printscreen') {{
-          e.preventDefault();
-        }}
-      }}, true);
-    }})();
-    </script>
-    """, height=0)
+      }
+      if (key === 'printscreen') {
+        e.preventDefault();
+      }
+    }, true);
+    
+    window._mil_security_attached = true;
+  }
+}
+"""
+    )
+    security_overlay(data={"wm_text": _wm_text})
 
 # --- Main Application (Only visible if authenticated) ---
 if auth_status:

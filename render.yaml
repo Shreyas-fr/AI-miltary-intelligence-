@@ -7,7 +7,7 @@ services:
     startCommand: streamlit run app.py --server.port $PORT --server.address 0.0.0.0
     envVars:
       - key: PYTHON_VERSION
-        value: 3.10.12
+        value: 3.11.9
       - key: ARROW_DEFAULT_MEMORY_POOL
         value: system
 
@@ -19,7 +19,7 @@ services:
     startCommand: ./start.sh
     envVars:
       - key: PYTHON_VERSION
-        value: 3.10.12
+        value: 3.11.9
 
   - type: web
     name: rf-converter-backend
@@ -29,7 +29,7 @@ services:
     startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: PYTHON_VERSION
-        value: 3.10.12
+        value: 3.11.9
 
   - type: static
     name: rf-converter-frontend
